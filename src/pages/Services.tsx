@@ -1,0 +1,434 @@
+import { useState } from "react";
+import { Check, Globe, IndianRupee, DollarSign } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
+
+interface ServicesProps {
+  language: string;
+}
+
+const Services = ({ language }: ServicesProps) => {
+  const [selectedMarket, setSelectedMarket] = useState<"domestic" | "international">("domestic");
+  const isHindi = language === "hi";
+
+  const domesticPlans = [
+    {
+      name: "Lite",
+      price: "₹7,999",
+      description: isHindi ? "स्टार्टअप और छोटे व्यवसायों के लिए" : "Perfect for startups and small businesses",
+      features: [
+        isHindi ? "5-पेज वेबसाइट" : "5-Page Website",
+        isHindi ? "बेसिक SEO" : "Basic SEO",
+        isHindi ? "मोबाइल अनुकूलन" : "Mobile Optimization",
+        isHindi ? "1 महीने का समर्थन" : "1 Month Support",
+        isHindi ? "सामाजिक मीडिया सेटअप" : "Social Media Setup"
+      ],
+      popular: false,
+      cta: isHindi ? "शुरू करें" : "Get Started"
+    },
+    {
+      name: "Standard",
+      price: "₹19,999",
+      description: isHindi ? "बढ़ते व्यवसायों के लिए आदर्श" : "Ideal for growing businesses",
+      features: [
+        isHindi ? "10-पेज वेबसाइट" : "10-Page Website",
+        isHindi ? "एडवांस्ड SEO" : "Advanced SEO",
+        isHindi ? "Meta Ads सेटअप" : "Meta Ads Setup",
+        isHindi ? "3 महीने का समर्थन" : "3 Months Support",
+        isHindi ? "ई-कॉमर्स एकीकरण" : "E-commerce Integration",
+        isHindi ? "एनालिटिक्स सेटअप" : "Analytics Setup"
+      ],
+      popular: true,
+      cta: isHindi ? "लोकप्रिय चुनें" : "Most Popular"
+    },
+    {
+      name: "Premium",
+      price: "₹39,999",
+      description: isHindi ? "स्थापित व्यवसायों के लिए" : "For established businesses",
+      features: [
+        isHindi ? "अनलिमिटेड पेज" : "Unlimited Pages",
+        isHindi ? "प्रीमियम SEO" : "Premium SEO",
+        isHindi ? "Meta + Google Ads" : "Meta + Google Ads",
+        isHindi ? "6 महीने का समर्थन" : "6 Months Support",
+        isHindi ? "कस्टम फीचर्स" : "Custom Features",
+        isHindi ? "ब्रांडिंग सामग्री" : "Branding Materials",
+        isHindi ? "फुल ड्रॉपशिपिंग सेटअप" : "Full Dropshipping Setup"
+      ],
+      popular: false,
+      cta: isHindi ? "प्रीमियम चुनें" : "Go Premium"
+    },
+    {
+      name: "Enterprise",
+      price: "₹1,50,000",
+      description: isHindi ? "बड़े उद्यमों के लिए" : "For large enterprises",
+      features: [
+        isHindi ? "संपूर्ण डिजिटल रणनीति" : "Complete Digital Strategy",
+        isHindi ? "मल्टी-चैनल मार्केटिंग" : "Multi-channel Marketing",
+        isHindi ? "समर्पित खाता प्रबंधक" : "Dedicated Account Manager",
+        isHindi ? "12 महीने का समर्थन" : "12 Months Support",
+        isHindi ? "कस्टम एकीकरण" : "Custom Integrations",
+        isHindi ? "प्राथमिकता समर्थन" : "Priority Support",
+        isHindi ? "पूर्ण व्यापार निष्पादन" : "Complete Business Execution"
+      ],
+      popular: false,
+      cta: isHindi ? "एंटरप्राइज़ चुनें" : "Choose Enterprise"
+    }
+  ];
+
+  const internationalPlans = [
+    {
+      name: "Lite",
+      price: "$199",
+      description: "Perfect for startups and small businesses",
+      features: [
+        "5-Page Website",
+        "Basic SEO",
+        "Mobile Optimization", 
+        "1 Month Support",
+        "Social Media Setup"
+      ],
+      popular: false,
+      cta: "Get Started"
+    },
+    {
+      name: "Standard", 
+      price: "$449",
+      description: "Ideal for growing businesses",
+      features: [
+        "10-Page Website",
+        "Advanced SEO",
+        "Meta Ads Setup",
+        "3 Months Support",
+        "E-commerce Integration",
+        "Analytics Setup"
+      ],
+      popular: true,
+      cta: "Most Popular"
+    },
+    {
+      name: "Premium",
+      price: "$1,299", 
+      description: "For established businesses",
+      features: [
+        "Unlimited Pages",
+        "Premium SEO",
+        "Meta + Google Ads",
+        "6 Months Support",
+        "Custom Features",
+        "Branding Materials",
+        "Full Dropshipping Setup"
+      ],
+      popular: false,
+      cta: "Go Premium"
+    },
+    {
+      name: "Enterprise",
+      price: "$3,499",
+      description: "For large enterprises",
+      features: [
+        "Complete Digital Strategy",
+        "Multi-channel Marketing", 
+        "Dedicated Account Manager",
+        "12 Months Support",
+        "Custom Integrations",
+        "Priority Support",
+        "Complete Business Execution"
+      ],
+      popular: false,
+      cta: "Choose Enterprise"
+    }
+  ];
+
+  const currentPlans = selectedMarket === "domestic" ? domesticPlans : internationalPlans;
+
+  return (
+    <div className="min-h-screen pt-20">
+      {/* Header */}
+      <section className="asn-section bg-background">
+        <div className="asn-container text-center space-y-6">
+          <h1 className="asn-headline text-4xl md:text-6xl">
+            {isHindi ? "हमारी सेवाएं" : "Our Services"}
+          </h1>
+          <p className="asn-body text-xl text-muted-foreground max-w-3xl mx-auto">
+            {isHindi 
+              ? "दो बाजारों के लिए विशेष रूप से डिज़ाइन किए गए पैकेज। आपकी आवश्यकताओं के लिए सही समाधान चुनें।"
+              : "Specialized packages designed for two markets. Choose the perfect solution for your needs."
+            }
+          </p>
+        </div>
+      </section>
+
+      {/* Market Selection */}
+      <section className="asn-section bg-surface">
+        <div className="asn-container">
+          <div className="flex justify-center mb-12">
+            <div className="flex border border-border rounded-lg overflow-hidden bg-background">
+              <button
+                onClick={() => setSelectedMarket("domestic")}
+                className={`flex items-center space-x-2 px-8 py-4 transition-all duration-300 ${
+                  selectedMarket === "domestic"
+                    ? "bg-foreground text-background"
+                    : "text-foreground hover:bg-muted"
+                }`}
+              >
+                <IndianRupee className="h-5 w-5" />
+                <span className="font-bold">
+                  {isHindi ? "भारतीय बाजार" : "Domestic (India)"}
+                </span>
+              </button>
+              <button
+                onClick={() => setSelectedMarket("international")}
+                className={`flex items-center space-x-2 px-8 py-4 transition-all duration-300 ${
+                  selectedMarket === "international"
+                    ? "bg-foreground text-background"
+                    : "text-foreground hover:bg-muted"
+                }`}
+              >
+                <Globe className="h-5 w-5" />
+                <span className="font-bold">
+                  {isHindi ? "अंतर्राष्ट्रीय बाजार" : "International (Global)"}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {/* Pricing Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {currentPlans.map((plan, index) => (
+              <Card
+                key={plan.name}
+                className={`relative border-2 transition-all duration-300 hover:scale-105 animate-fade-in ${
+                  plan.popular
+                    ? "border-foreground bg-foreground text-background"
+                    : "border-border bg-background hover:border-foreground"
+                }`}
+                style={{animationDelay: `${index * 0.1}s`}}
+              >
+                {plan.popular && (
+                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-background text-foreground">
+                    {isHindi ? "सबसे लोकप्रिय" : "Most Popular"}
+                  </Badge>
+                )}
+                
+                <CardHeader className="text-center space-y-4">
+                  <CardTitle className={`asn-headline text-2xl ${plan.popular ? "text-background" : "text-foreground"}`}>
+                    {plan.name}
+                  </CardTitle>
+                  <div className={`asn-headline text-4xl ${plan.popular ? "text-background" : "text-foreground"}`}>
+                    {plan.price}
+                  </div>
+                  <p className={`asn-body text-sm ${plan.popular ? "text-background/80" : "text-muted-foreground"}`}>
+                    {plan.description}
+                  </p>
+                </CardHeader>
+
+                <CardContent className="space-y-6">
+                  <ul className="space-y-3">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-start space-x-3">
+                        <Check className={`h-5 w-5 mt-0.5 flex-shrink-0 ${plan.popular ? "text-background" : "text-foreground"}`} />
+                        <span className={`asn-body text-sm ${plan.popular ? "text-background/90" : "text-foreground"}`}>
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link to="/contact" className="block">
+                    <Button
+                      className={`w-full ${
+                        plan.popular
+                          ? "bg-background text-foreground hover:bg-background/90"
+                          : "asn-button-primary"
+                      }`}
+                    >
+                      {plan.cta}
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Digital Marketing Services */}
+      <section className="asn-section bg-surface">
+        <div className="asn-container text-center space-y-12">
+          <h2 className="asn-headline text-3xl md:text-5xl">
+            {isHindi ? "डिजिटल मार्केटिंग सेवाएं" : "Digital Marketing Services"}
+          </h2>
+          <p className="asn-body text-lg text-muted-foreground max-w-3xl mx-auto">
+            {isHindi 
+              ? "व्यापक डिजिटल मार्केटिंग समाधान जो आपके व्यापार को नई ऊंचाइयों तक पहुंचाते हैं"
+              : "Comprehensive digital marketing solutions that take your business to new heights"
+            }
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: isHindi ? "सर्च इंजन ऑप्टिमाइजेशन" : "Search Engine Optimization",
+                subtitle: "SEO",
+                description: isHindi ? "Google पर टॉप रैंकिंग के लिए" : "For top rankings on Google",
+                features: [
+                  isHindi ? "कीवर्ड अनुसंधान" : "Keyword Research",
+                  isHindi ? "ऑन-पेज SEO" : "On-Page SEO", 
+                  isHindi ? "तकनीकी SEO" : "Technical SEO"
+                ]
+              },
+              {
+                title: isHindi ? "गूगल विज्ञापन" : "Google Ads",
+                subtitle: "PPC",
+                description: isHindi ? "तुरंत दिखाई देने वाले परिणाम" : "Immediate visible results",
+                features: [
+                  isHindi ? "सर्च अभियान" : "Search Campaigns",
+                  isHindi ? "डिस्प्ले अभियान" : "Display Campaigns",
+                  isHindi ? "शॉपिंग अभियान" : "Shopping Campaigns"
+                ]
+              },
+              {
+                title: isHindi ? "मेटा विज्ञापन" : "Meta Ads",
+                subtitle: "Facebook & Instagram",
+                description: isHindi ? "सामाजिक मीडिया पर ब्रांड निर्माण" : "Brand building on social media",
+                features: [
+                  isHindi ? "इमेज अभियान" : "Image Campaigns",
+                  isHindi ? "वीडियो अभियान" : "Video Campaigns", 
+                  isHindi ? "कैरोसेल अभियान" : "Carousel Campaigns"
+                ]
+              },
+              {
+                title: isHindi ? "सामाजिक मीडिया मार्केटिंग" : "Social Media Marketing",
+                subtitle: "SMM",
+                description: isHindi ? "ऑर्गेनिक फॉलोअर वृद्धि" : "Organic follower growth",
+                features: [
+                  isHindi ? "कंटेंट निर्माण" : "Content Creation",
+                  isHindi ? "कम्युनिटी प्रबंधन" : "Community Management",
+                  isHindi ? "प्रभावशाली सहयोग" : "Influencer Collaborations"
+                ]
+              },
+              {
+                title: isHindi ? "ईमेल मार्केटिंग" : "Email Marketing",
+                subtitle: "CRM",
+                description: isHindi ? "ग्राहक संबंध प्रबंधन" : "Customer relationship management",
+                features: [
+                  isHindi ? "न्यूजलेटर डिजाइन" : "Newsletter Design",
+                  isHindi ? "स्वचालन सेटअप" : "Automation Setup",
+                  isHindi ? "प्रदर्शन ट्रैकिंग" : "Performance Tracking"
+                ]
+              },
+              {
+                title: isHindi ? "कंटेंट मार्केटिंग" : "Content Marketing",
+                subtitle: "Strategy",
+                description: isHindi ? "मूल्यवान कंटेंट निर्माण" : "Valuable content creation",
+                features: [
+                  isHindi ? "ब्लॉग लेखन" : "Blog Writing",
+                  isHindi ? "वीडियो प्रोडक्शन" : "Video Production",
+                  isHindi ? "इन्फोग्राफिक्स" : "Infographics"
+                ]
+              }
+            ].map((service, index) => (
+              <Card key={index} className="border-2 border-border bg-background hover:border-foreground transition-all duration-300 hover:scale-105 animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
+                <CardHeader className="text-center space-y-4">
+                  <div className="space-y-2">
+                    <Badge variant="outline" className="text-xs font-bold">
+                      {service.subtitle}
+                    </Badge>
+                    <CardTitle className="asn-headline text-xl">
+                      {service.title}
+                    </CardTitle>
+                  </div>
+                  <p className="asn-body text-sm text-muted-foreground">
+                    {service.description}
+                  </p>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <ul className="space-y-2 text-left">
+                    {service.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center space-x-2">
+                        <Check className="h-4 w-4 text-foreground flex-shrink-0" />
+                        <span className="asn-body text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/contact" className="block">
+                    <Button className="w-full asn-button-primary">
+                      {isHindi ? "विवरण पूछें" : "Learn More"}
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Additional Services */}
+      <section className="asn-section bg-foreground text-background">
+        <div className="asn-container space-y-12">
+          <div className="text-center space-y-6">
+            <h2 className="asn-headline text-3xl md:text-5xl text-background">
+              {isHindi ? "अतिरिक्त सेवाएं" : "Additional Services"}
+            </h2>
+            <p className="asn-body text-lg text-background/80 max-w-3xl mx-auto">
+              {isHindi 
+                ? "आपके व्यापार की सम्पूर्ण डिजिटल जरूरतों को पूरा करने वाली अतिरिक्त सेवाएं"
+                : "Additional services to meet all your business's comprehensive digital needs"
+              }
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center space-y-4 p-6 border border-background/20 rounded-lg hover:bg-background/5 transition-all duration-300">
+              <h3 className="asn-headline text-xl text-background">
+                {isHindi ? "रणनीतिक परामर्श" : "Strategy Consulting"}
+              </h3>
+              <p className="asn-body text-background/80">
+                {isHindi 
+                  ? "व्यापारिक रणनीति और बाजार विश्लेषण के साथ आपके व्यापार को सफलता की राह दिखाना"
+                  : "Guiding your business to success with business strategy and market analysis"
+                }
+              </p>
+            </div>
+
+            <div className="text-center space-y-4 p-6 border border-background/20 rounded-lg hover:bg-background/5 transition-all duration-300">
+              <h3 className="asn-headline text-xl text-background">
+                {isHindi ? "ब्रांड विकास" : "Brand Development"}
+              </h3>
+              <p className="asn-body text-background/80">
+                {isHindi 
+                  ? "लोगो, ब्रांडिंग और विजुअल पहचान के साथ आपके ब्रांड को अलग पहचान दिलाना"
+                  : "Creating unique brand identity with logo, branding, and visual identity"
+                }
+              </p>
+            </div>
+
+            <div className="text-center space-y-4 p-6 border border-background/20 rounded-lg hover:bg-background/5 transition-all duration-300">
+              <h3 className="asn-headline text-xl text-background">
+                {isHindi ? "निरंतर समर्थन" : "Ongoing Support"}
+              </h3>
+              <p className="asn-body text-background/80">
+                {isHindi 
+                  ? "24/7 तकनीकी सहायता और रखरखाव के साथ आपके व्यापार को हमेशा चालू रखना"
+                  : "Keeping your business always running with 24/7 technical support and maintenance"
+                }
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center pt-8">
+            <Link to="/contact">
+              <Button className="bg-background text-foreground hover:bg-background/90 px-12 py-6 text-lg font-bold tracking-wide uppercase">
+                {isHindi ? "कस्टम क्वोट प्राप्त करें" : "Get Custom Quote"}
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Services;

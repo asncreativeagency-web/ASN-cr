@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, Globe, IndianRupee, DollarSign } from "lucide-react";
+import { Check, Globe, IndianRupee, DollarSign, Code, ShoppingCart, Megaphone, Paintbrush, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +11,7 @@ interface ServicesProps {
 
 const Services = ({ language }: ServicesProps) => {
   const [selectedMarket, setSelectedMarket] = useState<"domestic" | "international">("domestic");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const isHindi = language === "hi";
 
   const domesticPlans = [
@@ -26,7 +27,8 @@ const Services = ({ language }: ServicesProps) => {
         isHindi ? "सामाजिक मीडिया सेटअप" : "Social Media Setup"
       ],
       popular: false,
-      cta: isHindi ? "शुरू करें" : "Get Started"
+      cta: isHindi ? "शुरू करें" : "Get Started",
+      category: "development"
     },
     {
       name: "Standard",
@@ -41,7 +43,8 @@ const Services = ({ language }: ServicesProps) => {
         isHindi ? "एनालिटिक्स सेटअप" : "Analytics Setup"
       ],
       popular: true,
-      cta: isHindi ? "लोकप्रिय चुनें" : "Most Popular"
+      cta: isHindi ? "लोकप्रिय चुनें" : "Most Popular",
+      category: "ecommerce"
     },
     {
       name: "Premium",
@@ -57,7 +60,8 @@ const Services = ({ language }: ServicesProps) => {
         isHindi ? "फुल ड्रॉपशिपिंग सेटअप" : "Full Dropshipping Setup"
       ],
       popular: false,
-      cta: isHindi ? "प्रीमियम चुनें" : "Go Premium"
+      cta: isHindi ? "प्रीमियम चुनें" : "Go Premium",
+      category: "marketing"
     },
     {
       name: "Enterprise",
@@ -73,7 +77,8 @@ const Services = ({ language }: ServicesProps) => {
         isHindi ? "पूर्ण व्यापार निष्पादन" : "Complete Business Execution"
       ],
       popular: false,
-      cta: isHindi ? "एंटरप्राइज़ चुनें" : "Choose Enterprise"
+      cta: isHindi ? "एंटरप्राइज़ चुनें" : "Choose Enterprise",
+      category: "security"
     }
   ];
 
@@ -90,7 +95,8 @@ const Services = ({ language }: ServicesProps) => {
         "Social Media Setup"
       ],
       popular: false,
-      cta: "Get Started"
+      cta: "Get Started",
+      category: "development"
     },
     {
       name: "Standard", 
@@ -105,7 +111,8 @@ const Services = ({ language }: ServicesProps) => {
         "Analytics Setup"
       ],
       popular: true,
-      cta: "Most Popular"
+      cta: "Most Popular",
+      category: "ecommerce"
     },
     {
       name: "Premium",
@@ -121,7 +128,8 @@ const Services = ({ language }: ServicesProps) => {
         "Full Dropshipping Setup"
       ],
       popular: false,
-      cta: "Go Premium"
+      cta: "Go Premium",
+      category: "marketing"
     },
     {
       name: "Enterprise",
@@ -137,11 +145,122 @@ const Services = ({ language }: ServicesProps) => {
         "Complete Business Execution"
       ],
       popular: false,
-      cta: "Choose Enterprise"
+      cta: "Choose Enterprise",
+      category: "security"
     }
   ];
 
   const currentPlans = selectedMarket === "domestic" ? domesticPlans : internationalPlans;
+  const filteredPlans = selectedCategory === "all" ? currentPlans : currentPlans.filter(plan => plan.category === selectedCategory);
+
+  // Digital marketing and design services with categories
+  const allServices = [
+    // Marketing
+    {
+      title: isHindi ? "सर्च इंजन ऑप्टिमाइजेशन" : "Search Engine Optimization",
+      subtitle: "SEO",
+      description: isHindi ? "Google पर टॉप रैंकिंग के लिए" : "For top rankings on Google",
+      features: [
+        isHindi ? "कीवर्ड अनुसंधान" : "Keyword Research",
+        isHindi ? "ऑन-पेज SEO" : "On-Page SEO",
+        isHindi ? "तकनीकी SEO" : "Technical SEO"
+      ],
+      category: "marketing"
+    },
+    {
+      title: isHindi ? "गूगल विज्ञापन" : "Google Ads",
+      subtitle: "PPC",
+      description: isHindi ? "तुरंत दिखाई देने वाले परिणाम" : "Immediate visible results",
+      features: [
+        isHindi ? "सर्च अभियान" : "Search Campaigns",
+        isHindi ? "डिस्प्ले अभियान" : "Display Campaigns",
+        isHindi ? "शॉपिंग अभियान" : "Shopping Campaigns"
+      ],
+      category: "marketing"
+    },
+    {
+      title: isHindi ? "मेटा विज्ञापन" : "Meta Ads",
+      subtitle: "Facebook & Instagram",
+      description: isHindi ? "सामाजिक मीडिया पर ब्रांड निर्माण" : "Brand building on social media",
+      features: [
+        isHindi ? "इमेज अभियान" : "Image Campaigns",
+        isHindi ? "वीडियो अभियान" : "Video Campaigns",
+        isHindi ? "कैरोसेल अभियान" : "Carousel Campaigns"
+      ],
+      category: "marketing"
+    },
+    {
+      title: isHindi ? "सामाजिक मीडिया मार्केटिंग" : "Social Media Marketing",
+      subtitle: "SMM",
+      description: isHindi ? "ऑर्गेनिक फॉलोअर वृद्धि" : "Organic follower growth",
+      features: [
+        isHindi ? "कंटेंट निर्माण" : "Content Creation",
+        isHindi ? "कम्युनिटी प्रबंधन" : "Community Management",
+        isHindi ? "प्रभावशाली सहयोग" : "Influencer Collaborations"
+      ],
+      category: "marketing"
+    },
+    {
+      title: isHindi ? "ईमेल मार्केटिंग" : "Email Marketing",
+      subtitle: "CRM",
+      description: isHindi ? "ग्राहक संबंध प्रबंधन" : "Customer relationship management",
+      features: [
+        isHindi ? "न्यूजलेटर डिजाइन" : "Newsletter Design",
+        isHindi ? "स्वचालन सेटअप" : "Automation Setup",
+        isHindi ? "प्रदर्शन ट्रैकिंग" : "Performance Tracking"
+      ],
+      category: "marketing"
+    },
+    {
+      title: isHindi ? "कंटेंट मार्केटिंग" : "Content Marketing",
+      subtitle: "Strategy",
+      description: isHindi ? "मूल्यवान कंटेंट निर्माण" : "Valuable content creation",
+      features: [
+        isHindi ? "ब्लॉग लेखन" : "Blog Writing",
+        isHindi ? "वीडियो प्रोडक्शन" : "Video Production",
+        isHindi ? "इन्फोग्राफिक्स" : "Infographics"
+      ],
+      category: "marketing"
+    },
+    // Design
+    {
+      title: isHindi ? "यूआई/यूएक्स डिज़ाइन" : "UI/UX Design",
+      subtitle: "UI/UX",
+      description: isHindi ? "आकर्षक और उपयोगकर्ता-अनुकूल इंटरफेस डिज़ाइन करें" : "Create engaging and user-friendly interfaces",
+      features: [
+        isHindi ? "वेबसाइट UI डिज़ाइन" : "Website UI Design",
+        isHindi ? "मोबाइल ऐप UI" : "Mobile App UI",
+        isHindi ? "प्रोटोटाइपिंग" : "Prototyping"
+      ],
+      category: "design"
+    },
+    {
+      title: isHindi ? "लोगो और ब्रांडिंग" : "Logo & Branding",
+      subtitle: "Branding",
+      description: isHindi ? "ब्रांड पहचान और लोगो डिज़ाइन" : "Brand identity and logo design",
+      features: [
+        isHindi ? "लोगो डिज़ाइन" : "Logo Design",
+        isHindi ? "ब्रांड गाइडलाइंस" : "Brand Guidelines",
+        isHindi ? "विजुअल आइडेंटिटी" : "Visual Identity"
+      ],
+      category: "design"
+    },
+    {
+      title: isHindi ? "ग्राफिक डिज़ाइन" : "Graphic Design",
+      subtitle: "Graphics",
+      description: isHindi ? "प्रभावशाली ग्राफिक्स और विजुअल्स" : "Impactful graphics and visuals",
+      features: [
+        isHindi ? "सोशल मीडिया ग्राफिक्स" : "Social Media Graphics",
+        isHindi ? "ब्रोशर और पोस्टर" : "Brochures & Posters",
+        isHindi ? "इन्फोग्राफिक्स" : "Infographics"
+      ],
+      category: "design"
+    }
+  ];
+
+  const filteredServices = selectedCategory === "all"
+    ? allServices
+    : allServices.filter(service => service.category === selectedCategory);
 
   return (
     <div className="min-h-screen pt-20">
@@ -157,6 +276,54 @@ const Services = ({ language }: ServicesProps) => {
               : "Specialized packages designed for two markets. Choose the perfect solution for your needs."
             }
           </p>
+        </div>
+      </section>
+
+      {/* Service Categories Selector */}
+      <section className="asn-section bg-background">
+        <div className="asn-container flex flex-wrap gap-4 justify-center my-8">
+          <Button
+            className={`rounded-full px-6 py-3 flex items-center gap-2 text-lg font-medium border transition-colors duration-200 ${selectedCategory === "all" ? "bg-black text-white border-black hover:bg-black hover:text-white" : "bg-white text-black border-black hover:bg-black hover:text-white"}`}
+            onClick={() => setSelectedCategory("all")}
+          >
+            <Globe className={`h-5 w-5 ${selectedCategory === "all" ? "text-white" : "text-black group-hover:text-white"}`} />
+            {isHindi ? "सभी सेवाएं" : "All Services"}
+          </Button>
+          <Button
+            className={`rounded-full px-6 py-3 flex items-center gap-2 text-lg font-medium border transition-colors duration-200 ${selectedCategory === "development" ? "bg-black text-white border-black hover:bg-black hover:text-white" : "bg-white text-black border-black hover:bg-black hover:text-white"}`}
+            onClick={() => setSelectedCategory("development")}
+          >
+            <Code className={`h-5 w-5 ${selectedCategory === "development" ? "text-white" : "text-black group-hover:text-white"}`} />
+            {isHindi ? "डेवलपमेंट" : "Development"}
+          </Button>
+          <Button
+            className={`rounded-full px-6 py-3 flex items-center gap-2 text-lg font-medium border transition-colors duration-200 ${selectedCategory === "ecommerce" ? "bg-black text-white border-black hover:bg-black hover:text-white" : "bg-white text-black border-black hover:bg-black hover:text-white"}`}
+            onClick={() => setSelectedCategory("ecommerce")}
+          >
+            <ShoppingCart className={`h-5 w-5 ${selectedCategory === "ecommerce" ? "text-white" : "text-black group-hover:text-white"}`} />
+            {isHindi ? "ई-कॉमर्स" : "E-commerce"}
+          </Button>
+          <Button
+            className={`rounded-full px-6 py-3 flex items-center gap-2 text-lg font-medium border transition-colors duration-200 ${selectedCategory === "marketing" ? "bg-black text-white border-black hover:bg-black hover:text-white" : "bg-white text-black border-black hover:bg-black hover:text-white"}`}
+            onClick={() => setSelectedCategory("marketing")}
+          >
+            <Megaphone className={`h-5 w-5 ${selectedCategory === "marketing" ? "text-white" : "text-black group-hover:text-white"}`} />
+            {isHindi ? "मार्केटिंग" : "Marketing"}
+          </Button>
+          <Button
+            className={`rounded-full px-6 py-3 flex items-center gap-2 text-lg font-medium border transition-colors duration-200 ${selectedCategory === "design" ? "bg-black text-white border-black hover:bg-black hover:text-white" : "bg-white text-black border-black hover:bg-black hover:text-white"}`}
+            onClick={() => setSelectedCategory("design")}
+          >
+            <Paintbrush className={`h-5 w-5 ${selectedCategory === "design" ? "text-white" : "text-black group-hover:text-white"}`} />
+            {isHindi ? "डिज़ाइन" : "Design"}
+          </Button>
+          <Button
+            className={`rounded-full px-6 py-3 flex items-center gap-2 text-lg font-medium border transition-colors duration-200 ${selectedCategory === "security" ? "bg-black text-white border-black hover:bg-black hover:text-white" : "bg-white text-black border-black hover:bg-black hover:text-white"}`}
+            onClick={() => setSelectedCategory("security")}
+          >
+            <Shield className={`h-5 w-5 ${selectedCategory === "security" ? "text-white" : "text-black group-hover:text-white"}`} />
+            {isHindi ? "सुरक्षा" : "Security"}
+          </Button>
         </div>
       </section>
 
@@ -196,7 +363,7 @@ const Services = ({ language }: ServicesProps) => {
 
           {/* Pricing Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {currentPlans.map((plan, index) => (
+            {filteredPlans.map((plan, index) => (
               <Card
                 key={plan.name}
                 className={`relative border-2 transition-all duration-300 hover:scale-105 animate-fade-in ${
@@ -254,82 +421,26 @@ const Services = ({ language }: ServicesProps) => {
         </div>
       </section>
 
-      {/* Digital Marketing Services */}
+      {/* Digital Marketing & Design Services */}
       <section className="asn-section bg-surface">
         <div className="asn-container text-center space-y-12">
           <h2 className="asn-headline text-3xl md:text-5xl">
-            {isHindi ? "डिजिटल मार्केटिंग सेवाएं" : "Digital Marketing Services"}
+            {selectedCategory === "design"
+              ? (isHindi ? "डिज़ाइन सेवाएं" : "Design Services")
+              : (isHindi ? "डिजिटल मार्केटिंग सेवाएं" : "Digital Marketing Services")}
           </h2>
           <p className="asn-body text-lg text-muted-foreground max-w-3xl mx-auto">
-            {isHindi 
-              ? "व्यापक डिजिटल मार्केटिंग समाधान जो आपके व्यापार को नई ऊंचाइयों तक पहुंचाते हैं"
-              : "Comprehensive digital marketing solutions that take your business to new heights"
-            }
+            {selectedCategory === "design"
+              ? (isHindi
+                ? "रचनात्मक डिज़ाइन समाधान जो आपके ब्रांड को अलग बनाते हैं"
+                : "Creative design solutions that set your brand apart")
+              : (isHindi
+                ? "व्यापक डिजिटल मार्केटिंग समाधान जो आपके व्यापार को नई ऊंचाइयों तक पहुंचाते हैं"
+                : "Comprehensive digital marketing solutions that take your business to new heights")}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: isHindi ? "सर्च इंजन ऑप्टिमाइजेशन" : "Search Engine Optimization",
-                subtitle: "SEO",
-                description: isHindi ? "Google पर टॉप रैंकिंग के लिए" : "For top rankings on Google",
-                features: [
-                  isHindi ? "कीवर्ड अनुसंधान" : "Keyword Research",
-                  isHindi ? "ऑन-पेज SEO" : "On-Page SEO", 
-                  isHindi ? "तकनीकी SEO" : "Technical SEO"
-                ]
-              },
-              {
-                title: isHindi ? "गूगल विज्ञापन" : "Google Ads",
-                subtitle: "PPC",
-                description: isHindi ? "तुरंत दिखाई देने वाले परिणाम" : "Immediate visible results",
-                features: [
-                  isHindi ? "सर्च अभियान" : "Search Campaigns",
-                  isHindi ? "डिस्प्ले अभियान" : "Display Campaigns",
-                  isHindi ? "शॉपिंग अभियान" : "Shopping Campaigns"
-                ]
-              },
-              {
-                title: isHindi ? "मेटा विज्ञापन" : "Meta Ads",
-                subtitle: "Facebook & Instagram",
-                description: isHindi ? "सामाजिक मीडिया पर ब्रांड निर्माण" : "Brand building on social media",
-                features: [
-                  isHindi ? "इमेज अभियान" : "Image Campaigns",
-                  isHindi ? "वीडियो अभियान" : "Video Campaigns", 
-                  isHindi ? "कैरोसेल अभियान" : "Carousel Campaigns"
-                ]
-              },
-              {
-                title: isHindi ? "सामाजिक मीडिया मार्केटिंग" : "Social Media Marketing",
-                subtitle: "SMM",
-                description: isHindi ? "ऑर्गेनिक फॉलोअर वृद्धि" : "Organic follower growth",
-                features: [
-                  isHindi ? "कंटेंट निर्माण" : "Content Creation",
-                  isHindi ? "कम्युनिटी प्रबंधन" : "Community Management",
-                  isHindi ? "प्रभावशाली सहयोग" : "Influencer Collaborations"
-                ]
-              },
-              {
-                title: isHindi ? "ईमेल मार्केटिंग" : "Email Marketing",
-                subtitle: "CRM",
-                description: isHindi ? "ग्राहक संबंध प्रबंधन" : "Customer relationship management",
-                features: [
-                  isHindi ? "न्यूजलेटर डिजाइन" : "Newsletter Design",
-                  isHindi ? "स्वचालन सेटअप" : "Automation Setup",
-                  isHindi ? "प्रदर्शन ट्रैकिंग" : "Performance Tracking"
-                ]
-              },
-              {
-                title: isHindi ? "कंटेंट मार्केटिंग" : "Content Marketing",
-                subtitle: "Strategy",
-                description: isHindi ? "मूल्यवान कंटेंट निर्माण" : "Valuable content creation",
-                features: [
-                  isHindi ? "ब्लॉग लेखन" : "Blog Writing",
-                  isHindi ? "वीडियो प्रोडक्शन" : "Video Production",
-                  isHindi ? "इन्फोग्राफिक्स" : "Infographics"
-                ]
-              }
-            ].map((service, index) => (
+            {filteredServices.map((service, index) => (
               <Card key={index} className="border-2 border-border bg-background hover:border-foreground transition-all duration-300 hover:scale-105 animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
                 <CardHeader className="text-center space-y-4">
                   <div className="space-y-2">

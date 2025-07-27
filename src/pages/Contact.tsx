@@ -133,11 +133,12 @@ const Contact = ({ language }: ContactProps) => {
       action: "tel:+919381617904"
     },
     {
-      icon: MessageSquare,
-      title: "WhatsApp",
-      details: "+91 93816 17904",
-      action: "https://wa.me/919381617904"
-    },
+  icon: MessageSquare,
+  title: "WhatsApp",
+  details: "+91 93816 17904",
+  action: "https://wa.me/919381617904?text=Hello%21%20I%27m%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project%3F"
+},
+
     {
       icon: Instagram,
       title: "Instagram",
@@ -412,7 +413,7 @@ const Contact = ({ language }: ContactProps) => {
             }
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://wa.me/919381617904" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/919381617904?text=Hello%21%20I%27m%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project%3F" target="_blank" rel="noopener noreferrer">
               <Button className="asn-button-primary">
                 <MessageSquare className="mr-2 h-5 w-5" />
                 {isHindi ? "WhatsApp पर चैट करें" : "Chat on WhatsApp"}

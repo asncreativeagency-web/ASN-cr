@@ -34,7 +34,7 @@ const Portfolio = ({ language }: PortfolioProps) => {
         isHindi ? "15,000+ ग्राहक" : "15,000+ customers",
         isHindi ? "3 महीने में ब्रेक-ईवन" : "Break-even in 3 months"
       ],
-      image: "/lovable-uploads/e8ea307f-2d85-4170-9433-3122870b90e5.png",
+      image: "/lovable-uploads/fashion-ecommerce.jpg",
       tags: ["E-commerce", "Meta Ads", "Branding"]
     },
     {
@@ -57,7 +57,7 @@ const Portfolio = ({ language }: PortfolioProps) => {
         isHindi ? "$50K ARR" : "$50K ARR",
         isHindi ? "25+ एंटरप्राइज़ क्लाइंट्स" : "25+ enterprise clients"
       ],
-      image: "/lovable-uploads/e8ea307f-2d85-4170-9433-3122870b90e5.png",
+      image: "/lovable-uploads/saas-technology.jpg",
       tags: ["SaaS", "B2B", "Lead Gen"]
     },
     {
@@ -80,7 +80,7 @@ const Portfolio = ({ language }: PortfolioProps) => {
         isHindi ? "₹1 करोड़ सालाना" : "₹1Cr annual revenue",
         isHindi ? "40% ऑनलाइन ऑर्डर्स" : "40% online orders"
       ],
-      image: "/lovable-uploads/e8ea307f-2d85-4170-9433-3122870b90e5.png",
+      image: "/lovable-uploads/restaurant-food.jpg",
       tags: ["Food Tech", "Local Business", "Operations"]
     },
     {
@@ -103,7 +103,7 @@ const Portfolio = ({ language }: PortfolioProps) => {
         isHindi ? "35 देशों में सेल्स" : "Sales in 35 countries", 
         isHindi ? "95% ऑटोमेशन" : "95% automation"
       ],
-      image: "/lovable-uploads/e8ea307f-2d85-4170-9433-3122870b90e5.png",
+      image: "/lovable-uploads/dropshipping-business.jpg",
       tags: ["Dropshipping", "International", "Automation"]
     },
     {
@@ -126,7 +126,7 @@ const Portfolio = ({ language }: PortfolioProps) => {
         isHindi ? "₹50 लाख रेवेन्यू" : "₹50L revenue",
         isHindi ? "4.8/5 रेटिंग" : "4.8/5 rating"
       ],
-      image: "/lovable-uploads/e8ea307f-2d85-4170-9433-3122870b90e5.png",
+      image: "/lovable-uploads/education-platform.jpg",
       tags: ["EdTech", "LMS", "Content"]
     },
     {
@@ -149,7 +149,7 @@ const Portfolio = ({ language }: PortfolioProps) => {
         isHindi ? "5,000+ पेशेंट्स" : "5,000+ patients",
         isHindi ? "98% अपटाइम" : "98% uptime"
       ],
-      image: "/lovable-uploads/e8ea307f-2d85-4170-9433-3122870b90e5.png",
+      image: "/lovable-uploads/healthcare-digital.jpg",
       tags: ["HealthTech", "SaaS", "Compliance"]
     }
   ];

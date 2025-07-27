@@ -25,7 +25,6 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
     { name: "HOME", path: "/" },
     { name: "SERVICES", path: "/services" },
     { name: "PORTFOLIO", path: "/portfolio" },
-    { name: "CLIENT PORTAL", path: "/client-portal" },
     { name: "CONTACT", path: "/contact" },
   ];
 
@@ -92,35 +91,6 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
 
           {/* Controls */}
           <div className="flex items-center space-x-4">
-            {/* Authentication Status */}
-            {user ? (
-              <>
-                <span className="hidden md:inline-block text-sm text-muted-foreground">
-                  {user.email}
-                </span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleLogout}
-                  className="hidden md:flex items-center space-x-1"
-                >
-                  <LogOut className="h-4 w-4" />
-                  <span className="text-xs font-bold">{language === "hi" ? "लॉगआउट" : "LOGOUT"}</span>
-                </Button>
-              </>
-            ) : (
-              <Link to="/auth">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="hidden md:flex items-center space-x-1"
-                >
-                  <User className="h-4 w-4" />
-                  <span className="text-xs font-bold">{language === "hi" ? "लॉगिन" : "LOGIN"}</span>
-                </Button>
-              </Link>
-            )}
-
             {/* Language Toggle */}
             <Button
               variant="ghost"
@@ -174,22 +144,6 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
               ))}
               
               <div className="flex items-center space-x-4 pt-4 border-t border-border">
-                {/* Mobile Authentication */}
-                {user ? (
-                  <>
-                    <span className="text-sm text-muted-foreground">{user.email}</span>
-                    <Button variant="ghost" size="sm" onClick={handleLogout}>
-                      <LogOut className="h-4 w-4" />
-                    </Button>
-                  </>
-                ) : (
-                  <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
-                    <Button variant="ghost" size="sm">
-                      <User className="h-4 w-4" />
-                    </Button>
-                  </Link>
-                )}
-                
                 <Button
                   variant="ghost"
                   size="sm"

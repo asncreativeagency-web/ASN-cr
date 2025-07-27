@@ -148,7 +148,7 @@ const Contact = ({ language }: ContactProps) => {
     {
       icon: MapPin,
       title: isHindi ? "पता" : "Address",
-      details: isHindi ? "मुंबई, भारत | वैश्विक सेवा" : "Mumbai, India | Global Service",
+      details: "ASN Agency, Balaji Nagar, Hyderabad, India - 500087",
       action: null
     }
   ];

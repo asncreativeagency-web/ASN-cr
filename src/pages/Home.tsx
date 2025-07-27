@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart3, Globe, Users, Zap } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface HomeProps {
   language: string;
@@ -67,11 +68,63 @@ const Home = ({ language }: HomeProps) => {
     }
   ];
 
+  // Animated SVG background for hero
+  const HeroAnimatedBG = () => (
+    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, pointerEvents: 'none', opacity: 0.18 }}>
+      <svg viewBox="0 0 2000 500" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '200vw', height: '100%', display: 'block', animation: 'waveMove 18s linear infinite' }}>
+        <path d="M0 250 Q 500 100 1000 250 T 2000 250" stroke="#000" strokeWidth="2" fill="none"/>
+        <path d="M0 350 Q 500 200 1000 350 T 2000 350" stroke="#111" strokeWidth="1.5" fill="none"/>
+        <path d="M0 450 Q 500 300 1000 450 T 2000 450" stroke="#222" strokeWidth="1" fill="none"/>
+        <path d="M0 150 Q 500 300 1000 150 T 2000 150" stroke="#333" strokeWidth="1.5" fill="none"/>
+      </svg>
+    </div>
+  );
+
+  // Animated dots section divider
+  const SectionDivider = () => (
+    <motion.div
+      className="flex justify-between items-center py-6 w-full max-w-7xl mx-auto"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      aria-hidden="true"
+      style={{ gap: 0 }}
+    >
+      {[...Array(32)].map((_, i) => (
+        <motion.span
+          key={i}
+          className="inline-block rounded-full bg-black"
+          style={{ width: 7, height: 7, opacity: i % 2 === 0 ? 0.7 : 0.3 }}
+          animate={{
+            scale: [1, 1.25, 1],
+            y: [0, -5, 0],
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 0.9,
+            delay: i * 0.04,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+    </motion.div>
+  );
+
   return (
-    <div className="min-h-screen">
+    <motion.div className="min-h-screen" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       {/* Hero Section */}
-      <section className="asn-hero bg-gradient-to-br from-background to-surface">
-        <div className="asn-container text-center space-y-8 animate-fade-in">
+      <motion.section className="asn-hero bg-gradient-to-br from-background to-surface"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
+        <HeroAnimatedBG />
+        <motion.div className="asn-container text-center space-y-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.7 }}
+        >
           {/* Personalized Greeting */}
           {userLocation && (
             <p className="asn-body text-muted-foreground text-lg">
@@ -116,36 +169,57 @@ const Home = ({ language }: HomeProps) => {
               </Button>
             </Link>
             
-            <Link to="/client-portal" className="w-full sm:w-auto">
-              <Button variant="outline" className="asn-button-secondary w-full sm:w-auto">
-                {isHindi ? "क्लाइंट पोर्टल" : "Client Portal"}
-              </Button>
-            </Link>
           </div>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
+      <SectionDivider />
 
       {/* Metrics Section */}
-      <section className="asn-section bg-foreground text-background">
+      <motion.section className="asn-section bg-foreground text-background"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
         <div className="asn-container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {metrics.map((metric, index) => (
-              <div key={index} className="text-center space-y-4 animate-scale-in" style={{animationDelay: `${index * 0.1}s`}}>
-                <metric.icon className="h-12 w-12 mx-auto text-background/80" />
+              <motion.div
+                key={index}
+                className="text-center space-y-4 group"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
+                whileHover={{ scale: 1.07 }}
+              >
+                <motion.span
+                  whileHover={{ scale: 1.18, rotate: [0, 8, -8, 0] }}
+                  transition={{ type: "spring", stiffness: 300, damping: 12 }}
+                  className="inline-block"
+                >
+                  <metric.icon className="h-12 w-12 mx-auto text-background/80" />
+                </motion.span>
                 <div className="asn-headline text-3xl md:text-4xl text-background">
                   {metric.number}
                 </div>
                 <p className="asn-body text-background/80 text-sm font-bold tracking-wide uppercase">
                   {metric.label}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
+      <SectionDivider />
 
       {/* Services Preview */}
-      <section className="asn-section bg-background">
+      <motion.section className="asn-section bg-background"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
         <div className="asn-container">
           <div className="text-center space-y-6 mb-16">
             <h2 className="asn-headline text-3xl md:text-5xl">
@@ -161,10 +235,13 @@ const Home = ({ language }: HomeProps) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, index) => (
-              <div 
-                key={index} 
-                className="group border border-border hover:border-foreground transition-all duration-300 p-8 bg-surface hover:bg-foreground hover:text-background animate-fade-in"
-                style={{animationDelay: `${index * 0.2}s`}}
+              <motion.div
+                key={index}
+                className="group border border-border hover:border-foreground transition-all duration-300 p-8 bg-surface hover:bg-foreground hover:text-background"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15, duration: 0.5, ease: "easeOut" }}
               >
                 <h3 className="asn-headline text-xl mb-4 group-hover:text-background">
                   {service.title}
@@ -172,7 +249,7 @@ const Home = ({ language }: HomeProps) => {
                 <p className="asn-body text-muted-foreground group-hover:text-background/80">
                   {service.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -184,10 +261,17 @@ const Home = ({ language }: HomeProps) => {
             </Link>
           </div>
         </div>
-      </section>
+      </motion.section>
+      <SectionDivider />
+      
 
       {/* CTA Section */}
-      <section className="asn-section bg-foreground text-background">
+      <motion.section className="asn-section bg-foreground text-background"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
         <div className="asn-container text-center space-y-8">
           <h2 className="asn-headline text-3xl md:text-5xl text-background">
             {isHindi ? "अपना साम्राज्य बनाने के लिए तैयार हैं?" : "Ready to Build Your Empire?"}
@@ -214,8 +298,8 @@ const Home = ({ language }: HomeProps) => {
             </a>
           </div>
         </div>
-      </section>
-    </div>
+      </motion.section>
+    </motion.div>
   );
 };
 

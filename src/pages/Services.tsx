@@ -155,6 +155,108 @@ const Services = ({ language }: ServicesProps) => {
 
   // Digital marketing and design services with categories
   const allServices = [
+    // Development
+    {
+      title: isHindi ? "वेब डेवलपमेंट" : "Web Development",
+      subtitle: "Web",
+      description: isHindi ? "आधुनिक, तेज़ और उत्तरदायी वेबसाइटें" : "Modern, fast, and responsive websites",
+      features: [
+        isHindi ? "कस्टम डिज़ाइन" : "Custom Design",
+        isHindi ? "फास्ट लोडिंग" : "Fast Loading",
+        isHindi ? "CMS इंटीग्रेशन" : "CMS Integration"
+      ],
+      category: "development"
+    },
+    {
+      title: isHindi ? "मोबाइल ऐप डेवलपमेंट" : "Mobile App Development",
+      subtitle: "Mobile",
+      description: isHindi ? "एंड्रॉइड और iOS के लिए ऐप्स" : "Apps for Android and iOS",
+      features: [
+        isHindi ? "क्रॉस-प्लेटफॉर्म ऐप्स" : "Cross-platform Apps",
+        isHindi ? "यूआई/यूएक्स डिज़ाइन" : "UI/UX Design",
+        isHindi ? "एप्लिकेशन मेंटेनेंस" : "App Maintenance"
+      ],
+      category: "development"
+    },
+    {
+      title: isHindi ? "वेबसाइट मेंटेनेंस" : "Website Maintenance",
+      subtitle: "Maintenance",
+      description: isHindi ? "निरंतर अपडेट और समर्थन" : "Continuous updates and support",
+      features: [
+        isHindi ? "सुरक्षा अपडेट्स" : "Security Updates",
+        isHindi ? "बैकअप और रिकवरी" : "Backup & Recovery",
+        isHindi ? "कंटेंट अपडेट्स" : "Content Updates"
+      ],
+      category: "development"
+    },
+    // E-commerce
+    {
+      title: isHindi ? "ई-कॉमर्स स्टोर सेटअप" : "E-commerce Store Setup",
+      subtitle: "Store",
+      description: isHindi ? "ऑनलाइन स्टोर की पूरी स्थापना" : "Complete online store setup",
+      features: [
+        isHindi ? "शॉपिंग कार्ट" : "Shopping Cart",
+        isHindi ? "प्रोडक्ट मैनेजमेंट" : "Product Management",
+        isHindi ? "ऑर्डर ट्रैकिंग" : "Order Tracking"
+      ],
+      category: "ecommerce"
+    },
+    {
+      title: isHindi ? "पेमेंट गेटवे इंटीग्रेशन" : "Payment Gateway Integration",
+      subtitle: "Payments",
+      description: isHindi ? "सुरक्षित ऑनलाइन भुगतान समाधान" : "Secure online payment solutions",
+      features: [
+        isHindi ? "UPI/क्रेडिट कार्ड" : "UPI/Credit Card",
+        isHindi ? "COD सेटअप" : "COD Setup",
+        isHindi ? "इंवॉइसिंग" : "Invoicing"
+      ],
+      category: "ecommerce"
+    },
+    {
+      title: isHindi ? "ड्रॉपशिपिंग समाधान" : "Dropshipping Solutions",
+      subtitle: "Dropshipping",
+      description: isHindi ? "स्टोर के लिए फुलफिलमेंट और सप्लायर इंटीग्रेशन" : "Fulfillment and supplier integration for stores",
+      features: [
+        isHindi ? "स्वचालित ऑर्डर प्रोसेसिंग" : "Automated Order Processing",
+        isHindi ? "सप्लायर इंटीग्रेशन" : "Supplier Integration",
+        isHindi ? "रियल-टाइम स्टॉक अपडेट्स" : "Real-time Stock Updates"
+      ],
+      category: "ecommerce"
+    },
+    // Security
+    {
+      title: isHindi ? "एसएसएल सेटअप" : "SSL Setup",
+      subtitle: "SSL",
+      description: isHindi ? "वेबसाइट सुरक्षा के लिए SSL प्रमाणपत्र" : "SSL certificates for website security",
+      features: [
+        isHindi ? "इंस्टॉलेशन" : "Installation",
+        isHindi ? "रिन्यूअल" : "Renewal",
+        isHindi ? "HTTPS माइग्रेशन" : "HTTPS Migration"
+      ],
+      category: "security"
+    },
+    {
+      title: isHindi ? "सुरक्षा ऑडिट" : "Security Audit",
+      subtitle: "Audit",
+      description: isHindi ? "वेबसाइट की सुरक्षा की पूरी जांच" : "Comprehensive website security check",
+      features: [
+        isHindi ? "वल्नरेबिलिटी स्कैनिंग" : "Vulnerability Scanning",
+        isHindi ? "पेन टेस्टिंग" : "Pen Testing",
+        isHindi ? "रिपोर्टिंग" : "Reporting"
+      ],
+      category: "security"
+    },
+    {
+      title: isHindi ? "मैलवेयर हटाना" : "Malware Removal",
+      subtitle: "Malware",
+      description: isHindi ? "संक्रमित वेबसाइटों के लिए त्वरित समाधान" : "Quick solutions for infected websites",
+      features: [
+        isHindi ? "मैलवेयर स्कैनिंग" : "Malware Scanning",
+        isHindi ? "क्लीनअप" : "Cleanup",
+        isHindi ? "सुरक्षा सख्तीकरण" : "Security Hardening"
+      ],
+      category: "security"
+    },
     // Marketing
     {
       title: isHindi ? "सर्च इंजन ऑप्टिमाइजेशन" : "Search Engine Optimization",
@@ -327,6 +429,79 @@ const Services = ({ language }: ServicesProps) => {
         </div>
       </section>
 
+      {/* Digital Marketing & Design Services */}
+      <section className="asn-section bg-surface">
+        <div className="asn-container text-center space-y-12">
+          <h2 className="asn-headline text-3xl md:text-5xl">
+            {selectedCategory === "design"
+              ? (isHindi ? "डिज़ाइन सेवाएं" : "Design Services")
+              : selectedCategory === "development"
+                ? (isHindi ? "डेवलपमेंट सेवाएं" : "Development Services")
+                : selectedCategory === "ecommerce"
+                  ? (isHindi ? "ई-कॉमर्स सेवाएं" : "E-commerce Services")
+                  : selectedCategory === "security"
+                    ? (isHindi ? "सुरक्षा सेवाएं" : "Security Services")
+                    : (isHindi ? "डिजिटल मार्केटिंग सेवाएं" : "Digital Marketing Services")}
+          </h2>
+          <p className="asn-body text-lg text-muted-foreground max-w-3xl mx-auto">
+            {selectedCategory === "design"
+              ? (isHindi
+                ? "रचनात्मक डिज़ाइन समाधान जो आपके ब्रांड को अलग बनाते हैं"
+                : "Creative design solutions that set your brand apart")
+              : selectedCategory === "development"
+                ? (isHindi
+                  ? "आधुनिक विकास सेवाएं जो आपके व्यापार को डिजिटल बनाती हैं"
+                  : "Modern development services to digitize your business")
+                : selectedCategory === "ecommerce"
+                  ? (isHindi
+                    ? "ई-कॉमर्स के लिए संपूर्ण समाधान"
+                    : "Comprehensive solutions for e-commerce")
+                  : selectedCategory === "security"
+                    ? (isHindi
+                      ? "वेबसाइट और डेटा सुरक्षा के लिए सेवाएं"
+                      : "Services for website and data security")
+                    : (isHindi
+                      ? "व्यापक डिजिटल मार्केटिंग समाधान जो आपके व्यापार को नई ऊंचाइयों तक पहुंचाते हैं"
+                      : "Comprehensive digital marketing solutions that take your business to new heights")}
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredServices.map((service, index) => (
+              <Card key={index} className="border-2 border-border bg-background hover:border-foreground transition-all duration-300 hover:scale-105 animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
+                <CardHeader className="text-center space-y-4">
+                  <div className="space-y-2">
+                    <Badge variant="outline" className="text-xs font-bold">
+                      {service.subtitle}
+                    </Badge>
+                    <CardTitle className="asn-headline text-xl">
+                      {service.title}
+                    </CardTitle>
+                  </div>
+                  <p className="asn-body text-sm text-muted-foreground">
+                    {service.description}
+                  </p>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <ul className="space-y-2 text-left">
+                    {service.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center space-x-2">
+                        <Check className="h-4 w-4 text-foreground flex-shrink-0" />
+                        <span className="asn-body text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/contact" className="block">
+                    <Button className="w-full asn-button-primary">
+                      {isHindi ? "विवरण पूछें" : "Learn More"}
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Market Selection */}
       <section className="asn-section bg-surface">
         <div className="asn-container">
@@ -383,8 +558,9 @@ const Services = ({ language }: ServicesProps) => {
                   <CardTitle className={`asn-headline text-2xl ${plan.popular ? "text-background" : "text-foreground"}`}>
                     {plan.name}
                   </CardTitle>
-                  <div className={`asn-headline text-4xl ${plan.popular ? "text-background" : "text-foreground"}`}>
-                    {plan.price}
+                  <div className={`asn-headline asn-price-apple ${plan.popular ? "text-background" : "text-foreground"}`}>
+                    <span className={`asn-price-currency ${plan.popular ? 'text-background/80' : ''}`}>{plan.price[0]}</span>
+                    <span className={`asn-price-numbers ${plan.popular ? 'text-background' : ''}`}>{plan.price.slice(1)}</span>
                   </div>
                   <p className={`asn-body text-sm ${plan.popular ? "text-background/80" : "text-muted-foreground"}`}>
                     {plan.description}
@@ -412,61 +588,6 @@ const Services = ({ language }: ServicesProps) => {
                       }`}
                     >
                       {plan.cta}
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Digital Marketing & Design Services */}
-      <section className="asn-section bg-surface">
-        <div className="asn-container text-center space-y-12">
-          <h2 className="asn-headline text-3xl md:text-5xl">
-            {selectedCategory === "design"
-              ? (isHindi ? "डिज़ाइन सेवाएं" : "Design Services")
-              : (isHindi ? "डिजिटल मार्केटिंग सेवाएं" : "Digital Marketing Services")}
-          </h2>
-          <p className="asn-body text-lg text-muted-foreground max-w-3xl mx-auto">
-            {selectedCategory === "design"
-              ? (isHindi
-                ? "रचनात्मक डिज़ाइन समाधान जो आपके ब्रांड को अलग बनाते हैं"
-                : "Creative design solutions that set your brand apart")
-              : (isHindi
-                ? "व्यापक डिजिटल मार्केटिंग समाधान जो आपके व्यापार को नई ऊंचाइयों तक पहुंचाते हैं"
-                : "Comprehensive digital marketing solutions that take your business to new heights")}
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredServices.map((service, index) => (
-              <Card key={index} className="border-2 border-border bg-background hover:border-foreground transition-all duration-300 hover:scale-105 animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
-                <CardHeader className="text-center space-y-4">
-                  <div className="space-y-2">
-                    <Badge variant="outline" className="text-xs font-bold">
-                      {service.subtitle}
-                    </Badge>
-                    <CardTitle className="asn-headline text-xl">
-                      {service.title}
-                    </CardTitle>
-                  </div>
-                  <p className="asn-body text-sm text-muted-foreground">
-                    {service.description}
-                  </p>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2 text-left">
-                    {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center space-x-2">
-                        <Check className="h-4 w-4 text-foreground flex-shrink-0" />
-                        <span className="asn-body text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link to="/contact" className="block">
-                    <Button className="w-full asn-button-primary">
-                      {isHindi ? "विवरण पूछें" : "Learn More"}
                     </Button>
                   </Link>
                 </CardContent>

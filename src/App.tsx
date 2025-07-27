@@ -15,6 +15,8 @@ import ClientPortal from "./pages/ClientPortal";
 import Contact from "./pages/Contact";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import { AnimatePresence, motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 const queryClient = new QueryClient();
 
@@ -57,30 +59,55 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="min-h-screen bg-background text-foreground">
-            <Navigation 
-              language={language} 
-              setLanguage={setLanguage}
-              isDark={isDark}
-              setIsDark={setIsDark}
-              user={user}
-              session={session}
-            />
-            <Routes>
-              <Route path="/" element={<Home language={language} />} />
-              <Route path="/services" element={<Services language={language} />} />
-              <Route path="/portfolio" element={<Portfolio language={language} />} />
-              <Route path="/client-portal" element={<ClientPortal language={language} user={user} session={session} />} />
-              <Route path="/contact" element={<Contact language={language} />} />
-              <Route path="/auth" element={<Auth language={language} />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <Footer language={language} />
+          <div id="animated-bg">
+            <svg viewBox="0 0 2000 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 250 Q 500 100 1000 250 T 2000 250" stroke="#000" stroke-width="2" fill="none"/>
+              <path d="M0 350 Q 500 200 1000 350 T 2000 350" stroke="#111" stroke-width="1.5" fill="none"/>
+              <path d="M0 450 Q 500 300 1000 450 T 2000 450" stroke="#222" stroke-width="1" fill="none"/>
+              <path d="M0 150 Q 500 300 1000 150 T 2000 150" stroke="#333" stroke-width="1.5" fill="none"/>
+            </svg>
           </div>
+          {/** Get current location for AnimatePresence */}
+          <PageTransitions language={language} isDark={isDark} setLanguage={setLanguage} setIsDark={setIsDark} user={user} session={session} />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
   );
 };
+
+// PageTransitions component for animated route transitions
+function PageTransitions({ language, isDark, setLanguage, setIsDark, user, session }) {
+  const location = useLocation();
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <Navigation 
+        language={language} 
+        setLanguage={setLanguage}
+        isDark={isDark}
+        setIsDark={setIsDark}
+        user={user}
+        session={session}
+      />
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={location.pathname}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -30 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        >
+          <Routes location={location}>
+            <Route path="/" element={<Home language={language} />} />
+            <Route path="/services" element={<Services language={language} />} />
+            <Route path="/portfolio" element={<Portfolio language={language} />} />
+            <Route path="/contact" element={<Contact language={language} />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </motion.div>
+      </AnimatePresence>
+      <Footer language={language} />
+    </div>
+  );
+}
 
 export default App;

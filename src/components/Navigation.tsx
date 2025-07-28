@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon, Globe, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,8 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const { toast } = useToast();
+  const menuButtonRef = useRef(null);
+  const mobileMenuRef = useRef(null);
 
   const navLinks = [
     { name: "HOME", path: "/" },
@@ -35,6 +37,42 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isMenuOpen && mobileMenuRef.current) {
+      // Focus the first focusable element in the menu
+      const focusable = mobileMenuRef.current.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length) {
+        (focusable[0] as HTMLElement).focus();
+      }
+      // Trap focus
+      const handleKeyDown = (e) => {
+        if (e.key === "Tab") {
+          const focusables = Array.from(focusable);
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if (e.shiftKey) {
+            if (document.activeElement === first) {
+              e.preventDefault();
+              (last as HTMLElement).focus();
+            }
+          } else {
+            if (document.activeElement === last) {
+              e.preventDefault();
+              (first as HTMLElement).focus();
+            }
+          }
+        } else if (e.key === "Escape") {
+          setIsMenuOpen(false);
+          if (menuButtonRef.current) (menuButtonRef.current as HTMLElement).focus();
+        }
+      };
+      mobileMenuRef.current.addEventListener("keydown", handleKeyDown);
+      return () => mobileMenuRef.current.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [isMenuOpen]);
 
   const toggleTheme = () => {
     setIsDark(!isDark);
@@ -64,9 +102,11 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
           ? "bg-background/95 backdrop-blur-sm border-b border-border"
           : "bg-transparent"
       }`}
+      role="navigation"
+      aria-label="Main Navigation"
     >
       <div className="asn-container">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 md:h-20 px-2 sm:px-0">
           {/* Logo */}
           <Link to="/" className="asn-headline text-2xl">
             ASN
@@ -83,6 +123,8 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
+                tabIndex={0}
+                aria-current={location.pathname === link.path ? "page" : undefined}
               >
                 {link.name}
               </Link>
@@ -97,6 +139,7 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
               size="sm"
               onClick={() => setLanguage(language === "en" ? "hi" : "en")}
               className="hidden md:flex items-center space-x-1"
+              aria-label="Toggle language"
             >
               <Globe className="h-4 w-4" />
               <span className="text-xs font-bold">{language.toUpperCase()}</span>
@@ -108,6 +151,7 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
               size="sm"
               onClick={toggleTheme}
               className="hidden md:flex"
+              aria-label="Toggle dark mode"
             >
               {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
@@ -118,6 +162,10 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
               size="sm"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="lg:hidden"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
+              ref={menuButtonRef}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -126,7 +174,13 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-background border-b border-border animate-slide-up">
+          <div
+            id="mobile-menu"
+            className="lg:hidden absolute top-full left-0 right-0 bg-background border-b border-border animate-slide-up"
+            role="menu"
+            aria-label="Mobile Navigation"
+            ref={mobileMenuRef}
+          >
             <div className="flex flex-col space-y-4 p-6">
               {navLinks.map((link) => (
                 <Link
@@ -138,23 +192,25 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
                       ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
+                  tabIndex={0}
+                  aria-current={location.pathname === link.path ? "page" : undefined}
+                  role="menuitem"
                 >
                   {link.name}
                 </Link>
               ))}
-              
               <div className="flex items-center space-x-4 pt-4 border-t border-border">
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setLanguage(language === "en" ? "hi" : "en")}
                   className="flex items-center space-x-1"
+                  aria-label="Toggle language"
                 >
                   <Globe className="h-4 w-4" />
                   <span className="text-xs font-bold">{language.toUpperCase()}</span>
                 </Button>
-                
-                <Button variant="ghost" size="sm" onClick={toggleTheme}>
+                <Button variant="ghost" size="sm" onClick={toggleTheme} aria-label="Toggle dark mode">
                   {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                 </Button>
               </div>

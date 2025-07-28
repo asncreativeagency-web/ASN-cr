@@ -8,9 +8,38 @@ interface HomeProps {
   language: string;
 }
 
+function useIsDarkMode() {
+  const [isDark, setIsDark] = useState(false);
+  useEffect(() => {
+    const check = () => setIsDark(document.documentElement.classList.contains('dark'));
+    check();
+    window.addEventListener('classChange', check);
+    const observer = new MutationObserver(check);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => {
+      window.removeEventListener('classChange', check);
+      observer.disconnect();
+    };
+  }, []);
+  return isDark;
+}
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
+}
+
 const Home = ({ language }: HomeProps) => {
   const [userLocation, setUserLocation] = useState<string>("");
   const isHindi = language === "hi";
+  const isDark = useIsDarkMode();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Detect user location (simplified)
@@ -82,77 +111,72 @@ const Home = ({ language }: HomeProps) => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        opacity: 0.5,
+        opacity: isDark ? 0.3 : 0.5,
         filter: 'grayscale(100%)'
       }} />
-      
-      {/* Main animated waves */}
-      <div style={{ opacity: 0.25 }}>
-        <svg viewBox="0 0 2000 500" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '200vw', height: '100%', display: 'block', animation: 'waveMove 18s linear infinite' }}>
-          <path d="M0 250 Q 500 100 1000 250 T 2000 250" stroke="#000" strokeWidth="2" fill="none"/>
-          <path d="M0 350 Q 500 200 1000 350 T 2000 350" stroke="#111" strokeWidth="1.5" fill="none"/>
-          <path d="M0 450 Q 500 300 1000 450 T 2000 450" stroke="#222" strokeWidth="1" fill="none"/>
-          <path d="M0 150 Q 500 300 1000 150 T 2000 150" stroke="#333" strokeWidth="1.5" fill="none"/>
-        </svg>
-      </div>
-      
-      {/* Additional geometric patterns */}
-      <div style={{ opacity: 0.15, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-        <svg viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
-          {/* Grid pattern */}
-          <defs>
-            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#000" strokeWidth="0.5" opacity="0.3"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-          
-          {/* Diagonal lines */}
-          <line x1="0" y1="0" x2="1200" y2="600" stroke="#000" strokeWidth="0.5" opacity="0.2"/>
-          <line x1="1200" y1="0" x2="0" y2="600" stroke="#000" strokeWidth="0.5" opacity="0.2"/>
-        </svg>
-      </div>
-      
-      {/* Floating dots */}
-      <div style={{ opacity: 0.2, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-        {[
-          { left: '10%', top: '20%', size: 3, delay: 0, duration: 3 },
-          { left: '85%', top: '15%', size: 4, delay: 0.5, duration: 4 },
-          { left: '20%', top: '80%', size: 2, delay: 1, duration: 2.5 },
-          { left: '75%', top: '70%', size: 3, delay: 1.5, duration: 3.5 },
-          { left: '50%', top: '30%', size: 4, delay: 0.2, duration: 3.2 },
-          { left: '30%', top: '60%', size: 2, delay: 0.8, duration: 2.8 },
-          { left: '90%', top: '50%', size: 3, delay: 1.2, duration: 3.8 },
-          { left: '15%', top: '40%', size: 4, delay: 0.3, duration: 4.2 },
-          { left: '60%', top: '85%', size: 2, delay: 0.7, duration: 2.3 },
-          { left: '40%', top: '10%', size: 3, delay: 1.1, duration: 3.1 },
-          { left: '80%', top: '25%', size: 4, delay: 0.4, duration: 3.6 },
-          { left: '25%', top: '90%', size: 2, delay: 0.9, duration: 2.7 },
-          { left: '70%', top: '35%', size: 3, delay: 1.3, duration: 3.3 },
-          { left: '5%', top: '65%', size: 4, delay: 0.1, duration: 4.1 },
-          { left: '95%', top: '80%', size: 2, delay: 0.6, duration: 2.4 },
-          { left: '45%', top: '75%', size: 3, delay: 1.4, duration: 3.4 },
-          { left: '55%', top: '20%', size: 4, delay: 0.8, duration: 3.9 },
-          { left: '35%', top: '50%', size: 2, delay: 1.0, duration: 2.6 },
-          { left: '65%', top: '10%', size: 3, delay: 0.5, duration: 3.7 },
-          { left: '10%', top: '70%', size: 4, delay: 1.1, duration: 4.0 }
-        ].map((dot, i) => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              left: dot.left,
-              top: dot.top,
-              width: `${dot.size}px`,
-              height: `${dot.size}px`,
-              backgroundColor: '#000',
-              borderRadius: '50%',
-              animation: `float ${dot.duration}s ease-in-out infinite`,
-              animationDelay: `${dot.delay}s`
-            }}
-          />
-        ))}
-      </div>
+      {/* Only show SVG and dots if not mobile */}
+      {!isMobile && <>
+        <div style={{ opacity: isDark ? 0.25 : 0.25 }}>
+          <svg viewBox="0 0 2000 500" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '200vw', height: '100%', display: 'block', animation: 'waveMove 18s linear infinite' }}>
+            <path d="M0 250 Q 500 100 1000 250 T 2000 250" stroke={isDark ? '#fff' : '#000'} strokeWidth="2" fill="none" opacity={isDark ? 0.18 : 0.18}/>
+            <path d="M0 350 Q 500 200 1000 350 T 2000 350" stroke={isDark ? '#eee' : '#111'} strokeWidth="1.5" fill="none" opacity={isDark ? 0.18 : 0.18}/>
+            <path d="M0 450 Q 500 300 1000 450 T 2000 450" stroke={isDark ? '#ccc' : '#222'} strokeWidth="1" fill="none" opacity={isDark ? 0.18 : 0.18}/>
+            <path d="M0 150 Q 500 300 1000 150 T 2000 150" stroke={isDark ? '#bbb' : '#333'} strokeWidth="1.5" fill="none" opacity={isDark ? 0.18 : 0.18}/>
+          </svg>
+        </div>
+        <div style={{ opacity: isDark ? 0.15 : 0.15, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+          <svg viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? '#fff' : '#000'} strokeWidth="0.5" opacity={isDark ? 0.18 : 0.18}/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+            <line x1="0" y1="0" x2="1200" y2="600" stroke={isDark ? '#fff' : '#000'} strokeWidth="0.5" opacity={isDark ? 0.18 : 0.18}/>
+            <line x1="1200" y1="0" x2="0" y2="600" stroke={isDark ? '#fff' : '#000'} strokeWidth="0.5" opacity={isDark ? 0.18 : 0.18}/>
+          </svg>
+        </div>
+        <div style={{ opacity: isDark ? 0.18 : 0.18, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+          {[
+            { left: '10%', top: '20%', size: 3, delay: 0, duration: 3 },
+            { left: '85%', top: '15%', size: 4, delay: 0.5, duration: 4 },
+            { left: '20%', top: '80%', size: 2, delay: 1, duration: 2.5 },
+            { left: '75%', top: '70%', size: 3, delay: 1.5, duration: 3.5 },
+            { left: '50%', top: '30%', size: 4, delay: 0.2, duration: 3.2 },
+            { left: '30%', top: '60%', size: 2, delay: 0.8, duration: 2.8 },
+            { left: '90%', top: '50%', size: 3, delay: 1.2, duration: 3.8 },
+            { left: '15%', top: '40%', size: 4, delay: 0.3, duration: 4.2 },
+            { left: '60%', top: '85%', size: 2, delay: 0.7, duration: 2.3 },
+            { left: '40%', top: '10%', size: 3, delay: 1.1, duration: 3.1 },
+            { left: '80%', top: '25%', size: 4, delay: 0.4, duration: 3.6 },
+            { left: '25%', top: '90%', size: 2, delay: 0.9, duration: 2.7 },
+            { left: '70%', top: '35%', size: 3, delay: 1.3, duration: 3.3 },
+            { left: '5%', top: '65%', size: 4, delay: 0.1, duration: 4.1 },
+            { left: '95%', top: '80%', size: 2, delay: 0.6, duration: 2.4 },
+            { left: '45%', top: '75%', size: 3, delay: 1.4, duration: 3.4 },
+            { left: '55%', top: '20%', size: 4, delay: 0.8, duration: 3.9 },
+            { left: '35%', top: '50%', size: 2, delay: 1.0, duration: 2.6 },
+            { left: '65%', top: '10%', size: 3, delay: 0.5, duration: 3.7 },
+            { left: '10%', top: '70%', size: 4, delay: 1.1, duration: 4.0 }
+          ].map((dot, i) => (
+            <div
+              key={i}
+              style={{
+                position: 'absolute',
+                left: dot.left,
+                top: dot.top,
+                width: `${dot.size}px`,
+                height: `${dot.size}px`,
+                backgroundColor: isDark ? '#fff' : '#000',
+                borderRadius: '50%',
+                opacity: 1,
+                animation: `float ${dot.duration}s ease-in-out infinite`,
+                animationDelay: `${dot.delay}s`
+              }}
+            />
+          ))}
+        </div>
+      </>}
     </div>
   );
 

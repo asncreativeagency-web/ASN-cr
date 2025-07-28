@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { Suspense, lazy, useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,11 +9,6 @@ import { Session, User } from "@supabase/supabase-js";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
-import Home from "./pages/Home";
-import Services from "./pages/Services";
-import Portfolio from "./pages/Portfolio";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
 import { AnimatePresence, motion } from "framer-motion";
 
 const queryClient = new QueryClient();
@@ -28,6 +23,12 @@ const ScrollToTop = () => {
 
   return null;
 };
+
+const Home = lazy(() => import("./pages/Home"));
+const Services = lazy(() => import("./pages/Services"));
+const Portfolio = lazy(() => import("./pages/Portfolio"));
+const Contact = lazy(() => import("./pages/Contact"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => {
   const [language, setLanguage] = useState("en");
@@ -106,13 +107,15 @@ function PageTransitions({ language, isDark, setLanguage, setIsDark, user, sessi
           exit={{ opacity: 0, y: -30 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <Routes location={location}>
-            <Route path="/" element={<Home language={language} />} />
-            <Route path="/services" element={<Services language={language} />} />
-            <Route path="/portfolio" element={<Portfolio language={language} />} />
-            <Route path="/contact" element={<Contact language={language} />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<div className="flex justify-center items-center min-h-[40vh] text-lg">Loading...</div>}>
+            <Routes location={location}>
+              <Route path="/" element={<Home language={language} />} />
+              <Route path="/services" element={<Services language={language} />} />
+              <Route path="/portfolio" element={<Portfolio language={language} />} />
+              <Route path="/contact" element={<Contact language={language} />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </motion.div>
       </AnimatePresence>
       <Footer language={language} />

@@ -30,7 +30,7 @@
     
     /* Interactive States */
     --muted: 0 0% 95%;
-    --muted-foreground: 0 0% 40%;
+    --muted-foreground: 0 0% 30%;
     --accent: 0 0% 5%;
     --accent-foreground: 0 0% 100%;
     
@@ -80,7 +80,7 @@
     --ring: 0 0% 100%;
     
     --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 60%;
+    --muted-foreground: 0 0% 75%;
     --accent: 0 0% 95%;
     --accent-foreground: 0 0% 0%;
     
@@ -124,11 +124,11 @@
 
 @layer components {
   .asn-headline {
-    @apply font-playfair font-bold text-foreground tracking-[0.2em] uppercase break-words hyphens-auto;
+    @apply font-playfair font-bold text-foreground tracking-[0.2em] uppercase break-words hyphens-auto text-lg sm:text-xl md:text-2xl lg:text-3xl;
   }
   
   .asn-body {
-    @apply font-pt-sans text-foreground break-words hyphens-auto leading-relaxed;
+    @apply font-pt-sans text-foreground break-words hyphens-auto leading-relaxed text-base sm:text-lg md:text-xl;
   }
   
   .asn-link {
@@ -174,11 +174,12 @@
   }
   
   .asn-section {
-    @apply py-12 px-4 md:py-20 md:px-8 lg:px-16;
+    @apply py-8 px-2 sm:py-12 sm:px-4 md:py-20 md:px-8 lg:px-16;
   }
   
   .asn-container {
-    @apply max-w-7xl mx-auto w-full;
+    @apply w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-8;
+    box-sizing: border-box;
   }
   
   /* Additional responsive utilities */
@@ -232,6 +233,22 @@ button, .btn, [role="button"] {
 button:hover, .btn:hover, [role="button"]:hover {
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+button:focus, .btn:focus, [role="button"]:focus, a:focus, input:focus, select:focus, textarea:focus {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  transition: outline-color 0.2s, box-shadow 0.2s;
+}
+
+.dark button:focus, .dark .btn:focus, .dark [role="button"]:focus, .dark a:focus, .dark input:focus, .dark select:focus, .dark textarea:focus {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  transition: outline-color 0.2s, box-shadow 0.2s;
 }
 
 /* Primary button styling */
@@ -347,4 +364,10 @@ button:hover::before, .btn:hover::before, [role="button"]:hover::before {
 
 .dark #animated-bg svg path {
   stroke: rgba(255, 255, 255, 0.3);
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }

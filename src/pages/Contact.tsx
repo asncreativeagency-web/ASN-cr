@@ -25,6 +25,7 @@ const Contact = ({ language }: ContactProps) => {
   const [userCountry, setUserCountry] = useState("");
   const { toast } = useToast();
   const isHindi = language === "hi";
+  const [formFeedback, setFormFeedback] = useState("");
 
   useEffect(() => {
     // Auto-detect user country
@@ -43,22 +44,48 @@ const Contact = ({ language }: ContactProps) => {
 
   const services = isHindi ? [
     "वेब डेवलपमेंट",
-    "डिजिटल मार्केटिंग",
-    "ड्रॉपशिपिंग सेटअप",
-    "व्यापार निष्पादन",
-    "ब्रांड डेवलपमेंट",
-    "SEO सेवाएं",
+    "मोबाइल ऐप डेवलपमेंट", 
+    "वेबसाइट मेंटेनेंस",
+    "ई-कॉमर्स स्टोर सेटअप",
+    "पेमेंट गेटवे इंटीग्रेशन",
+    "ड्रॉपशिपिंग समाधान",
+    "एसएसएल सेटअप",
+    "सुरक्षा ऑडिट",
+    "मैलवेयर हटाना",
+    "सर्च इंजन ऑप्टिमाइजेशन",
+    "गूगल विज्ञापन",
+    "मेटा विज्ञापन",
     "सामाजिक मीडिया मार्केटिंग",
-    "ई-कॉमर्स समाधान"
+    "ईमेल मार्केटिंग",
+    "कंटेंट मार्केटिंग",
+    "यूआई/यूएक्स डिज़ाइन",
+    "लोगो और ब्रांडिंग",
+    "ग्राफिक डिज़ाइन",
+    "डिजिटल मार्केटिंग",
+    "व्यापार निष्पादन",
+    "ब्रांड डेवलपमेंट"
   ] : [
     "Web Development",
-    "Digital Marketing",
-    "Dropshipping Setup",
-    "Business Execution",
-    "Brand Development", 
-    "SEO Services",
+    "Mobile App Development",
+    "Website Maintenance", 
+    "E-commerce Store Setup",
+    "Payment Gateway Integration",
+    "Dropshipping Solutions",
+    "SSL Setup",
+    "Security Audit",
+    "Malware Removal",
+    "Search Engine Optimization",
+    "Google Ads",
+    "Meta Ads",
     "Social Media Marketing",
-    "E-commerce Solutions"
+    "Email Marketing",
+    "Content Marketing",
+    "UI/UX Design",
+    "Logo & Branding",
+    "Graphic Design",
+    "Digital Marketing",
+    "Business Execution",
+    "Brand Development"
   ];
 
   const countries = [
@@ -125,6 +152,7 @@ const Contact = ({ language }: ContactProps) => {
         title: isHindi ? "संदेश भेजा गया!" : "Message Sent!",
         description: isHindi ? "हम 24 घंटे में आपसे संपर्क करेंगे।" : "We'll get back to you within 24 hours.",
       });
+      setFormFeedback(isHindi ? "संदेश भेजा गया!" : "Message Sent!");
 
       // Reset form
       setFormData({
@@ -142,6 +170,7 @@ const Contact = ({ language }: ContactProps) => {
         description: isHindi ? "संदेश भेजने में समस्या हुई। कृपया पुनः प्रयास करें।" : "Failed to send message. Please try again.",
         variant: "destructive"
       });
+      setFormFeedback(isHindi ? "त्रुटि" : "Error");
     } finally {
       setIsSubmitting(false);
     }
@@ -227,13 +256,15 @@ const Contact = ({ language }: ContactProps) => {
               </CardHeader>
               
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" aria-describedby="form-feedback">
+                  <div className="sr-only" id="form-feedback" aria-live="polite">{formFeedback}</div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="asn-body text-sm font-bold">
+                      <label className="asn-body text-sm font-bold" htmlFor="contact-name">
                         {isHindi ? "पूरा नाम *" : "Full Name *"}
                       </label>
                       <Input
+                        id="contact-name"
                         placeholder={isHindi ? "आपका नाम दर्ज करें" : "Enter your name"}
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -242,10 +273,11 @@ const Contact = ({ language }: ContactProps) => {
                     </div>
                     
                     <div className="space-y-2">
-                      <label className="asn-body text-sm font-bold">
+                      <label className="asn-body text-sm font-bold" htmlFor="contact-email">
                         {isHindi ? "ईमेल पता *" : "Email Address *"}
                       </label>
                       <Input
+                        id="contact-email"
                         type="email"
                         placeholder={isHindi ? "आपका ईमेल दर्ज करें" : "Enter your email"}
                         value={formData.email}
@@ -257,28 +289,27 @@ const Contact = ({ language }: ContactProps) => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="asn-body text-sm font-bold">
+                      <label className="asn-body text-sm font-bold" htmlFor="contact-country-trigger" id="label-contact-country">
                         {isHindi ? "देश" : "Country"}
                       </label>
-                      <Select value={formData.country} onValueChange={(value) => setFormData({...formData, country: value})}>
-                        <SelectTrigger>
+                      <Select value={formData.country} onValueChange={(value) => setFormData({...formData, country: value})} aria-labelledby="label-contact-country">
+                        <SelectTrigger id="contact-country-trigger">
                           <SelectValue placeholder={isHindi ? "एक देश चुनें" : "Select a country"} />
                         </SelectTrigger>
                         <SelectContent>
                           {countries.map((country) => (
-                            <SelectItem key={country} value={country}>
-                              {country}
-                            </SelectItem>
+                            <SelectItem key={country} value={country} id={`country-${country}`}>{country}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
                     </div>
                     
                     <div className="space-y-2">
-                      <label className="asn-body text-sm font-bold">
+                      <label className="asn-body text-sm font-bold" htmlFor="contact-phone">
                         {isHindi ? "फोन नंबर" : "Phone Number"}
                       </label>
                       <Input
+                        id="contact-phone"
                         type="tel"
                         placeholder={isHindi ? "आपका फोन नंबर दर्ज करें" : "Enter your phone number"}
                         value={formData.phone}
@@ -288,28 +319,27 @@ const Contact = ({ language }: ContactProps) => {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="asn-body text-sm font-bold">
+                    <label className="asn-body text-sm font-bold" htmlFor="contact-service-trigger" id="label-contact-service">
                       {isHindi ? "आवश्यक सेवा" : "Service Needed"}
                     </label>
-                    <Select value={formData.service} onValueChange={(value) => setFormData({...formData, service: value})}>
-                      <SelectTrigger>
+                    <Select value={formData.service} onValueChange={(value) => setFormData({...formData, service: value})} aria-labelledby="label-contact-service">
+                      <SelectTrigger id="contact-service-trigger">
                         <SelectValue placeholder={isHindi ? "एक सेवा चुनें" : "Select a service"} />
                       </SelectTrigger>
                       <SelectContent>
                         {services.map((service) => (
-                          <SelectItem key={service} value={service}>
-                            {service}
-                          </SelectItem>
+                          <SelectItem key={service} value={service} id={`service-${service}`}>{service}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="asn-body text-sm font-bold">
+                    <label className="asn-body text-sm font-bold" htmlFor="contact-message">
                       {isHindi ? "संदेश *" : "Message *"}
                     </label>
                     <Textarea
+                      id="contact-message"
                       placeholder={isHindi ? "अपने प्रोजेक्ट के बारे में विस्तार से बताएं..." : "Tell us about your project in detail..."}
                       rows={6}
                       value={formData.message}

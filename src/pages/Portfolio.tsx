@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Link } from "react-router-dom";
+import { Suspense, lazy } from "react";
 
 interface PortfolioProps {
   language: string;
@@ -169,6 +170,8 @@ const Portfolio = ({ language }: PortfolioProps) => {
     ? caseStudies 
     : caseStudies.filter(study => study.category === selectedCategory);
 
+  const CaseStudyDialogContent = lazy(() => import("../components/CaseStudyDialogContent"));
+
   return (
     <div className="min-h-screen pt-20">
       {/* Header */}
@@ -215,6 +218,7 @@ const Portfolio = ({ language }: PortfolioProps) => {
                   <img 
                     src={study.image} 
                     alt={study.title}
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 filter grayscale"
                   />
                   <div className="absolute inset-0 bg-foreground/60 group-hover:bg-foreground/40 transition-colors flex items-center justify-center">
@@ -255,85 +259,9 @@ const Portfolio = ({ language }: PortfolioProps) => {
       {/* Case Study Modal */}
       {selectedCase && (
         <Dialog open={!!selectedCase} onOpenChange={() => setSelectedCase(null)}>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-            {(() => {
-              const study = caseStudies.find(s => s.id === selectedCase);
-              if (!study) return null;
-              
-              return (
-                <>
-                  <DialogHeader>
-                    <DialogTitle className="asn-headline text-2xl">
-                      {study.title}
-                    </DialogTitle>
-                  </DialogHeader>
-                  
-                  <div className="space-y-8">
-                    {/* Image */}
-                    <div className="aspect-video bg-muted rounded-lg overflow-hidden">
-                      <img 
-                        src={study.image} 
-                        alt={study.title}
-                        className="w-full h-full object-cover filter grayscale"
-                      />
-                    </div>
-                    
-                    {/* Client & Tags */}
-                    <div className="flex items-center justify-between">
-                      <h3 className="asn-headline text-xl">{study.client}</h3>
-                      <div className="flex gap-2">
-                        {study.tags.map((tag) => (
-                          <Badge key={tag} variant="outline">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    {/* Description */}
-                    <p className="asn-body text-lg text-muted-foreground">
-                      {study.description}
-                    </p>
-                    
-                    {/* Challenge, Solution, Results */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                      <div className="space-y-4">
-                        <h4 className="asn-headline text-lg text-foreground">
-                          {isHindi ? "चुनौती" : "Challenge"}
-                        </h4>
-                        <p className="asn-body text-muted-foreground">
-                          {study.challenge}
-                        </p>
-                      </div>
-                      
-                      <div className="space-y-4">
-                        <h4 className="asn-headline text-lg text-foreground">
-                          {isHindi ? "समाधान" : "Solution"}
-                        </h4>
-                        <p className="asn-body text-muted-foreground">
-                          {study.solution}
-                        </p>
-                      </div>
-                      
-                      <div className="space-y-4">
-                        <h4 className="asn-headline text-lg text-foreground">
-                          {isHindi ? "परिणाम" : "Results"}
-                        </h4>
-                        <ul className="space-y-2">
-                          {study.results.map((result, index) => (
-                            <li key={index} className="asn-body text-muted-foreground flex items-center space-x-2">
-                              <div className="h-2 w-2 bg-foreground rounded-full flex-shrink-0"></div>
-                              <span>{result}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              );
-            })()}
-          </DialogContent>
+          <Suspense fallback={<div className="flex justify-center items-center min-h-[20vh] text-lg">Loading...</div>}>
+            <CaseStudyDialogContent caseId={selectedCase} caseStudies={caseStudies} />
+          </Suspense>
         </Dialog>
       )}
 

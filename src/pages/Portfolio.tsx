@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Link } from "react-router-dom";
 
 interface PortfolioProps {
   language: string;
@@ -338,7 +339,7 @@ const Portfolio = ({ language }: PortfolioProps) => {
 
       {/* CTA Section */}
       <section className="asn-section bg-foreground text-background">
-        <div className="asn-container text-center space-y-8">
+        <div className="asn-container text-center space-y-12">
           <h2 className="asn-headline text-3xl md:text-5xl text-background">
             {isHindi ? "अगली सफलता की कहानी आपकी हो सकती है" : "Your Success Story Could Be Next"}
           </h2>
@@ -348,9 +349,14 @@ const Portfolio = ({ language }: PortfolioProps) => {
               : "Join us today and start your journey to take your business to new heights."
             }
           </p>
-          <Button className="bg-background text-foreground hover:bg-background/90 px-8 py-4 font-bold tracking-wide uppercase">
-            {isHindi ? "अपना प्रोजेक्ट शुरू करें" : "Start Your Project"}
-          </Button>
+          <div className="pt-8">
+            <Link to="/contact">
+              <Button className="asn-button-primary px-10 py-5 text-lg font-bold tracking-wide uppercase shadow-lg hover:shadow-xl">
+                {isHindi ? "अपना प्रोजेक्ट शुरू करें" : "Start Your Project"}
+                <ArrowRight className="ml-3 h-5 w-5" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

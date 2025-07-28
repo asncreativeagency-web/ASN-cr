@@ -3,22 +3,31 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Session, User } from "@supabase/supabase-js";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import WhatsAppButton from "./components/WhatsAppButton";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Portfolio from "./pages/Portfolio";
-import ClientPortal from "./pages/ClientPortal";
 import Contact from "./pages/Contact";
-import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import { AnimatePresence, motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
 
 const queryClient = new QueryClient();
+
+// Scroll to top component
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 const App = () => {
   const [language, setLanguage] = useState("en");
@@ -59,6 +68,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <div id="animated-bg">
             <svg viewBox="0 0 2000 500" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M0 250 Q 500 100 1000 250 T 2000 250" stroke="#000" stroke-width="2" fill="none"/>
@@ -106,6 +116,7 @@ function PageTransitions({ language, isDark, setLanguage, setIsDark, user, sessi
         </motion.div>
       </AnimatePresence>
       <Footer language={language} />
+      <WhatsAppButton />
     </div>
   );
 }

@@ -70,7 +70,7 @@ const Footer = ({ language }: FooterProps) => {
               
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-background/60" />
-                <a href="tel:+919381617904" className="asn-body text-background/80 hover:text-background transition-colors">
+                <a href="https://wa.me/919381617904?text=Hi%21%20I%20want%20to%20call%20you%20on%20WhatsApp.%20Are%20you%20available%3F" target="_blank" rel="noopener noreferrer" className="asn-body text-background/80 hover:text-background transition-colors">
                   +91 93816 17904
                 </a>
               </div>

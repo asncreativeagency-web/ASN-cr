@@ -404,7 +404,7 @@ const Home = ({ language }: HomeProps) => {
               </Button>
             </Link>
             <a 
-              href="https://www.instagram.com/asncreativeagency/" 
+              href="https://www.instagram.com/advanced_solutions_network/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-background/80 hover:text-background transition-colors underline text-sm"

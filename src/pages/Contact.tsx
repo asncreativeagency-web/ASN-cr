@@ -200,7 +200,7 @@ const Contact = ({ language }: ContactProps) => {
       icon: Instagram,
       title: "Instagram",
       details: "@asncreativeagency",
-      action: "https://www.instagram.com/asncreativeagency/"
+      action: "https://www.instagram.com/advanced_solutions_network/"
     },
     {
       icon: MapPin,
@@ -484,7 +484,7 @@ const Contact = ({ language }: ContactProps) => {
                 {isHindi ? "WhatsApp पर चैट करें" : "Chat on WhatsApp"}
               </Button>
             </a>
-            <a href="https://www.instagram.com/asncreativeagency/" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/advanced_solutions_network/" target="_blank" rel="noopener noreferrer">
               <Button variant="outline" className="asn-button-secondary">
                 <Instagram className="mr-2 h-5 w-5" />
                 {isHindi ? "Instagram फॉलो करें" : "Follow on Instagram"}

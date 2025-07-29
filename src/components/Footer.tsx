@@ -17,7 +17,7 @@ const Footer = ({ language }: FooterProps) => {
   const [showTerms, setShowTerms] = useState(false);
 
   const socialLinks = [
-    { icon: Instagram, href: "https://www.instagram.com/asncreativeagency/", label: "Instagram" },
+    { icon: Instagram, href: "https://www.instagram.com/advanced_solutions_network/", label: "Instagram" },
     { icon: FaWhatsapp, href: "https://wa.me/919381617904?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?", label: "WhatsApp" },
   ];
 

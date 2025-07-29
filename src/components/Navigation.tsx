@@ -97,11 +97,7 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/95 backdrop-blur-sm border-b border-border"
-          : "bg-transparent"
-      }`}
+      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/95 backdrop-blur-sm border-b border-border`}
       role="navigation"
       aria-label="Main Navigation"
     >
@@ -133,27 +129,29 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
 
           {/* Controls */}
           <div className="flex items-center space-x-4">
-            {/* Language Toggle */}
+            {/* Language Toggle - always visible */}
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={() => setLanguage(language === "en" ? "hi" : "en")}
-              className="hidden md:flex items-center space-x-1"
+              className="flex items-center space-x-1 border-2 border-accent font-bold px-3 py-1 rounded-full text-xs tracking-wider hover:bg-accent hover:text-accent-foreground transition-all duration-200"
               aria-label="Toggle language"
             >
-              <Globe className="h-4 w-4" />
-              <span className="text-xs font-bold">{language.toUpperCase()}</span>
+              <Globe className="h-4 w-4 mr-1" />
+              <span>{language === "en" ? "EN" : "हिंदी"}</span>
             </Button>
 
-            {/* Theme Toggle */}
+            {/* Theme Toggle - always visible */}
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={toggleTheme}
-              className="hidden md:flex"
-              aria-label="Toggle dark mode"
+              className="flex items-center space-x-1 border-2 border-accent font-bold px-3 py-1 rounded-full text-xs tracking-wider hover:bg-accent hover:text-accent-foreground transition-all duration-200"
+              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
             >
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {isDark ? <Sun className="h-4 w-4 mr-1" /> : <Moon className="h-4 w-4 mr-1" />}
+              <span className="hidden sm:inline">{isDark ? "Light" : "Dark"}</span>
             </Button>
 
             {/* Mobile Menu Toggle */}
@@ -201,17 +199,25 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
               ))}
               <div className="flex items-center space-x-4 pt-4 border-t border-border">
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="sm"
                   onClick={() => setLanguage(language === "en" ? "hi" : "en")}
-                  className="flex items-center space-x-1"
+                  className="flex items-center space-x-1 border-2 border-accent font-bold px-3 py-1 rounded-full text-xs tracking-wider hover:bg-accent hover:text-accent-foreground transition-all duration-200"
                   aria-label="Toggle language"
                 >
-                  <Globe className="h-4 w-4" />
-                  <span className="text-xs font-bold">{language.toUpperCase()}</span>
+                  <Globe className="h-4 w-4 mr-1" />
+                  <span>{language === "en" ? "EN" : "हिंदी"}</span>
                 </Button>
-                <Button variant="ghost" size="sm" onClick={toggleTheme} aria-label="Toggle dark mode">
-                  {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={toggleTheme} 
+                  className="flex items-center space-x-1 border-2 border-accent font-bold px-3 py-1 rounded-full text-xs tracking-wider hover:bg-accent hover:text-accent-foreground transition-all duration-200"
+                  aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                  title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                >
+                  {isDark ? <Sun className="h-4 w-4 mr-1" /> : <Moon className="h-4 w-4 mr-1" />}
+                  <span>{isDark ? "Light" : "Dark"}</span>
                 </Button>
               </div>
             </div>

@@ -30,7 +30,7 @@
     
     /* Interactive States */
     --muted: 0 0% 95%;
-    --muted-foreground: 0 0% 30%;
+    --muted-foreground: 0 0% 25%;
     --accent: 0 0% 5%;
     --accent-foreground: 0 0% 100%;
     
@@ -80,7 +80,7 @@
     --ring: 0 0% 100%;
     
     --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 75%;
+    --muted-foreground: 0 0% 80%;
     --accent: 0 0% 95%;
     --accent-foreground: 0 0% 0%;
     
@@ -236,19 +236,46 @@ button:hover, .btn:hover, [role="button"]:hover {
 }
 
 button:focus, .btn:focus, [role="button"]:focus, a:focus, input:focus, select:focus, textarea:focus {
-  outline: 2px solid #000000;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-  z-index: 2;
-  transition: outline-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s;
 }
 
 .dark button:focus, .dark .btn:focus, .dark [role="button"]:focus, .dark a:focus, .dark input:focus, .dark select:focus, .dark textarea:focus {
-  outline: 2px solid #ffffff;
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: box-shadow 0.2s;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: 0 0% 0%;
+    --muted-foreground: 0 0% 0%;
+  }
+  
+  .dark {
+    --border: 0 0% 100%;
+    --muted-foreground: 0 0% 100%;
+  }
+}
+
+/* Focus visible for better keyboard navigation */
+.focus-visible {
+  outline: 2px solid currentColor;
   outline-offset: 2px;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
-  z-index: 2;
-  transition: outline-color 0.2s, box-shadow 0.2s;
 }
 
 /* Primary button styling */
@@ -370,4 +397,18 @@ img, video {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
 }

@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 
 interface ContactProps {
   language: string;
@@ -186,14 +187,14 @@ const Contact = ({ language }: ContactProps) => {
     {
       icon: Phone,
       title: isHindi ? "फोन" : "Phone",
-      details: "+91 93816 17904",
+      details: "+91 93816 17904, +91 98483 93730, +91 95481 75655",
       action: "tel:+919381617904"
     },
     {
   icon: MessageSquare,
   title: "WhatsApp",
-  details: "+91 93816 17904",
-  action: "https://wa.me/919381617904?text=Hello%21%20I%27m%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project%3F"
+  details: "+91 93816 17904, +91 98483 93730, +91 95481 75655",
+  action: "https://wa.me/919381617904?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?"
 },
 
     {
@@ -205,7 +206,7 @@ const Contact = ({ language }: ContactProps) => {
     {
       icon: MapPin,
       title: isHindi ? "पता" : "Address",
-      details: "ASN Agency, Balaji Nagar, Hyderabad, India - 500087",
+      details: "ASN Agency, Hyderabad, India - 500087",
       action: null
     }
   ];
@@ -380,7 +381,19 @@ const Contact = ({ language }: ContactProps) => {
                     </div>
                     <div className="space-y-1">
                       <h3 className="asn-headline text-sm">{info.title}</h3>
-                      {info.action ? (
+                      {info.action && info.title === (isHindi ? "फोन" : "Phone") ? (
+                        <div className="flex flex-col space-y-1">
+                          <a href="tel:+919381617904" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 93816 17904</a>
+                          <a href="tel:+919848393730" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 98483 93730</a>
+                          <a href="tel:+919548175655" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 95481 75655</a>
+                        </div>
+                      ) : info.action && info.title === "WhatsApp" ? (
+                        <div className="flex flex-col space-y-1">
+                          <a href="https://wa.me/919381617904?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 93816 17904</a>
+                          <a href="https://wa.me/919848393730?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 98483 93730</a>
+                          <a href="https://wa.me/919548175655?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 95481 75655</a>
+                        </div>
+                      ) : info.action ? (
                         <a 
                           href={info.action}
                           className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link"
@@ -478,22 +491,60 @@ const Contact = ({ language }: ContactProps) => {
             }
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://wa.me/919381617904?text=Hello%21%20I%27m%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project%3F" target="_blank" rel="noopener noreferrer">
-              <Button className="asn-button-primary">
-                <MessageSquare className="mr-2 h-5 w-5" />
-                {isHindi ? "WhatsApp पर चैट करें" : "Chat on WhatsApp"}
-              </Button>
-            </a>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button className="asn-button-primary text-lg px-8 py-4">
+                  {isHindi ? "हमारी टीम से बात करें" : "Talk to Our Team"}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent align="center" className="space-y-4 w-80">
+                <div className="text-center asn-headline text-lg mb-2">
+                  {isHindi ? "किस नंबर पर संपर्क करना चाहेंगे?" : "Choose a number to contact:"}
+                </div>
+                <div className="flex flex-col gap-2">
+                  <a href="https://wa.me/919381617904?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full asn-button-primary flex items-center justify-center gap-2">
+                      <MessageSquare className="h-5 w-5" />
+                      +91 93816 17904 (WhatsApp)
+                    </Button>
+                  </a>
+                  <a href="https://wa.me/919848393730?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full asn-button-primary flex items-center justify-center gap-2">
+                      <MessageSquare className="h-5 w-5" />
+                      +91 98483 93730 (WhatsApp)
+                    </Button>
+                  </a>
+                  <a href="https://wa.me/919548175655?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full asn-button-primary flex items-center justify-center gap-2">
+                      <MessageSquare className="h-5 w-5" />
+                      +91 95481 75655 (WhatsApp)
+                    </Button>
+                  </a>
+                  <a href="tel:+919381617904" target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" className="w-full asn-button-secondary flex items-center justify-center gap-2">
+                      <Phone className="h-5 w-5" />
+                      +91 93816 17904 (Call)
+                    </Button>
+                  </a>
+                  <a href="tel:+919848393730" target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" className="w-full asn-button-secondary flex items-center justify-center gap-2">
+                      <Phone className="h-5 w-5" />
+                      +91 98483 93730 (Call)
+                    </Button>
+                  </a>
+                  <a href="tel:+919548175655" target="_blank" rel="noopener noreferrer">
+                    <Button variant="outline" className="w-full asn-button-secondary flex items-center justify-center gap-2">
+                      <Phone className="h-5 w-5" />
+                      +91 95481 75655 (Call)
+                    </Button>
+                  </a>
+                </div>
+              </PopoverContent>
+            </Popover>
             <a href="https://www.instagram.com/advanced_solutions_network/" target="_blank" rel="noopener noreferrer">
               <Button variant="outline" className="asn-button-secondary">
                 <Instagram className="mr-2 h-5 w-5" />
                 {isHindi ? "Instagram फॉलो करें" : "Follow on Instagram"}
-              </Button>
-            </a>
-            <a href="https://wa.me/919381617904?text=Hi%21%20I%20want%20to%20call%20you%20on%20WhatsApp.%20Are%20you%20available%3F" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="asn-button-secondary">
-                <Phone className="mr-2 h-5 w-5" />
-                {isHindi ? "WhatsApp पर कॉल करें" : "Call on WhatsApp"}
               </Button>
             </a>
           </div>

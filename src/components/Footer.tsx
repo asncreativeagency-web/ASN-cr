@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import { Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { Instagram, Mail, Phone, MapPin, Send, ExternalLink } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { Suspense, lazy, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface FooterProps {
   language: string;
@@ -15,21 +17,53 @@ const Footer = ({ language }: FooterProps) => {
   const isHindi = language === "hi";
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
   const socialLinks = [
-    { icon: Instagram, href: "https://www.instagram.com/advanced_solutions_network/", label: "Instagram" },
-    { icon: FaWhatsapp, href: "https://wa.me/919381617904?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?", label: "WhatsApp" },
+    { 
+      icon: Instagram, 
+      href: "https://www.instagram.com/advanced_solutions_network/", 
+      label: "Instagram",
+      color: "hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500"
+    },
+    { 
+      icon: FaWhatsapp, 
+      href: "https://wa.me/919381617904?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?", 
+      label: "WhatsApp",
+      color: "hover:bg-green-500"
+    },
+    { 
+      icon: Mail, 
+      href: "mailto:contact@asncreativeagency.com", 
+      label: "Email",
+      color: "hover:bg-blue-500"
+    },
   ];
 
-  const legalLinks = [
-    { name: isHindi ? "गोपनीयता नीति" : "Privacy Policy", path: "/privacy" },
-    { name: isHindi ? "सेवा की शर्तें" : "Terms of Service", path: "/terms" },
+  const quickLinks = [
+    { name: isHindi ? "सेवाएं" : "Services", path: "/services" },
+    { name: isHindi ? "पोर्टफोलियो" : "Portfolio", path: "/portfolio" },
+    { name: isHindi ? "संपर्क" : "Contact", path: "/contact" },
+    { name: isHindi ? "गोपनीयता नीति" : "Privacy Policy", action: () => setShowPrivacy(true) },
+    { name: isHindi ? "सेवा की शर्तें" : "Terms of Service", action: () => setShowTerms(true) },
+    { name: isHindi ? "साइटमैप" : "Sitemap", path: "/sitemap" },
   ];
+
+  const handleNewsletterSignup = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      setIsSubscribed(true);
+      setEmail("");
+      // Here you would typically send the email to your newsletter service
+      setTimeout(() => setIsSubscribed(false), 3000);
+    }
+  };
 
   return (
     <footer className="bg-foreground text-background">
       <div className="asn-container asn-section">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {/* Brand */}
           <div className="space-y-6">
             <h3 className="asn-headline text-3xl text-background">
@@ -43,13 +77,15 @@ const Footer = ({ language }: FooterProps) => {
             </p>
             
             {/* Social Links */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-3">
               {socialLinks.map((social, index) => (
                 <a
                   key={index}
                   href={social.href}
                   aria-label={social.label}
-                  className="p-2 border border-background/20 hover:border-background hover:bg-background hover:text-foreground transition-all duration-300"
+                  className={`p-3 border border-background/20 hover:border-background transition-all duration-300 rounded-full ${social.color} hover:text-white`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <social.icon className="h-5 w-5" />
                 </a>
@@ -71,17 +107,25 @@ const Footer = ({ language }: FooterProps) => {
                 </a>
               </div>
               
-              <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-background/60" />
-                <a href="https://wa.me/919381617904?text=Hi%21%20I%20want%20to%20call%20you%20on%20WhatsApp.%20Are%20you%20available%3F" target="_blank" rel="noopener noreferrer" className="asn-body text-background/80 hover:text-background transition-colors">
-                  +91 93816 17904
-                </a>
+              <div className="flex items-start space-x-3">
+                <Phone className="h-5 w-5 text-background/60 mt-1" />
+                <div className="flex flex-col space-y-1">
+                  <a href="https://wa.me/919381617904?text=Hi!%20I%20want%20to%20call%20you%20on%20WhatsApp.%20Are%20you%20available?" target="_blank" rel="noopener noreferrer" className="asn-body text-background/80 hover:text-background transition-colors">
+                    +91 93816 17904
+                  </a>
+                  <a href="https://wa.me/919848393730?text=Hi!%20I%20want%20to%20call%20you%20on%20WhatsApp.%20Are%20you%20available?" target="_blank" rel="noopener noreferrer" className="asn-body text-background/80 hover:text-background transition-colors">
+                    +91 98483 93730
+                  </a>
+                  <a href="https://wa.me/919548175655?text=Hi!%20I%20want%20to%20call%20you%20on%20WhatsApp.%20Are%20you%20available?" target="_blank" rel="noopener noreferrer" className="asn-body text-background/80 hover:text-background transition-colors">
+                    +91 95481 75655
+                  </a>
+                </div>
               </div>
               
               <div className="flex items-center space-x-3">
                 <MapPin className="h-5 w-5 text-background/60" />
                 <span className="asn-body text-background/80">
-                  ASN Agency, Balaji Nagar, Hyderabad, India - 500087
+                  ASN Agency, Hyderabad, India - 500087
                 </span>
               </div>
             </div>
@@ -94,15 +138,66 @@ const Footer = ({ language }: FooterProps) => {
             </h4>
             
             <div className="space-y-3">
-              <Link to="/services" className="block asn-body text-background/80 hover:text-background transition-colors">
-                {isHindi ? "सेवाएं" : "Services"}
-              </Link>
-              <Link to="/portfolio" className="block asn-body text-background/80 hover:text-background transition-colors">
-                {isHindi ? "पोर्टफोलियो" : "Portfolio"}
-              </Link>
-              <Link to="/contact" className="block asn-body text-background/80 hover:text-background transition-colors">
-                {isHindi ? "संपर्क" : "Contact"}
-              </Link>
+              {quickLinks.map((link, index) => (
+                link.action ? (
+                  <button
+                    key={index}
+                    onClick={link.action}
+                    className="block asn-body text-background/80 hover:text-background transition-colors text-left"
+                  >
+                    {link.name}
+                  </button>
+                ) : (
+                  <Link 
+                    key={index}
+                    to={link.path} 
+                    className="block asn-body text-background/80 hover:text-background transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                )
+              ))}
+            </div>
+          </div>
+
+          {/* Newsletter Signup */}
+          <div className="space-y-6">
+            <h4 className="asn-headline text-xl text-background">
+              {isHindi ? "न्यूज़लेटर" : "NEWSLETTER"}
+            </h4>
+            
+            <div className="space-y-4">
+              <p className="asn-body text-background/80 text-sm">
+                {isHindi 
+                  ? "डिजिटल विकास टिप्स के बारे में जानकारी रखें।"
+                  : "Stay in the know about digital growth tips."
+                }
+              </p>
+              
+              <form onSubmit={handleNewsletterSignup} className="space-y-3">
+                <div className="flex space-x-2">
+                  <Input
+                    type="email"
+                    placeholder={isHindi ? "आपका ईमेल" : "Your email"}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="bg-background/10 border-background/20 text-background placeholder:text-background/60 focus:border-background"
+                    required
+                  />
+                  <Button 
+                    type="submit" 
+                    className="bg-background text-foreground hover:bg-background/90 px-4"
+                    disabled={isSubscribed}
+                  >
+                    <Send className="h-4 w-4" />
+                  </Button>
+                </div>
+                {isSubscribed && (
+                  <p className="text-green-400 text-sm">
+                    {isHindi ? "सफलतापूर्वक सब्सक्राइब किया गया!" : "Successfully subscribed!"}
+                  </p>
+                )}
+              </form>
             </div>
           </div>
         </div>
@@ -113,30 +208,29 @@ const Footer = ({ language }: FooterProps) => {
             © 2025 ASN Creative Agency. {isHindi ? "सभी अधिकार सुरक्षित।" : "All rights reserved."}
           </p>
           
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <button onClick={() => setShowPrivacy(true)} className="asn-body text-background/60 hover:text-background transition-colors text-sm underline">
-              {isHindi ? "गोपनीयता नीति" : "Privacy Policy"}
-            </button>
-            <button onClick={() => setShowTerms(true)} className="asn-body text-background/60 hover:text-background transition-colors text-sm underline">
-              {isHindi ? "सेवा की शर्तें" : "Terms of Service"}
-            </button>
-            {legalLinks.filter(link => link.name !== (isHindi ? "गोपनीयता नीति" : "Privacy Policy") && link.name !== (isHindi ? "सेवा की शर्तें" : "Terms of Service")).map((link, index) => (
-              <Link
-                key={index}
-                to={link.path}
-                className="asn-body text-background/60 hover:text-background transition-colors text-sm"
-              >
-                {link.name}
-              </Link>
-            ))}
+          <div className="flex items-center space-x-4 mt-4 md:mt-0">
+            <span className="asn-body text-background/40 text-xs">
+              {isHindi ? "वेबसाइट द्वारा" : "Powered by"}
+            </span>
+            <a 
+              href="https://asncreativeagency.in" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center space-x-1 text-background/60 hover:text-background transition-colors text-sm"
+            >
+              <span>ASN Creative Agency</span>
+              <ExternalLink className="h-3 w-3" />
+            </a>
           </div>
         </div>
+
         {/* Privacy Policy Modal */}
         <Dialog open={showPrivacy} onOpenChange={setShowPrivacy}>
           <Suspense fallback={<div className="flex justify-center items-center min-h-[20vh] text-lg">Loading...</div>}>
             <PrivacyPolicyDialogContent />
           </Suspense>
         </Dialog>
+
         {/* Terms of Service Modal */}
         <Dialog open={showTerms} onOpenChange={setShowTerms}>
           <Suspense fallback={<div className="flex justify-center items-center min-h-[20vh] text-lg">Loading...</div>}>

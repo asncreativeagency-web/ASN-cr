@@ -411,7 +411,6 @@ img, video {
 
 .animate-marquee {
   animation: marquee 40s linear infinite;
-<<<<<<< HEAD
 }
 
 /* Mobile Navigation Fixes */
@@ -514,6 +513,4 @@ img, video {
     min-width: 44px;
     min-height: 44px;
   }
-=======
->>>>>>> 34ab912b05a5955db21a7b3dad38a99ca855e282
 }

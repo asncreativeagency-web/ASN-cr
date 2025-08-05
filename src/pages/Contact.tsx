@@ -57,7 +57,7 @@ const Contact = ({ language }: ContactProps) => {
     "गूगल विज्ञापन",
     "मेटा विज्ञापन",
     "सामाजिक मीडिया मार्केटिंग",
-    "ईमेल मार्केटिंग",
+    "ईमेंल मार्केटिंग",
     "कंटेंट मार्केटिंग",
     "यूआई/यूएक्स डिज़ाइन",
     "लोगो और ब्रांडिंग",
@@ -187,13 +187,13 @@ const Contact = ({ language }: ContactProps) => {
     {
       icon: Phone,
       title: isHindi ? "फोन" : "Phone",
-      details: "+91 93816 17904, +91 98483 93730, +91 95481 75655",
+      details: "+91 93816 17904, +91 98483 93730",
       action: "tel:+919381617904"
     },
     {
   icon: MessageSquare,
   title: "WhatsApp",
-  details: "+91 93816 17904, +91 98483 93730, +91 95481 75655",
+  details: "+91 93816 17904, +91 98483 93730",
   action: "https://wa.me/919381617904?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?"
 },
 
@@ -385,13 +385,11 @@ const Contact = ({ language }: ContactProps) => {
                         <div className="flex flex-col space-y-1">
                           <a href="tel:+919381617904" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 93816 17904</a>
                           <a href="tel:+919848393730" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 98483 93730</a>
-                          <a href="tel:+919548175655" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 95481 75655</a>
                         </div>
                       ) : info.action && info.title === "WhatsApp" ? (
                         <div className="flex flex-col space-y-1">
                           <a href="https://wa.me/919381617904?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 93816 17904</a>
                           <a href="https://wa.me/919848393730?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 98483 93730</a>
-                          <a href="https://wa.me/919548175655?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 95481 75655</a>
                         </div>
                       ) : info.action ? (
                         <a 
@@ -514,12 +512,6 @@ const Contact = ({ language }: ContactProps) => {
                       +91 98483 93730 (WhatsApp)
                     </Button>
                   </a>
-                  <a href="https://wa.me/919548175655?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" target="_blank" rel="noopener noreferrer">
-                    <Button className="w-full asn-button-primary flex items-center justify-center gap-2">
-                      <MessageSquare className="h-5 w-5" />
-                      +91 95481 75655 (WhatsApp)
-                    </Button>
-                  </a>
                   <a href="tel:+919381617904" target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" className="w-full asn-button-secondary flex items-center justify-center gap-2">
                       <Phone className="h-5 w-5" />
@@ -530,12 +522,6 @@ const Contact = ({ language }: ContactProps) => {
                     <Button variant="outline" className="w-full asn-button-secondary flex items-center justify-center gap-2">
                       <Phone className="h-5 w-5" />
                       +91 98483 93730 (Call)
-                    </Button>
-                  </a>
-                  <a href="tel:+919548175655" target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" className="w-full asn-button-secondary flex items-center justify-center gap-2">
-                      <Phone className="h-5 w-5" />
-                      +91 95481 75655 (Call)
                     </Button>
                   </a>
                 </div>

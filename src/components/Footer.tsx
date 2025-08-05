@@ -116,9 +116,6 @@ const Footer = ({ language }: FooterProps) => {
                   <a href="https://wa.me/919848393730?text=Hi!%20I%20want%20to%20call%20you%20on%20WhatsApp.%20Are%20you%20available?" target="_blank" rel="noopener noreferrer" className="asn-body text-background/80 hover:text-background transition-colors">
                     +91 98483 93730
                   </a>
-                  <a href="https://wa.me/919548175655?text=Hi!%20I%20want%20to%20call%20you%20on%20WhatsApp.%20Are%20you%20available?" target="_blank" rel="noopener noreferrer" className="asn-body text-background/80 hover:text-background transition-colors">
-                    +91 95481 75655
-                  </a>
                 </div>
               </div>
               

@@ -24,23 +24,11 @@ function useIsDarkMode() {
   return isDark;
 }
 
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-  return isMobile;
-}
-
 const Home = ({ language }: HomeProps) => {
   const [userLocation, setUserLocation] = useState<string>("");
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const isHindi = language === "hi";
   const isDark = useIsDarkMode();
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Detect user location (simplified)
@@ -335,8 +323,8 @@ const Home = ({ language }: HomeProps) => {
         opacity: isDark ? 0.3 : 0.5,
         filter: 'grayscale(100%)'
       }} />
-      {/* Only show SVG and dots if not mobile */}
-      {!isMobile && <>
+      {/* SVG and dots are now controlled by CSS for responsiveness */}
+      <div className="hidden md:block">
         <div style={{ opacity: isDark ? 0.25 : 0.25 }}>
           <svg viewBox="0 0 2000 500" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '200vw', height: '100%', display: 'block', animation: 'waveMove 18s linear infinite' }}>
             <path d="M0 250 Q 500 100 1000 250 T 2000 250" stroke={isDark ? '#fff' : '#000'} strokeWidth="2" fill="none" opacity={isDark ? 0.18 : 0.18}/>
@@ -397,7 +385,7 @@ const Home = ({ language }: HomeProps) => {
             />
           ))}
         </div>
-      </>}
+      </div>
     </div>
   );
 
@@ -494,11 +482,11 @@ const Home = ({ language }: HomeProps) => {
           </p>
 
           {/* Trust Metrics */}
-          <div className="flex flex-wrap justify-center gap-6 mt-6 mb-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 mb-2">
             {metrics.map((metric, i) => (
-              <div key={i} className="flex flex-col items-center bg-background/80 rounded-xl px-6 py-3 shadow-sm border border-border min-w-[120px]">
-                <span className="text-3xl font-extrabold tracking-tight text-foreground flex items-center gap-2">
-                  <metric.icon className="inline-block h-6 w-6 text-accent" /> {metric.number}
+              <div key={i} className="flex flex-col items-center bg-background/80 rounded-xl p-3 shadow-sm border border-border">
+                <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground flex items-center gap-2">
+                  <metric.icon className="inline-block h-5 w-5 sm:h-6 sm:w-6 text-accent" /> {metric.number}
                 </span>
                 <span className="text-xs font-medium text-muted-foreground mt-1 text-center uppercase tracking-wider">{metric.label}</span>
               </div>
@@ -578,7 +566,7 @@ const Home = ({ language }: HomeProps) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -629,7 +617,7 @@ const Home = ({ language }: HomeProps) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             {featuredServices.map((service, index) => (
               <motion.div
                 key={index}
@@ -711,7 +699,7 @@ const Home = ({ language }: HomeProps) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8">
             {processSteps.map((step, index) => (
               <motion.div
                 key={index}
@@ -816,79 +804,10 @@ const Home = ({ language }: HomeProps) => {
           </div>
 
           {/* Continuous Scrolling Marquee */}
-          <div className="relative overflow-hidden">
-            <div className="flex animate-marquee">
-              {/* First set of testimonials */}
-              {testimonials.map((testimonial, index) => (
-                <div key={`first-${index}`} className="flex-shrink-0 w-80 mx-4">
-                  <div className="bg-background/30 backdrop-blur-md border border-border/50 hover:border-foreground/30 transition-all duration-300 p-6 rounded-xl h-full shadow-sm">
-                    <div className="flex items-center space-x-4 mb-4">
-                      <div className="flex-shrink-0">
-                        <img 
-                          src={testimonial.photo} 
-                          alt={`${testimonial.name} - ${testimonial.role} - ASN Creative Agency client testimonial`}
-                          className="w-12 h-12 rounded-full object-cover border border-accent/50 shadow-sm"
-                          loading="lazy"
-                          decoding="async"
-                          onError={(e) => {
-                            e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f3f4f6'/%3E%3Ctext x='50' y='50' font-family='Arial' font-size='24' fill='%236b7280' text-anchor='middle' dy='.3em'%3E👤%3C/text%3E%3C/svg%3E";
-                          }}
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="asn-headline text-lg text-foreground truncate">
-                          {testimonial.name}
-                        </h3>
-                        <p className="asn-body text-sm text-muted-foreground truncate">
-                          {testimonial.role}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <blockquote className="asn-body text-sm italic text-foreground/80 leading-relaxed line-clamp-3">
-                      "{testimonial.quote}"
-                    </blockquote>
-                  </div>
-                </div>
-              ))}
-              
-              {/* Duplicate set for seamless loop */}
-              {testimonials.map((testimonial, index) => (
-                <div key={`second-${index}`} className="flex-shrink-0 w-80 mx-4">
-                  <div className="bg-background/30 backdrop-blur-md border border-border/50 hover:border-foreground/30 transition-all duration-300 p-6 rounded-xl h-full shadow-sm">
-                    <div className="flex items-center space-x-4 mb-4">
-                      <div className="flex-shrink-0">
-                        <img 
-                          src={testimonial.photo} 
-                          alt={`${testimonial.name} - ${testimonial.role} - ASN Creative Agency client testimonial`}
-                          className="w-12 h-12 rounded-full object-cover border border-accent/50 shadow-sm"
-                          loading="lazy"
-                          decoding="async"
-                          onError={(e) => {
-                            e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f3f4f6'/%3E%3Ctext x='50' y='50' font-family='Arial' font-size='24' fill='%236b7280' text-anchor='middle' dy='.3em'%3E👤%3C/text%3E%3C/svg%3E";
-                          }}
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="asn-headline text-lg text-foreground truncate">
-                          {testimonial.name}
-                        </h3>
-                        <p className="asn-body text-sm text-muted-foreground truncate">
-                          {testimonial.role}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <blockquote className="asn-body text-sm italic text-foreground/80 leading-relaxed line-clamp-3">
-                      "{testimonial.quote}"
-                    </blockquote>
-                  </div>
-                </div>
-              ))}
-              
-              {/* Third set for full width loop */}
-              {testimonials.map((testimonial, index) => (
-                <div key={`third-${index}`} className="flex-shrink-0 w-80 mx-4">
+          <div className="relative overflow-hidden group">
+            <div className="flex animate-marquee group-hover:pause">
+              {[...testimonials, ...testimonials].map((testimonial, index) => (
+                <div key={index} className="flex-shrink-0 w-[90vw] sm:w-[45vw] md:w-[30vw] lg:w-[25vw] mx-4">
                   <div className="bg-background/30 backdrop-blur-md border border-border/50 hover:border-foreground/30 transition-all duration-300 p-6 rounded-xl h-full shadow-sm">
                     <div className="flex items-center space-x-4 mb-4">
                       <div className="flex-shrink-0">
@@ -946,7 +865,7 @@ const Home = ({ language }: HomeProps) => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {portfolioProjects.map((project, index) => (
               <motion.div
                 key={project.id}
@@ -1061,9 +980,9 @@ const Home = ({ language }: HomeProps) => {
               </div>
 
               {/* Project Details */}
-              <div className="p-8">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm font-bold text-accent uppercase tracking-wider">
+              <div className="p-4 sm:p-8">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4">
+                  <span className="text-sm font-bold text-accent uppercase tracking-wider mb-2 sm:mb-0">
                     {selectedProject.category}
                   </span>
                   <span className="text-sm text-muted-foreground">
@@ -1071,7 +990,7 @@ const Home = ({ language }: HomeProps) => {
                   </span>
                 </div>
 
-                <h2 className="asn-headline text-2xl mb-4 text-foreground">
+                <h2 className="asn-headline text-xl sm:text-2xl mb-4 text-foreground">
                   {selectedProject.title}
                 </h2>
 
@@ -1110,7 +1029,7 @@ const Home = ({ language }: HomeProps) => {
                 </div>
 
                 {/* CTA */}
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Button 
                     className="asn-button-primary flex-1"
                     onClick={() => {

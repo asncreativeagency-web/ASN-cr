@@ -182,8 +182,8 @@ const Portfolio = ({ language }: PortfolioProps) => {
           </h1>
           <p className="asn-body text-xl text-muted-foreground max-w-3xl mx-auto">
             {isHindi
-              ? "सफलता की कहानियां जो हमारी विशेषज्ञता और प्रतिबद्धता को दर्शाती हैं।"
-              : "Success stories that showcase our expertise and commitment to excellence."
+              ? "Discover How We Can Elevate Your Business! सफलता की कहानियां जो हमारी विशेषज्ञता और प्रतिबद्धता को दर्शाती हैं।"
+              : "Discover How We Can Elevate Your Business! Success stories that showcase our expertise and commitment to excellence."
             }
           </p>
         </div>
@@ -274,13 +274,13 @@ const Portfolio = ({ language }: PortfolioProps) => {
           <p className="asn-body text-xl text-background/80 max-w-2xl mx-auto">
             {isHindi
               ? "आज ही हमसे जुड़ें और अपने व्यापार को नई ऊंचाइयों पर ले जाने की यात्रा शुरू करें।"
-              : "Join us today and start your journey to take your business to new heights."
+              : "Ready to create your own success story? Join us today and start your journey to take your business to new heights."
             }
           </p>
           <div className="pt-8">
             <Link to="/contact">
               <Button className="asn-button-primary px-10 py-5 text-lg font-bold tracking-wide uppercase shadow-lg hover:shadow-xl">
-                {isHindi ? "अपना प्रोजेक्ट शुरू करें" : "Start Your Project"}
+                {isHindi ? "अपने प्रोजेक्ट के बारे में बात करें!" : "Discover How We Can Elevate Your Business!"}
                 <ArrowRight className="ml-3 h-5 w-5" />
               </Button>
             </Link>

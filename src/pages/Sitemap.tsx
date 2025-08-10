@@ -20,7 +20,7 @@ const Sitemap = ({ language }: SitemapProps) => {
     { name: isHindi ? "वेब डेवलपमेंट" : "Web Development", description: isHindi ? "आधुनिक वेबसाइटें" : "Modern websites" },
     { name: isHindi ? "डिजिटल मार्केटिंग" : "Digital Marketing", description: isHindi ? "Meta Ads और Google Ads" : "Meta Ads and Google Ads" },
     { name: isHindi ? "ड्रॉपशिपिंग" : "Dropshipping", description: isHindi ? "ई-कॉमर्स समाधान" : "E-commerce solutions" },
-    { name: isHindi ? "व्यापार निष्पादन" : "Business Execution", description: isHindi ? "विचार से लॉन्च तक" : "From idea to launch" },
+    { name: isHindi ? "व्यापार निष्पादन" : "Business Execution", description: isHindi ? "हमारी डिजिटल मार्केटिंग एजेंसी आपके विचारों को सफल व्यवसायों में बदलती है" : "Our digital marketing agency transforms your ideas into successful businesses" },
   ];
 
   const clientPortal = [
@@ -61,8 +61,8 @@ const Sitemap = ({ language }: SitemapProps) => {
             </h1>
             <p className="asn-body text-xl text-muted-foreground max-w-3xl mx-auto">
               {isHindi 
-                ? "ASN Creative Agency की वेबसाइट का पूरा नक्शा। सभी पृष्ठों और सेवाओं का विवरण।"
-                : "Complete map of ASN Creative Agency website. Overview of all pages and services."
+                ? "Discover How We Can Elevate Your Business! ASN Creative Agency की वेबसाइट का पूरा नक्शा। सभी पृष्ठों और सेवाओं का विवरण।"
+                : "Discover How We Can Elevate Your Business! Complete map of ASN Creative Agency website. Overview of all pages and services."
               }
             </p>
           </div>

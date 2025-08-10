@@ -221,8 +221,8 @@ const Contact = ({ language }: ContactProps) => {
           </h1>
           <p className="asn-body text-xl text-muted-foreground max-w-3xl mx-auto">
             {isHindi
-              ? "आपके डिजिटल साम्राज्य की शुरुआत एक बातचीत से होती है। आज ही हमसे जुड़ें।"
-              : "Your digital empire starts with a conversation. Let's connect and make it happen."
+              ? "Discover How We Can Elevate Your Business! आपके डिजिटल साम्राज्य की शुरुआत एक बातचीत से होती है। आज ही हमसे जुड़ें।"
+              : "Discover How We Can Elevate Your Business! Your digital empire starts with a conversation. Let's connect and make it happen."
             }
           </p>
           {userCountry && (
@@ -250,8 +250,8 @@ const Contact = ({ language }: ContactProps) => {
                 </CardTitle>
                 <p className="asn-body text-muted-foreground">
                   {isHindi
-                    ? "अपने प्रोजेक्ट के बारे में बताएं और हम आपको सर्वोत्तम समाधान प्रदान करेंगे।"
-                    : "Tell us about your project and we'll provide you with the best solution."
+                    ? "Discover How We Can Elevate Your Business! अपने प्रोजेक्ट के बारे में बताएं और हम आपको सर्वोत्तम समाधान प्रदान करेंगे।"
+                    : "Discover How We Can Elevate Your Business! Tell us about your project and we'll provide you with the best solution."
                   }
                 </p>
               </CardHeader>
@@ -492,7 +492,7 @@ const Contact = ({ language }: ContactProps) => {
             <Popover>
               <PopoverTrigger asChild>
                 <Button className="asn-button-primary text-lg px-8 py-4">
-                  {isHindi ? "हमारी टीम से बात करें" : "Talk to Our Team"}
+                  {isHindi ? "अपने प्रोजेक्ट के बारे में बात करें!" : "Let's Talk About Your Project!"}
                 </Button>
               </PopoverTrigger>
               <PopoverContent align="center" className="space-y-4 w-80">

@@ -30,6 +30,8 @@ const Services = lazy(() => import("./pages/Services"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Sitemap = lazy(() => import("./pages/Sitemap"));
+const CTAAnalysis = lazy(() => import("./pages/CTAAnalysis"));
+const CTADemo = lazy(() => import("./pages/CTADemo"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => {
@@ -120,6 +122,8 @@ function PageTransitions({ language, isDark, setLanguage, setIsDark, user, sessi
               <Route path="/portfolio" element={<Portfolio language={language} />} />
               <Route path="/contact" element={<Contact language={language} />} />
               <Route path="/sitemap" element={<Sitemap language={language} />} />
+              <Route path="/cta-analysis" element={<CTAAnalysis />} />
+              <Route path="/cta-demo" element={<CTADemo />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

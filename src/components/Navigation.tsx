@@ -27,6 +27,7 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
     { name: "HOME", path: "/" },
     { name: "SERVICES", path: "/services" },
     { name: "PORTFOLIO", path: "/portfolio" },
+    { name: "CTA ANALYSIS", path: "/cta-analysis" },
     { name: "CONTACT", path: "/contact" },
   ];
 
@@ -171,6 +172,12 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
                 {link.name}
               </Link>
             ))}
+            {/* CTA Button */}
+            <Link to="/contact">
+              <Button className="bg-black text-white hover:bg-white hover:text-black border border-black font-bold px-6 py-2 rounded-full text-sm tracking-wider transition-all duration-300">
+                {language === "hi" ? "अपने प्रोजेक्ट के बारे में बात करें!" : "Discover How We Can Elevate Your Business!"}
+              </Button>
+            </Link>
           </div>
 
           {/* Controls */}

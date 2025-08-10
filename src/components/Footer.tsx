@@ -63,7 +63,7 @@ const Footer = ({ language }: FooterProps) => {
   return (
     <footer className="bg-foreground text-background">
       <div className="asn-container asn-section">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-16 lg:gap-20">
           {/* Brand */}
           <div className="space-y-6">
             <h3 className="asn-headline text-3xl text-background">
@@ -71,8 +71,8 @@ const Footer = ({ language }: FooterProps) => {
             </h3>
             <p className="asn-body text-background/80 max-w-md leading-relaxed">
               {isHindi 
-                ? "आपका डिजिटल साम्राज्य यहाँ शुरू होता है। अंतर्राष्ट्रीय स्तर पर विश्वसनीय व्यापारिक भागीदार।"
-                : "Your digital empire starts here. International trusted business partner delivering excellence worldwide."
+                ? "Discover How We Can Elevate Your Business! आपका डिजिटल साम्राज्य यहाँ शुरू होता है। अंतर्राष्ट्रीय स्तर पर विश्वसनीय व्यापारिक भागीदार।"
+                : "Discover How We Can Elevate Your Business! Your digital empire starts here. International trusted business partner delivering excellence worldwide."
               }
             </p>
             
@@ -94,15 +94,15 @@ const Footer = ({ language }: FooterProps) => {
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-6">
+          <div className="space-y-6 pr-4 md:pr-6">
             <h4 className="asn-headline text-xl text-background">
               {isHindi ? "संपर्क करें" : "GET IN TOUCH"}
             </h4>
             
             <div className="space-y-4">
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 min-w-0">
                 <Mail className="h-5 w-5 text-background/60 flex-shrink-0" />
-                <a href="mailto:contact@asncreativeagency.com" className="asn-body text-background/80 hover:text-background transition-colors break-all">
+                <a href="mailto:contact@asncreativeagency.com" className="asn-body text-background/80 hover:text-background transition-colors break-words whitespace-normal">
                   contact@asncreativeagency.com
                 </a>
               </div>
@@ -142,7 +142,7 @@ const Footer = ({ language }: FooterProps) => {
                     onClick={link.action}
                     className="block asn-body text-background/80 hover:text-background transition-colors text-left"
                   >
-                    {link.name}
+                    <span className="asn-link inline-block">{link.name}</span>
                   </button>
                 ) : (
                   <Link 
@@ -150,7 +150,7 @@ const Footer = ({ language }: FooterProps) => {
                     to={link.path} 
                     className="block asn-body text-background/80 hover:text-background transition-colors"
                   >
-                    {link.name}
+                    <span className="asn-link inline-block">{link.name}</span>
                   </Link>
                 )
               ))}
@@ -166,8 +166,8 @@ const Footer = ({ language }: FooterProps) => {
             <div className="space-y-4">
               <p className="asn-body text-background/80 text-sm">
                 {isHindi 
-                  ? "डिजिटल विकास टिप्स के बारे में जानकारी रखें।"
-                  : "Stay in the know about digital growth tips."
+                  ? "Discover How We Can Elevate Your Business! डिजिटल विकास टिप्स के बारे में जानकारी रखें।"
+                  : "Discover How We Can Elevate Your Business! Stay in the know about digital growth tips."
                 }
               </p>
               
@@ -215,7 +215,7 @@ const Footer = ({ language }: FooterProps) => {
               rel="noopener noreferrer"
               className="flex items-center space-x-1 text-background/60 hover:text-background transition-colors text-sm"
             >
-              <span>ASN Creative Agency</span>
+              <span className="asn-link inline-block">ASN Creative Agency</span>
               <ExternalLink className="h-3 w-3" />
             </a>
           </div>

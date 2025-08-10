@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface ServicesProps {
   language: string;
@@ -27,7 +28,7 @@ const Services = ({ language }: ServicesProps) => {
         isHindi ? "सामाजिक मीडिया सेटअप" : "Social Media Setup"
       ],
       popular: false,
-      cta: isHindi ? "शुरू करें" : "Get Started",
+      cta: isHindi ? "अपने प्रोजेक्ट के बारे में बात करें!" : "Let's Talk About Your Project!",
       category: "development"
     },
     {
@@ -95,7 +96,7 @@ const Services = ({ language }: ServicesProps) => {
         "Social Media Setup"
       ],
       popular: false,
-      cta: "Get Started",
+      cta: "Let's Talk About Your Project!",
       category: "development"
     },
     {
@@ -324,6 +325,18 @@ const Services = ({ language }: ServicesProps) => {
       ],
       category: "marketing"
     },
+    // Business Execution
+    {
+      title: isHindi ? "व्यापार निष्पादन" : "Business Execution",
+      subtitle: "Strategy",
+      description: isHindi ? "रणनीतिक योजनाओं को कार्यान्वित करने और परिणाम प्राप्त करने के लिए" : "Transform strategic plans into actionable results through systematic implementation",
+      features: [
+        isHindi ? "रणनीतिक योजना और संरेखण" : "Strategic Planning & Alignment",
+        isHindi ? "कार्यान्वयन और निष्पादन" : "Implementation & Execution",
+        isHindi ? "निगरानी और नियंत्रण" : "Monitoring & Control"
+      ],
+      category: "strategy"
+    },
     // Design
     {
       title: isHindi ? "यूआई/यूएक्स डिज़ाइन" : "UI/UX Design",
@@ -364,6 +377,83 @@ const Services = ({ language }: ServicesProps) => {
     ? allServices
     : allServices.filter(service => service.category === selectedCategory);
 
+  // Helper: benefits and strategic role per service
+  const getServiceBenefits = (title: string, subtitle: string, category: string): string => {
+    const t = title.toLowerCase();
+    if (t.includes("search engine") || subtitle === "SEO") {
+      return isHindi ? "ऑर्गेनिक विज़िबिलिटी बढ़ती है, स्थिर ट्रैफिक आता है और CAC कम होता है।" : "Boosts organic visibility, brings compounding traffic, and lowers CAC.";
+    }
+    if (t.includes("google ads") || subtitle === "PPC") {
+      return isHindi ? "तुरंत लीड/सेल्स, सटीक टार्गेटिंग और स्पष्ट ट्रैकिंग।" : "Immediate leads/sales with precise targeting and clear tracking.";
+    }
+    if (t.includes("meta ads") || subtitle.toLowerCase().includes("facebook")) {
+      return isHindi ? "नए दर्शकों तक पहुँच, UGC और वीडियो से बेहतर ROAS।" : "Reach new audiences; UGC and video creatives improve ROAS.";
+    }
+    if (t.includes("social media") || subtitle === "SMM") {
+      return isHindi ? "ब्रांड अवेयरनेस, एंगेजमेंट और विश्वसनीयता बढ़ती है।" : "Builds brand awareness, engagement, and trust.";
+    }
+    if (t.includes("email marketing") || subtitle === "CRM") {
+      return isHindi ? "दोबारा खरीद और LTV में वृद्धि, ऑटो‑फ्लोज़ से स्थिर राजस्व।" : "Increases repeat purchases and LTV via automated flows.";
+    }
+    if (t.includes("content marketing") || subtitle === "Strategy") {
+      return isHindi ? "थॉट‑लीडरशिप और SEO का आधार; निरंतर इनबाउंड ट्रैफिक।" : "Builds authority and fuels SEO with steady inbound traffic.";
+    }
+    if (category === "development") {
+      return isHindi ? "तेज़, उत्तरदायी और स्केलेबल अनुभव; बेहतर कन्वर्ज़न।" : "Fast, responsive, scalable experiences that convert.";
+    }
+    if (category === "ecommerce") {
+      return isHindi ? "सुविधाजनक खरीद प्रक्रिया, सुरक्षित भुगतान, उच्च AOV।" : "Streamlined buying, secure payments, and higher AOV.";
+    }
+    if (category === "security") {
+      return isHindi ? "अपटाइम और डेटा सुरक्षा—यूज़र भरोसा कायम रहता है।" : "Protects uptime and data—maintains user trust.";
+    }
+    if (category === "strategy") {
+      return isHindi ? "रणनीति-कार्यान्वयन अंतर को समाप्त करता है, तेज़ परिणाम और स्केलेबल विकास।" : "Eliminates strategy-execution gap, faster results, and scalable growth.";
+    }
+    if (category === "design") {
+      return isHindi ? "स्पष्टता और भरोसा; ब्रांड यादगार बनता है।" : "Improves clarity and trust; makes your brand memorable.";
+    }
+    return isHindi ? "व्यवसाय के लक्ष्य के अनुरूप मापने योग्य लाभ।" : "Measurable benefits aligned to your goals.";
+  };
+
+  const getServiceStrategicRole = (title: string, subtitle: string, category: string): string => {
+    const t = title.toLowerCase();
+    if (t.includes("search engine") || subtitle === "SEO") {
+      return isHindi ? "लॉन्ग‑टर्म डिमांड कैप्चर—हर चैनल का CAC कम करता है।" : "Long‑term demand capture that lowers CAC across channels.";
+    }
+    if (t.includes("google ads") || subtitle === "PPC") {
+      return isHindi ? "हाई‑इंटेंट डिमांड कैप्चर और ऑफर/मैसेजिंग को जल्दी वैलिडेट करना।" : "Captures high‑intent demand and validates offers fast.";
+    }
+    if (t.includes("meta ads") || subtitle.toLowerCase().includes("facebook")) {
+      return isHindi ? "टॉप‑/मिड‑फनल डिमांड क्रिएट; SEO/ईमेल को फीड करता है।" : "Creates top/mid‑funnel demand and feeds SEO/email.";
+    }
+    if (t.includes("social media") || subtitle === "SMM") {
+      return isHindi ? "कम्युनिटी और ब्रांड प्रेम—अन्य चैनलों की कन्वर्ज़न बढ़ती है।" : "Community and brand affinity that lifts other channels.";
+    }
+    if (t.includes("email marketing") || subtitle === "CRM") {
+      return isHindi ? "लाइफ‑साइकिल नर्चरिंग—एड स्पेंड की वैल्यू अधिक बनती है।" : "Lifecycle nurturing that maximizes paid media value.";
+    }
+    if (t.includes("content marketing") || subtitle === "Strategy") {
+      return isHindi ? "SEO, सोशल और ईमेल के लिए हमेशा‑चालू फ्यूल।" : "Always‑on fuel for SEO, social, and email.";
+    }
+    if (category === "development") {
+      return isHindi ? "मार्केटिंग का मूल इंफ्रास्ट्रक्चर—स्पीड, ट्रैकिंग और कन्वर्ज़न।" : "Core marketing infrastructure—speed, tracking, conversion.";
+    }
+    if (category === "ecommerce") {
+      return isHindi ? "रेवेन्यू इंजिन—एड्स/SEO से आने वाले ट्रैफिक को सेल्स में बदले।" : "Revenue engine—turns traffic from ads/SEO into sales.";
+    }
+    if (category === "strategy") {
+      return isHindi ? "रणनीतिक दिशा और कार्यान्वयन के बीच का सेतु; सभी सेवाओं को एकीकृत करता है।" : "Bridge between strategic direction and implementation; integrates all services.";
+    }
+    if (category === "security") {
+      return isHindi ? "जोखिम घटाकर ग्रोथ को सुरक्षित करता है; SEO में भी मदद।" : "De‑risks growth and supports SEO with trust signals.";
+    }
+    if (category === "design") {
+      return isHindi ? "हर चैनल की कन्वर्ज़न और ब्रांड रिकॉल मजबूत होती है।" : "Strengthens conversion and brand recall across channels.";
+    }
+    return isHindi ? "समग्र रणनीति के साथ सीधा तालमेल।" : "Directly supports your overall strategy.";
+  };
+
   return (
     <div className="min-h-screen pt-20">
       {/* Header */}
@@ -374,8 +464,8 @@ const Services = ({ language }: ServicesProps) => {
           </h1>
           <p className="asn-body text-xl text-muted-foreground max-w-3xl mx-auto">
             {isHindi 
-              ? "दो बाजारों के लिए विशेष रूप से डिज़ाइन किए गए पैकेज। आपकी आवश्यकताओं के लिए सही समाधान चुनें।"
-              : "Specialized packages designed for two markets. Choose the perfect solution for your needs."
+              ? "Discover How We Can Elevate Your Business! दो बाजारों के लिए विशेष रूप से डिज़ाइन किए गए पैकेज। आपकी आवश्यकताओं के लिए सही समाधान चुनें।"
+              : "Discover How We Can Elevate Your Business! Specialized packages designed for two markets. Choose the perfect solution for your needs."
             }
           </p>
         </div>
@@ -413,6 +503,13 @@ const Services = ({ language }: ServicesProps) => {
             {isHindi ? "मार्केटिंग" : "Marketing"}
           </Button>
           <Button
+            className={`rounded-full px-6 py-3 flex items-center gap-2 text-lg font-medium border transition-colors duration-200 ${selectedCategory === "strategy" ? "bg-black text-white border-black hover:bg-black hover:text-white" : "bg-white text-black border-black hover:bg-black hover:text-white"}`}
+            onClick={() => setSelectedCategory("strategy")}
+          >
+            <Shield className={`h-5 w-5 ${selectedCategory === "strategy" ? "text-white" : "text-black group-hover:text-white"}`} />
+            {isHindi ? "रणनीति" : "Strategy"}
+          </Button>
+          <Button
             className={`rounded-full px-6 py-3 flex items-center gap-2 text-lg font-medium border transition-colors duration-200 ${selectedCategory === "design" ? "bg-black text-white border-black hover:bg-black hover:text-white" : "bg-white text-black border-black hover:bg-black hover:text-white"}`}
             onClick={() => setSelectedCategory("design")}
           >
@@ -446,23 +543,23 @@ const Services = ({ language }: ServicesProps) => {
           <p className="asn-body text-lg text-muted-foreground max-w-3xl mx-auto">
             {selectedCategory === "design"
               ? (isHindi
-                ? "रचनात्मक डिज़ाइन समाधान जो आपके ब्रांड को अलग बनाते हैं"
-                : "Creative design solutions that set your brand apart")
+                ? "Discover How We Can Elevate Your Business! रचनात्मक डिज़ाइन समाधान जो आपके ब्रांड को अलग बनाते हैं"
+                : "Discover How We Can Elevate Your Business! Creative design solutions that set your brand apart")
               : selectedCategory === "development"
                 ? (isHindi
-                  ? "आधुनिक विकास सेवाएं जो आपके व्यापार को डिजिटल बनाती हैं"
-                  : "Modern development services to digitize your business")
+                  ? "Discover How We Can Elevate Your Business! आधुनिक विकास सेवाएं जो आपके व्यापार को डिजिटल बनाती हैं"
+                  : "Discover How We Can Elevate Your Business! Modern development services to digitize your business")
                 : selectedCategory === "ecommerce"
                   ? (isHindi
-                    ? "ई-कॉमर्स के लिए संपूर्ण समाधान"
-                    : "Comprehensive solutions for e-commerce")
+                    ? "Discover How We Can Elevate Your Business! ई-कॉमर्स के लिए संपूर्ण समाधान"
+                    : "Discover How We Can Elevate Your Business! Comprehensive solutions for e-commerce")
                   : selectedCategory === "security"
                     ? (isHindi
-                      ? "वेबसाइट और डेटा सुरक्षा के लिए सेवाएं"
-                      : "Services for website and data security")
+                      ? "Discover How We Can Elevate Your Business! वेबसाइट और डेटा सुरक्षा के लिए सेवाएं"
+                      : "Discover How We Can Elevate Your Business! Services for website and data security")
                     : (isHindi
-                      ? "व्यापक डिजिटल मार्केटिंग समाधान जो आपके व्यापार को नई ऊंचाइयों तक पहुंचाते हैं"
-                      : "Comprehensive digital marketing solutions that take your business to new heights")}
+                      ? "Discover How We Can Elevate Your Business! व्यापक डिजिटल मार्केटिंग समाधान जो आपके व्यापार को नई ऊंचाइयों तक पहुंचाते हैं"
+                      : "Discover How We Can Elevate Your Business! Comprehensive digital marketing solutions that take your business to new heights")}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -490,6 +587,16 @@ const Services = ({ language }: ServicesProps) => {
                       </li>
                     ))}
                   </ul>
+                  <div className="text-left space-y-2">
+                    <h4 className="asn-body font-bold">{isHindi ? "लाभ" : "Benefits"}</h4>
+                    <p className="asn-body text-sm text-muted-foreground">
+                      {getServiceBenefits(service.title, service.subtitle, service.category)}
+                    </p>
+                    <h4 className="asn-body font-bold">{isHindi ? "रणनीतिक भूमिका" : "Strategic Role"}</h4>
+                    <p className="asn-body text-sm text-muted-foreground">
+                      {getServiceStrategicRole(service.title, service.subtitle, service.category)}
+                    </p>
+                  </div>
                   <Link to="/contact" className="block">
                     <Button className="w-full asn-button-primary">
                       {isHindi ? "विवरण पूछें" : "Learn More"}
@@ -498,6 +605,326 @@ const Services = ({ language }: ServicesProps) => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Detailed Playbooks */}
+      <section className="asn-section bg-background">
+        <div className="asn-container space-y-12">
+          <div className="text-center space-y-4">
+            <h2 className="asn-headline text-3xl md:text-5xl">
+              {isHindi ? "सेवाओं का विस्तृत विवरण" : "Detailed Service Playbooks"}
+            </h2>
+            <p className="asn-body text-muted-foreground max-w-3xl mx-auto">
+              {isHindi
+                ? "Discover How We Can Elevate Your Business! हर सेवा के अंदर क्या मिलता है, क्या लाभ हैं और आप क्या परिणाम उम्मीद कर सकते हैं—सब कुछ नीचे समझाया गया है।"
+                : "Discover How We Can Elevate Your Business! Explore what's included, the benefits, and the outcomes you can expect for every service area."}
+            </p>
+          </div>
+
+          {/* Digital Marketing */}
+          <div className="space-y-6">
+            <h3 className="asn-headline text-2xl">{isHindi ? "डिजिटल मार्केटिंग" : "Digital Marketing"}</h3>
+            <Accordion type="multiple" className="bg-surface border border-border rounded-xl p-4">
+              <AccordionItem value="seo">
+                <AccordionTrigger className="asn-body text-left">{isHindi ? "SEO (सर्च इंजन ऑप्टिमाइजेशन)" : "SEO (Search Engine Optimization)"}</AccordionTrigger>
+                <AccordionContent className="space-y-3">
+                  <p className="asn-body text-muted-foreground">
+                    {isHindi
+                      ? "कीवर्ड रिसर्च, ऑन‑पेज और टेक्निकल SEO के साथ आपके पेज Google में ऊपर आते हैं।"
+                      : "Rank higher with keyword research, on‑page improvements, and technical SEO fixes."}
+                  </p>
+                  <ul className="list-disc pl-6 space-y-1 asn-body">
+                    <li>{isHindi ? "लाभ: अधिक ऑर्गेनिक ट्रैफ़िक, कम CAC" : "Benefits: More organic traffic, lower CAC"}</li>
+                    <li>{isHindi ? "परिणाम: 3–6 महीनों में स्थिर रैंकिंग वृद्धि" : "Outcome: Steady ranking gains in 3–6 months"}</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="ppc">
+                <AccordionTrigger className="asn-body text-left">{isHindi ? "PPC/Google Ads" : "PPC / Google Ads"}</AccordionTrigger>
+                <AccordionContent className="space-y-3">
+                  <p className="asn-body text-muted-foreground">
+                    {isHindi
+                      ? "हाई‑इंटेंट कीवर्ड्स पर स्मार्ट बिडिंग, कन्वर्ज़न ट्रैकिंग और A/B विज्ञापन।"
+                      : "Smart bidding on high‑intent keywords, robust conversion tracking, and ad A/B tests."}
+                  </p>
+                  <ul className="list-disc pl-6 space-y-1 asn-body">
+                    <li>{isHindi ? "लाभ: तुरंत लीड/सेल्स" : "Benefits: Immediate leads/sales"}</li>
+                    <li>{isHindi ? "परिणाम: 2–4x ROAS लक्ष्य अनुसार" : "Outcome: 2–4x ROAS depending on targets"}</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="social">
+                <AccordionTrigger className="asn-body text-left">{isHindi ? "सोशल मीडिया मार्केटिंग" : "Social Media Marketing"}</AccordionTrigger>
+                <AccordionContent className="space-y-3">
+                  <p className="asn-body text-muted-foreground">
+                    {isHindi
+                      ? "UGC क्रिएटिव, रील्स/वीडियो और रिटार्गेटिंग से ब्रांड रीच और बिक्री बढ़ाएँ।"
+                      : "Grow reach and sales with UGC creatives, short‑form video, and retargeting."}
+                  </p>
+                  <ul className="list-disc pl-6 space-y-1 asn-body">
+                    <li>{isHindi ? "लाभ: ब्रांड अवेयरनेस और ROAS" : "Benefits: Brand awareness and ROAS"}</li>
+                    <li>{isHindi ? "परिणाम: 3–5x ROAS, तेज़ क्रिएटिव टेस्टिंग" : "Outcome: 3–5x ROAS, fast creative testing"}</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="email">
+                <AccordionTrigger className="asn-body text-left">{isHindi ? "ईमेल और CRM" : "Email & CRM"}</AccordionTrigger>
+                <AccordionContent className="space-y-3">
+                  <p className="asn-body text-muted-foreground">
+                    {isHindi
+                      ? "वेलकम, कार्ट‑अबैन्डन और विन‑बैक जैसे ऑटो‑फ्लोज़ से दोबारा खरीद बढ़ाएँ।"
+                      : "Increase repeat purchases using automated flows like welcome, cart‑abandon, and win‑back."}
+                  </p>
+                  <ul className="list-disc pl-6 space-y-1 asn-body">
+                    <li>{isHindi ? "लाभ: LTV वृद्धि" : "Benefits: Higher LTV"}</li>
+                    <li>{isHindi ? "परिणाम: 15–30% राजस्व ईमेल से" : "Outcome: 15–30% revenue from email"}</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+
+            {/* Case studies */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[{
+                title: isHindi ? "ई‑कॉमर्स फैशन" : "E‑commerce Fashion",
+                metric: "+5.2× ROAS",
+                desc: isHindi ? "UGC + रिटार्गेटिंग से 90 दिनों में" : "UGC + retargeting in 90 days"
+              },{
+                title: isHindi ? "B2B SaaS" : "B2B SaaS",
+                metric: "+220% organic",
+                desc: isHindi ? "टेक्निकल SEO और कंटेंट से" : "Technical SEO + content"
+              },{
+                title: isHindi ? "स्थानीय सेवाएँ" : "Local Services",
+                metric: "−38% CPA",
+                desc: isHindi ? "PPC स्मार्ट बिडिंग से" : "PPC smart bidding"
+              }].map((cs, i) => (
+                <Card key={i} className="border bg-surface">
+                  <CardHeader>
+                    <CardTitle className="asn-headline text-lg">{cs.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="asn-headline text-2xl">{cs.metric}</p>
+                    <p className="asn-body text-muted-foreground">{cs.desc}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Development */}
+          <div className="space-y-6">
+            <h3 className="asn-headline text-2xl">{isHindi ? "वेब डेवलपमेंट" : "Web Development"}</h3>
+            <Accordion type="multiple" className="bg-surface border border-border rounded-xl p-4">
+              <AccordionItem value="stack">
+                <AccordionTrigger className="asn-body text-left">{isHindi ? "आधुनिक टेक‑स्टैक" : "Modern Tech Stack"}</AccordionTrigger>
+                <AccordionContent className="asn-body text-muted-foreground">
+                  {isHindi ? "React, Node और क्लाउड‑होस्टिंग—तेज़, सुरक्षित और स्केलेबल वेबसाइटें।" : "React, Node and cloud hosting for fast, secure and scalable websites."}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="benefits-dev">
+                <AccordionTrigger className="asn-body text-left">{isHindi ? "लाभ और परिणाम" : "Benefits & Outcomes"}</AccordionTrigger>
+                <AccordionContent>
+                  <ul className="list-disc pl-6 space-y-1 asn-body">
+                    <li>{isHindi ? "90+ Lighthouse स्कोर" : "90+ Lighthouse scores"}</li>
+                    <li>{isHindi ? "बेहतर कन्वर्ज़न" : "Improved conversion rates"}</li>
+                    <li>{isHindi ? "कम रखरखाव लागत" : "Lower maintenance costs"}</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+
+          {/* E‑commerce */}
+          <div className="space-y-6">
+            <h3 className="asn-headline text-2xl">{isHindi ? "ई‑कॉमर्स" : "E‑commerce"}</h3>
+            <Accordion type="multiple" className="bg-surface border border-border rounded-xl p-4">
+              <AccordionItem value="catalog">
+                <AccordionTrigger className="asn-body text-left">{isHindi ? "स्टोर और कैटलॉग" : "Store & Catalog"}</AccordionTrigger>
+                <AccordionContent className="asn-body text-muted-foreground">
+                  {isHindi ? "प्रोडक्ट, भुगतान और शिपिंग का पूरा सेटअप।" : "Complete setup for products, payments and shipping."}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="outcomes-ecom">
+                <AccordionTrigger className="asn-body text-left">{isHindi ? "लाभ और परिणाम" : "Benefits & Outcomes"}</AccordionTrigger>
+                <AccordionContent>
+                  <ul className="list-disc pl-6 space-y-1 asn-body">
+                    <li>{isHindi ? "तेज़ चेकआउट" : "Faster checkout"}</li>
+                    <li>{isHindi ? "AOV वृद्धि" : "Higher AOV"}</li>
+                    <li>{isHindi ? "दोबारा खरीद" : "Higher repeat purchases"}</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+
+          {/* Security */}
+          <div className="space-y-6">
+            <h3 className="asn-headline text-2xl">{isHindi ? "सुरक्षा" : "Security"}</h3>
+            <Accordion type="multiple" className="bg-surface border border-border rounded-xl p-4">
+              <AccordionItem value="hardening">
+                <AccordionTrigger className="asn-body text-left">{isHindi ? "हार्डनिंग और मॉनिटरिंग" : "Hardening & Monitoring"}</AccordionTrigger>
+                <AccordionContent className="asn-body text-muted-foreground">
+                  {isHindi ? "SSL, बैकअप, फायरवॉल और 24/7 मॉनिटरिंग।" : "SSL, backups, firewalls, and 24/7 monitoring."}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="outcomes-sec">
+                <AccordionTrigger className="asn-body text-left">{isHindi ? "लाभ और परिणाम" : "Benefits & Outcomes"}</AccordionTrigger>
+                <AccordionContent>
+                  <ul className="list-disc pl-6 space-y-1 asn-body">
+                    <li>{isHindi ? "कम डाउनटाइम" : "Reduced downtime"}</li>
+                    <li>{isHindi ? "डेटा सुरक्षा" : "Data protection"}</li>
+                    <li>{isHindi ? "विश्वसनीयता" : "Higher reliability"}</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+
+          {/* Design */}
+          <div className="space-y-6">
+            <h3 className="asn-headline text-2xl">{isHindi ? "डिज़ाइन" : "Design"}</h3>
+            <Accordion type="multiple" className="bg-surface border border-border rounded-xl p-4">
+              <AccordionItem value="brand">
+                <AccordionTrigger className="asn-body text-left">{isHindi ? "ब्रांड पहचान" : "Brand Identity"}</AccordionTrigger>
+                <AccordionContent className="asn-body text-muted-foreground">
+                  {isHindi ? "लोगो, रंग और टाइपोग्राफी जो ब्रांड को पहचान देती है।" : "Logo, color and typography systems that define your brand."}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="outcomes-design">
+                <AccordionTrigger className="asn-body text-left">{isHindi ? "लाभ और परिणाम" : "Benefits & Outcomes"}</AccordionTrigger>
+                <AccordionContent>
+                  <ul className="list-disc pl-6 space-y-1 asn-body">
+                    <li>{isHindi ? "बेहतर विश्वास" : "Higher trust"}</li>
+                    <li>{isHindi ? "ज़्यादा कन्वर्ज़न" : "More conversions"}</li>
+                    <li>{isHindi ? "ब्रांड यादगार" : "Memorable branding"}</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </div>
+      </section>
+
+      {/* Business Execution Detailed Explanation */}
+      <section className="asn-section bg-surface">
+        <div className="asn-container">
+          <div className="text-center mb-12">
+            <h2 className="asn-headline text-3xl md:text-4xl mb-6">
+              {isHindi ? "व्यापार निष्पादन क्या है?" : "What is Business Execution?"}
+            </h2>
+            <p className="asn-body text-lg text-muted-foreground max-w-4xl mx-auto">
+              {isHindi 
+                ? "हमारी डिजिटल मार्केटिंग एजेंसी व्यापार निष्पादन में उत्कृष्टता प्राप्त करती है, यह सुनिश्चित करती है कि आपकी मार्केटिंग रणनीतियां न केवल योजनाबद्ध हों बल्कि प्रभावी ढंग से कार्यान्वित भी हों।"
+                : "Our digital marketing agency excels in business execution, ensuring your marketing strategies are not only planned but effectively implemented."
+              }
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <div className="text-center p-6 bg-background border border-border rounded-lg">
+              <div className="w-16 h-16 bg-foreground text-background rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold">1</span>
+              </div>
+              <h3 className="asn-headline text-xl mb-3">
+                {isHindi ? "रणनीतिक योजना" : "Strategic Planning"}
+              </h3>
+              <p className="asn-body text-sm text-muted-foreground">
+                {isHindi 
+                  ? "लक्ष्य निर्धारण, KPI परिभाषा, संसाधन आवंटन और जोखिम मूल्यांकन"
+                  : "Goal setting, KPI definition, resource allocation, and risk assessment"
+                }
+              </p>
+            </div>
+
+            <div className="text-center p-6 bg-background border border-border rounded-lg">
+              <div className="w-16 h-16 bg-foreground text-background rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold">2</span>
+              </div>
+              <h3 className="asn-headline text-xl mb-3">
+                {isHindi ? "कार्यान्वयन" : "Implementation"}
+              </h3>
+              <p className="asn-body text-sm text-muted-foreground">
+                {isHindi 
+                  ? "प्रक्रिया डिज़ाइन, टीम समन्वय, प्रौद्योगिकी एकीकरण और परिवर्तन प्रबंधन"
+                  : "Process design, team coordination, technology integration, and change management"
+                }
+              </p>
+            </div>
+
+            <div className="text-center p-6 bg-background border border-border rounded-lg">
+              <div className="w-16 h-16 bg-foreground text-background rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold">3</span>
+              </div>
+              <h3 className="asn-headline text-xl mb-3">
+                {isHindi ? "निगरानी" : "Monitoring"}
+              </h3>
+              <p className="asn-body text-sm text-muted-foreground">
+                {isHindi 
+                  ? "प्रदर्शन ट्रैकिंग, रीयल-टाइम रिपोर्टिंग, विचलन विश्लेषण और सुधार"
+                  : "Performance tracking, real-time reporting, variance analysis, and improvement"
+                }
+              </p>
+            </div>
+
+            <div className="text-center p-6 bg-background border border-border rounded-lg">
+              <div className="w-16 h-16 bg-foreground text-background rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold">4</span>
+              </div>
+              <h3 className="asn-headline text-xl mb-3">
+                {isHindi ? "परिणाम" : "Results"}
+              </h3>
+              <p className="asn-body text-sm text-muted-foreground">
+                {isHindi 
+                  ? "परिणाम मापन, ROI गणना, सबक सीखना और प्रक्रिया परिष्करण"
+                  : "Outcome measurement, ROI calculation, lessons learned, and process refinement"
+                }
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-background border border-border rounded-lg p-8 text-center">
+            <h3 className="asn-headline text-2xl mb-4">
+              {isHindi ? "आपके व्यवसाय के लिए क्यों महत्वपूर्ण है?" : "Why It Matters for Your Business"}
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+              <div>
+                <ul className="space-y-2 asn-body text-muted-foreground">
+                  <li className="flex items-start space-x-2">
+                    <Check className="h-5 w-5 mt-0.5 text-foreground flex-shrink-0" />
+                    <span>{isHindi ? "रणनीति-कार्यान्वयन अंतर को समाप्त करता है" : "Eliminates the Strategy-Execution Gap"}</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <Check className="h-5 w-5 mt-0.5 text-foreground flex-shrink-0" />
+                    <span>{isHindi ? "समय-से-मूल्य को तेज करता है" : "Accelerates Time-to-Value"}</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <Check className="h-5 w-5 mt-0.5 text-foreground flex-shrink-0" />
+                    <span>{isHindi ? "संचालनात्मक जोखिम को कम करता है" : "Reduces Operational Risk"}</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <ul className="space-y-2 asn-body text-muted-foreground">
+                  <li className="flex items-start space-x-2">
+                    <Check className="h-5 w-5 mt-0.5 text-foreground flex-shrink-0" />
+                    <span>{isHindi ? "संसाधन दक्षता में सुधार करता है" : "Improves Resource Efficiency"}</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <Check className="h-5 w-5 mt-0.5 text-foreground flex-shrink-0" />
+                    <span>{isHindi ? "स्केलेबल विकास को सक्षम करता है" : "Enables Scalable Growth"}</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <Check className="h-5 w-5 mt-0.5 text-foreground flex-shrink-0" />
+                    <span>{isHindi ? "मापने योग्य ROI प्रदान करता है" : "Delivers Measurable ROI"}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>

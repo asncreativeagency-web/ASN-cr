@@ -4,7 +4,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 
 const WhatsAppButton = () => {
   const phoneNumbers = ["+919381617904", "+919848393730"];
-  const message = "Hi! I'm interested in your services. Can you help me?";
+  const message = "Hi! I'm ready to discover how you can elevate my business. Can you help me get started?";
   const [open, setOpen] = useState(false);
   const handleWhatsAppClick = (number) => {
     const whatsappUrl = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
@@ -26,7 +26,7 @@ const WhatsAppButton = () => {
           </button>
         </PopoverTrigger>
         <PopoverContent align="end" className="space-y-4 w-72 p-4">
-          <div className="text-center asn-headline text-lg mb-2">Choose a WhatsApp number:</div>
+          <div className="text-center asn-headline text-lg mb-2">Ready to transform your business?</div>
           <div className="flex flex-col gap-2">
             {phoneNumbers.map((number) => (
               <button

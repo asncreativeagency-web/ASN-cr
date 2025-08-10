@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart3, Globe, Users, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface HomeProps {
   language: string;
@@ -86,7 +87,7 @@ const Home = ({ language }: HomeProps) => {
     },
     {
       title: isHindi ? "डिजिटल मार्केटिंग" : "Digital Marketing", 
-      description: isHindi ? "Meta Ads और Google Ads में विशेषज्ञता" : "Expert Meta Ads and Google Ads management"
+      description: isHindi ? "Meta Ads और Google Ads में विशेषज्ञता" : "Explore our comprehensive digital marketing strategies designed to elevate your brand's online presence"
     },
     {
       title: isHindi ? "ड्रॉपशिपिंग" : "Dropshipping",
@@ -94,7 +95,7 @@ const Home = ({ language }: HomeProps) => {
     },
     {
       title: isHindi ? "व्यापार निष्पादन" : "Business Execution",
-      description: isHindi ? "विचार से लॉन्च तक" : "From idea to launch"
+      description: isHindi ? "हमारी डिजिटल मार्केटिंग एजेंसी आपके विचारों को सफल व्यवसायों में बदलती है" : "Our digital marketing agency transforms your ideas into successful businesses"
     }
   ];
 
@@ -472,11 +473,10 @@ const Home = ({ language }: HomeProps) => {
               </>
             ) : (
               <>
-                Your Digital<br />
+                Your Digital Success<br />
                 <span className="text-muted-foreground" style={{ 
                   textShadow: 'var(--tw-shadow-color, 0 0 0) 0px 2px 4px, rgba(255,255,255,0.9) 0px 2px 4px'
-                }}>Empire</span><br />
-                Starts Here
+                }}>Partner</span>
               </>
             )}
           </h1>
@@ -488,8 +488,8 @@ const Home = ({ language }: HomeProps) => {
             fontWeight: 600,
           }}>
             {isHindi 
-              ? "संपूर्ण व्यापारिक निष्पादन और अंतर्राष्ट्रीय पहुंच के साथ आपके सपनों को साकार करते हैं। प्रीमियम डिजिटल समाधान जो परिणाम देते हैं।"
-              : "Complete business execution and international reach. We transform ideas into thriving digital empires with premium solutions that deliver results."
+              ? "Discover How We Can Elevate Your Business! आपकी डिजिटल मार्केटिंग सफलता को सिद्ध रणनीतियों और विशेषज्ञता के साथ निर्मित करते हैं। परिणाम-संचालित समाधान जो आपके व्यवसाय को आगे बढ़ाते हैं।"
+              : "Discover How We Can Elevate Your Business! Building Your Digital Marketing Success with Proven Strategies and Expertise. Result-driven solutions that propel your business forward."
             }
           </p>
 
@@ -509,11 +509,16 @@ const Home = ({ language }: HomeProps) => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
             <Link to="/contact">
               <Button className="bg-white text-black font-bold px-8 py-4 rounded-full shadow-lg hover:bg-black hover:text-white border border-black transition-all duration-300 text-lg">
-                {isHindi ? "शुरू करें" : "Get Started"}
+                {isHindi ? "Discover How We Can Elevate Your Business!" : "Discover How We Can Elevate Your Business!"}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            {/* Optionally, keep a secondary CTA here if needed */}
+            <Link to="/services">
+              <Button className="bg-transparent text-white font-bold px-8 py-4 rounded-full shadow-lg hover:bg-white hover:text-black border border-white transition-all duration-300 text-lg">
+                {isHindi ? "Discover How We Can Elevate Your Business!" : "Explore Our Services"}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </motion.div>
       </motion.section>
@@ -527,6 +532,17 @@ const Home = ({ language }: HomeProps) => {
         transition={{ duration: 0.7, ease: "easeOut" }}
       >
         <div className="asn-container">
+          <div className="text-center mb-12">
+            <h2 className="asn-headline text-3xl md:text-4xl text-background mb-4">
+              {isHindi ? "हमारी सफलता की कहानी" : "Our Success Story"}
+            </h2>
+            <p className="asn-body text-background/80 text-lg max-w-4xl mx-auto">
+              {isHindi 
+                ? "हमारी डिजिटल मार्केटिंग विशेषज्ञता के साथ, हमने 40+ व्यवसायों को अंतर्राष्ट्रीय स्तर पर लॉन्च किया है, जिससे 5.2× ROAS की उल्लेखनीय उपलब्धि हासिल हुई है।"
+                : "With our digital marketing expertise, we have launched 40+ businesses internationally, achieving a remarkable 5.2× ROAS."
+              }
+            </p>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {metrics.map((metric, index) => (
               <motion.div
@@ -572,8 +588,8 @@ const Home = ({ language }: HomeProps) => {
             </h2>
             <p className="asn-body text-xl text-muted-foreground max-w-3xl mx-auto">
               {isHindi 
-                ? "वैश्विक मानकों के साथ स्थानीय समझ। हर समाधान आपकी सफलता के लिए तैयार किया गया।"
-                : "Global standards with local understanding. Every solution crafted for your success."
+                ? "Discover How We Can Elevate Your Business! वैश्विक मानकों के साथ स्थानीय समझ। हर समाधान आपकी सफलता के लिए तैयार किया गया।"
+                : "Ready to transform your business? Global standards with local understanding. Every solution crafted for your success."
               }
             </p>
           </div>
@@ -623,8 +639,8 @@ const Home = ({ language }: HomeProps) => {
             </h2>
             <p className="asn-body text-xl text-muted-foreground max-w-3xl mx-auto">
               {isHindi 
-                ? "स्थानीय और वैश्विक बाजारों के लिए विशेष रूप से तैयार किए गए समाधान।"
-                : "Solutions specifically crafted for local and global markets."
+                ? "Discover How We Can Elevate Your Business! स्थानीय और वैश्विक बाजारों के लिए विशेष रूप से तैयार किए गए समाधान।"
+                : "Ready to scale your business? Solutions specifically crafted for local and global markets."
               }
             </p>
           </div>
@@ -705,7 +721,7 @@ const Home = ({ language }: HomeProps) => {
             </h2>
             <p className="asn-body text-xl text-muted-foreground max-w-3xl mx-auto">
               {isHindi 
-                ? "हमारी सरल और स्पष्ट कार्य प्रक्रिया हमारे ग्राहकों को अपने व्यवसाय के लिए उपयुक्त समाधानों के साथ जोड़ती है।"
+                ? "Discover How We Can Elevate Your Business! हमारी सरल और स्पष्ट कार्य प्रक्रिया हमारे ग्राहकों को अपने व्यवसाय के लिए उपयुक्त समाधानों के साथ जोड़ती है।"
                 : "Our simple and transparent process connects you with suitable solutions for your business."
               }
             </p>
@@ -759,7 +775,7 @@ const Home = ({ language }: HomeProps) => {
             </h2>
             <p className="asn-body text-xl text-muted-foreground max-w-3xl mx-auto">
               {isHindi 
-                ? "हमारे ग्राहकों के साथ हासिल किए गए असाधारण परिणाम।"
+                ? "Discover How We Can Elevate Your Business! हमारे ग्राहकों के साथ हासिल किए गए असाधारण परिणाम।"
                 : "Extraordinary results achieved with our clients."
               }
             </p>
@@ -1141,6 +1157,147 @@ const Home = ({ language }: HomeProps) => {
 
       <SectionDivider />
 
+      {/* Methodology Section - 5.2× ROAS */}
+      <motion.section
+        className="asn-section"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <div className="asn-container space-y-8">
+          <div className="text-center space-y-4">
+            <h2 className="asn-headline text-3xl md:text-5xl">
+              {isHindi ? "हम 5.2× ROAS कैसे प्राप्त करते हैं" : "How We Achieve 5.2× ROAS"}
+            </h2>
+            <p className="asn-body text-muted-foreground max-w-3xl mx-auto">
+              {isHindi
+                ? "हर व्यवसाय के लिए एक जैसी रणनीति नहीं चलती। नीचे दिए गए दृष्टिकोण को हम उद्योग, मार्जिन, औसत ऑर्डर मूल्य और लक्षित दर्शकों के हिसाब से अनुकूलित करते हैं।"
+                : "There is no one-size-fits-all playbook. We tailor our approach by industry, margins, average order value, and audience maturity to consistently reach 5.2× ROAS."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            <div className="lg:col-span-2 bg-surface border border-border rounded-xl p-6">
+              <h3 className="asn-headline text-xl mb-4">
+                {isHindi ? "रणनीतियाँ और अनुकूलन" : "Strategies and Tailoring"}
+              </h3>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="audience">
+                  <AccordionTrigger className="asn-body text-left">
+                    {isHindi ? "सबसे सही ग्राहक ढूँढें" : "Find Your Best Customers"}
+                  </AccordionTrigger>
+                  <AccordionContent className="asn-body text-muted-foreground">
+                    {isHindi
+                      ? "हम आपके डेटा से ऊँची‑मूल्य वाली ऑडियंस बनाते हैं और हर समूह के लिए अलग संदेश दिखाते हैं।"
+                      : "We use your data to form high‑value audiences and show each group the message that fits them."}
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="creative">
+                  <AccordionTrigger className="asn-body text-left">
+                    {isHindi ? "ऐड जो देखना अच्छा लगे" : "Make Ads People Want to Watch"}
+                  </AccordionTrigger>
+                  <AccordionContent className="asn-body text-muted-foreground">
+                    {isHindi
+                      ? "UGC, छोटे डेमो और साफ ऑफर के साथ तेज़ परीक्षण—जो काम करता है उसे स्केल करते हैं।"
+                      : "Fast test UGC, short demos, and clear offers—scale what works, replace what doesn't."}
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="landing">
+                  <AccordionTrigger className="asn-body text-left">
+                    {isHindi ? "खरीदने का रास्ता आसान" : "Smooth Path to Buy"}
+                  </AccordionTrigger>
+                  <AccordionContent className="asn-body text-muted-foreground">
+                    {isHindi
+                      ? "लैंडिंग पेज, PDP और चेकआउट पर AB टेस्ट—कम क्लिक, कम रुकावट, ज्यादा कन्वर्ज़न।"
+                      : "A/B test landing pages, PDPs and checkout—fewer clicks, less friction, more conversions."}
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="budgeting">
+                  <AccordionTrigger className="asn-body text-left">
+                    {isHindi ? "सही बजट, सही जगह" : "Right Budget, Right Place"}
+                  </AccordionTrigger>
+                  <AccordionContent className="asn-body text-muted-foreground">
+                    {isHindi
+                      ? "सीख चरण पार करने वाला बजट, स्मार्ट डिलीवरी और ROAS गिरने पर ऑटो नियम।"
+                      : "Budgets sized to clear learning, smart delivery, and auto rules when ROAS drops."}
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="tracking">
+                  <AccordionTrigger className="asn-body text-left">
+                    {isHindi ? "जो मायने रखता है वही मापें" : "Measure What Matters"}
+                  </AccordionTrigger>
+                  <AccordionContent className="asn-body text-muted-foreground">
+                    {isHindi
+                      ? "Ads प्लेटफॉर्म और GA4 को साथ में देखें; जरूरत पर सरल लिफ्ट टेस्ट चलाएँ।"
+                      : "View ad platforms and GA4 together; run simple lift tests when needed."}
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="retention">
+                  <AccordionTrigger className="asn-body text-left">
+                    {isHindi ? "दोबारा खरीद बढ़ाएँ" : "Keep Buyers Coming Back"}
+                  </AccordionTrigger>
+                  <AccordionContent className="asn-body text-muted-foreground">
+                    {isHindi
+                      ? "ईमेल, SMS और री‑मार्केटिंग से दोबारा बिक्री और LTV बढ़ाते हैं।"
+                      : "Use email, SMS, and remarketing to increase repeat sales and LTV."}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+
+            <div className="bg-foreground text-background rounded-xl p-6 space-y-4 self-start max-w-md min-h-0">
+              <div className="relative w-full h-40 md:h-56 lg:h-64 overflow-hidden rounded-lg">
+                <img
+                  src="/lovable-uploads/saas-technology.jpg"
+                  alt="ROAS methodology illustration - ASN Creative Agency"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <h3 className="asn-headline text-2xl text-background">
+                {isHindi ? "विभिन्न उद्योगों के लिए उदाहरण" : "Examples by Business Type"}
+              </h3>
+              <ul className="space-y-3">
+                <li>
+                  <p className="asn-body text-background/80">
+                    <strong className="text-background">{isHindi ? "ई‑कॉमर्स" : "E‑commerce"}:</strong> {isHindi ? "बंडल/BOGO ऑफर, फ्री‑शिपिंग थ्रेशहोल्ड, कैरोसेल रिमार्केटिंग और UGC रिव्यू क्रिएटिव।"
+                    : "Bundle/BOGO offers, free‑shipping thresholds, carousel remarketing, and UGC review creatives."}
+                  </p>
+                </li>
+                <li>
+                  <p className="asn-body text-background/80">
+                    <strong className="text-background">{isHindi ? "SaaS" : "SaaS"}:</strong> {isHindi ? "ट्रायल/फ्रीमियम, फीचर‑लाभ वीडियो, और लीड‑to‑trial ऑटोमेशन।"
+                    : "Trial/freemium, feature‑benefit videos, and lead‑to‑trial automation."}
+                  </p>
+                </li>
+                <li>
+                  <p className="asn-body text-background/80">
+                    <strong className="text-background">{isHindi ? "स्थानीय सेवाएँ" : "Local Services"}:</strong> {isHindi ? "लोकेशन‑आधारित हाइपर‑टार्गेटिंग, कॉल‑ओनली कैंपेन और अपॉइंटमेंट लीड‑फॉर्म।"
+                    : "Location‑based hyper‑targeting, call‑only campaigns, and appointment lead forms."}
+                  </p>
+                </li>
+              </ul>
+              <div className="pt-2">
+                <Link to="/contact">
+                  <Button className="bg-background text-foreground hover:bg-background/90 w-full">
+                    {isHindi ? "अपने प्रोजेक्ट के बारे में बात करें!" : "Let's Talk About Your Project!"}
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
+      <SectionDivider />
+
       {/* CTA Section */}
       <motion.section className="asn-section bg-foreground text-background"
         initial={{ opacity: 0, y: 40 }}
@@ -1161,7 +1318,7 @@ const Home = ({ language }: HomeProps) => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-lg mx-auto">
             <Link to="/contact">
               <Button className="bg-background text-foreground hover:bg-background/90 px-6 py-3 font-bold tracking-wide uppercase w-full sm:w-auto">
-                {isHindi ? "निःशुल्क परामर्श बुक करें" : "Book Free Consultation"}
+                {isHindi ? "अपने प्रोजेक्ट के बारे में बात करें!" : "Let's Talk About Your Project!"}
               </Button>
             </Link>
             <a 

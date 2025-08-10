@@ -476,8 +476,8 @@ const Home = ({ language }: HomeProps) => {
             fontWeight: 600,
           }}>
             {isHindi 
-              ? "Discover How We Can Elevate Your Business! आपकी डिजिटल मार्केटिंग सफलता को सिद्ध रणनीतियों और विशेषज्ञता के साथ निर्मित करते हैं। परिणाम-संचालित समाधान जो आपके व्यवसाय को आगे बढ़ाते हैं।"
-              : "Discover How We Can Elevate Your Business! Building Your Digital Marketing Success with Proven Strategies and Expertise. Result-driven solutions that propel your business forward."
+              ? "आपकी डिजिटल मार्केटिंग सफलता को सिद्ध रणनीतियों और विशेषज्ञता के साथ निर्मित करते हैं।"
+              : "Building Your Digital Marketing Success with Proven Strategies and Expertise."
             }
           </p>
 
@@ -496,14 +496,16 @@ const Home = ({ language }: HomeProps) => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
             <Link to="/contact">
-              <Button className="bg-white text-black font-bold px-8 py-4 rounded-full shadow-lg hover:bg-black hover:text-white border border-black transition-all duration-300 text-lg">
-                {isHindi ? "Discover How We Can Elevate Your Business!" : "Discover How We Can Elevate Your Business!"}
+              <Button className="bg-white text-black font-bold px-8 py-4 rounded-full shadow-lg hover:bg-black hover:text-white border border-black transition-all duration-300 text-lg whitespace-nowrap">
+                <span className="hidden md:inline">{isHindi ? "अपने प्रोजेक्ट पर चर्चा करें" : "Discuss Your Project"}</span>
+                <span className="md:hidden">{isHindi ? "संपर्क करें" : "Contact Us"}</span>
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link to="/services">
-              <Button className="bg-transparent text-white font-bold px-8 py-4 rounded-full shadow-lg hover:bg-white hover:text-black border border-white transition-all duration-300 text-lg">
-                {isHindi ? "Discover How We Can Elevate Your Business!" : "Explore Our Services"}
+              <Button className="bg-transparent text-white font-bold px-8 py-4 rounded-full shadow-lg hover:bg-white hover:text-black border border-white transition-all duration-300 text-lg whitespace-nowrap">
+                <span className="hidden md:inline">{isHindi ? "हमारी सेवाएं देखें" : "Explore Our Services"}</span>
+                <span className="md:hidden">{isHindi ? "सेवाएं" : "Services"}</span>
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
@@ -821,9 +823,9 @@ const Home = ({ language }: HomeProps) => {
 
           {/* Continuous Scrolling Marquee */}
           <div className="relative overflow-hidden group">
-            <div className="flex animate-marquee group-hover:pause">
+            <div className="flex animate-marquee group-hover:pause flex-row">
               {[...testimonials, ...testimonials].map((testimonial, index) => (
-                <div key={index} className="flex-shrink-0 w-[90vw] sm:w-[45vw] md:w-[30vw] lg:w-[25vw] mx-4">
+                <div key={index} className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mx-4">
                   <div className="bg-background/30 backdrop-blur-md border border-border/50 hover:border-foreground/30 transition-all duration-300 p-6 rounded-xl h-full shadow-sm">
                     <div className="flex items-center space-x-4 mb-4">
                       <div className="flex-shrink-0">

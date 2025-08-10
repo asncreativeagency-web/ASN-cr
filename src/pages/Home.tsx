@@ -321,32 +321,32 @@ const Home = ({ language }: HomeProps) => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        opacity: isDark ? 0.3 : 0.5,
+        opacity: isDark ? 0.4 : 0.6,
         filter: 'grayscale(100%)'
       }} />
       {/* SVG and dots are now controlled by CSS for responsiveness */}
       <div className="hidden md:block">
-        <div style={{ opacity: isDark ? 0.25 : 0.25 }}>
+        <div style={{ opacity: isDark ? 0.15 : 0.25 }}>
           <svg viewBox="0 0 2000 500" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '200vw', height: '100%', display: 'block', animation: 'waveMove 18s linear infinite' }}>
-            <path d="M0 250 Q 500 100 1000 250 T 2000 250" stroke={isDark ? '#fff' : '#000'} strokeWidth="2" fill="none" opacity={isDark ? 0.18 : 0.18}/>
-            <path d="M0 350 Q 500 200 1000 350 T 2000 350" stroke={isDark ? '#eee' : '#111'} strokeWidth="1.5" fill="none" opacity={isDark ? 0.18 : 0.18}/>
-            <path d="M0 450 Q 500 300 1000 450 T 2000 450" stroke={isDark ? '#ccc' : '#222'} strokeWidth="1" fill="none" opacity={isDark ? 0.18 : 0.18}/>
-            <path d="M0 150 Q 500 300 1000 150 T 2000 150" stroke={isDark ? '#bbb' : '#333'} strokeWidth="1.5" fill="none" opacity={isDark ? 0.18 : 0.18}/>
+            <path d="M0 250 Q 500 100 1000 250 T 2000 250" stroke={isDark ? '#fff' : '#000'} strokeWidth="2" fill="none" opacity={isDark ? 0.15 : 0.25}/>
+            <path d="M0 350 Q 500 200 1000 350 T 2000 350" stroke={isDark ? '#eee' : '#111'} strokeWidth="1.5" fill="none" opacity={isDark ? 0.15 : 0.25}/>
+            <path d="M0 450 Q 500 300 1000 450 T 2000 350" stroke={isDark ? '#ccc' : '#222'} strokeWidth="1" fill="none" opacity={isDark ? 0.15 : 0.25}/>
+            <path d="M0 150 Q 500 300 1000 150 T 2000 150" stroke={isDark ? '#bbb' : '#333'} strokeWidth="1.5" fill="none" opacity={isDark ? 0.15 : 0.25}/>
           </svg>
         </div>
-        <div style={{ opacity: isDark ? 0.15 : 0.15, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+        <div style={{ opacity: isDark ? 0.1 : 0.15, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
           <svg viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
             <defs>
               <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? '#fff' : '#000'} strokeWidth="0.5" opacity={isDark ? 0.18 : 0.18}/>
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke={isDark ? '#fff' : '#000'} strokeWidth="0.5" opacity={isDark ? 0.1 : 0.15}/>
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
-            <line x1="0" y1="0" x2="1200" y2="600" stroke={isDark ? '#fff' : '#000'} strokeWidth="0.5" opacity={isDark ? 0.18 : 0.18}/>
-            <line x1="1200" y1="0" x2="0" y2="600" stroke={isDark ? '#fff' : '#000'} strokeWidth="0.5" opacity={isDark ? 0.18 : 0.18}/>
+            <line x1="0" y1="0" x2="1200" y2="600" stroke={isDark ? '#fff' : '#000'} strokeWidth="0.5" opacity={isDark ? 0.1 : 0.15}/>
+            <line x1="1200" y1="0" x2="0" y2="600" stroke={isDark ? '#fff' : '#000'} strokeWidth="0.5" opacity={isDark ? 0.1 : 0.15}/>
           </svg>
         </div>
-        <div style={{ opacity: isDark ? 0.18 : 0.18, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+        <div style={{ opacity: isDark ? 0.12 : 0.18, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
           {[
             { left: '10%', top: '20%', size: 3, delay: 0, duration: 3 },
             { left: '85%', top: '15%', size: 4, delay: 0.5, duration: 4 },
@@ -379,7 +379,7 @@ const Home = ({ language }: HomeProps) => {
                 height: `${dot.size}px`,
                 backgroundColor: isDark ? '#fff' : '#000',
                 borderRadius: '50%',
-                opacity: 1,
+                opacity: 0.8,
                 animation: `float ${dot.duration}s ease-in-out infinite`,
                 animationDelay: `${dot.delay}s`
               }}
@@ -437,19 +437,20 @@ const Home = ({ language }: HomeProps) => {
         >
           {/* Personalized Greeting */}
           {userLocation && (
-            <p className="asn-body text-foreground text-lg font-semibold" style={{ 
+            <p className="asn-body text-foreground/80 text-lg font-medium" style={{ 
               textShadow: 'var(--tw-shadow-color, 0 0 0) 0px 1px 2px, rgba(255,255,255,0.8) 0px 1px 2px'
             }}>
               {isHindi 
-                ? `${userLocation} से नमस्कार! आपका स्वागत है।`
-                : `Welcome from ${userLocation}! We're ready to serve you globally.`
+                ? `${userLocation} से नमस्कार! हम आपकी वैश्विक सेवा के लिए तैयार हैं।`
+                : `Welcome from India! We're ready to serve you globally.`
               }
             </p>
           )}
 
           {/* Main Headline */}
-          <h1 className="text-responsive-header leading-tight break-words max-w-full text-foreground" style={{ 
-            textShadow: 'var(--tw-shadow-color, 0 0 0) 0px 2px 4px, rgba(255,255,255,0.9) 0px 2px 4px'
+          <h1 className="text-responsive-header leading-tight break-words max-w-full text-foreground font-bold" style={{ 
+            textShadow: 'var(--tw-shadow-color, 0 0 0) 0px 2px 4px, rgba(255,255,255,0.9) 0px 2px 4px',
+            fontWeight: 700
           }}>
             {isHindi ? (
               <>
@@ -470,43 +471,43 @@ const Home = ({ language }: HomeProps) => {
           </h1>
 
           {/* Subheadline */}
-          <p className="text-responsive-large max-w-4xl mx-auto leading-relaxed break-words font-semibold text-foreground/90" style={{ 
+          <p className="text-responsive-large max-w-4xl mx-auto leading-relaxed break-words font-medium text-foreground/90" style={{ 
             textShadow: '0 2px 8px rgba(0,0,0,0.12)',
             letterSpacing: '0.01em',
-            fontWeight: 600,
+            fontWeight: 500,
           }}>
             {isHindi 
-              ? "Discover How We Can Elevate Your Business! आपकी डिजिटल मार्केटिंग सफलता को सिद्ध रणनीतियों और विशेषज्ञता के साथ निर्मित करते हैं। परिणाम-संचालित समाधान जो आपके व्यवसाय को आगे बढ़ाते हैं।"
-              : "Discover How We Can Elevate Your Business! Building Your Digital Marketing Success with Proven Strategies and Expertise. Result-driven solutions that propel your business forward."
+              ? "आपकी डिजिटल मार्केटिंग सफलता को सिद्ध रणनीतियों और विशेषज्ञता के साथ निर्मित करते हैं।"
+              : "Building Your Digital Marketing Success with Proven Strategies and Expertise."
             }
           </p>
 
-          {/* Trust Metrics */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 mb-2">
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <Link to="/contact">
+              <Button className="bg-white text-black font-bold px-8 py-4 rounded-lg shadow-lg hover:bg-black hover:text-white border border-black transition-all duration-300 text-lg">
+                {isHindi ? "अपने प्रोजेक्ट पर चर्चा करें →" : "Discuss Your Project →"}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link to="/services">
+              <Button className="bg-transparent text-black font-bold px-8 py-4 rounded-lg shadow-lg hover:bg-white hover:text-black border border-black transition-all duration-300 text-lg">
+                {isHindi ? "हमारी सेवाएं देखें →" : "Explore Our Services →"}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+          </div>
+
+          {/* Trust Metrics - Moved below CTA buttons as shown in image */}
+          <div className="metrics-grid">
             {metrics.map((metric, i) => (
-              <div key={i} className="flex flex-col items-center bg-background/80 rounded-xl p-3 shadow-sm border border-border">
+              <div key={i} className="flex flex-col items-center">
                 <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground flex items-center gap-2">
                   <metric.icon className="inline-block h-5 w-5 sm:h-6 sm:w-6 text-accent" /> {metric.number}
                 </span>
                 <span className="text-xs font-medium text-muted-foreground mt-1 text-center uppercase tracking-wider">{metric.label}</span>
               </div>
             ))}
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-            <Link to="/contact">
-              <Button className="bg-white text-black font-bold px-8 py-4 rounded-full shadow-lg hover:bg-black hover:text-white border border-black transition-all duration-300 text-lg">
-                {isHindi ? "Discover How We Can Elevate Your Business!" : "Discover How We Can Elevate Your Business!"}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link to="/services">
-              <Button className="bg-transparent text-white font-bold px-8 py-4 rounded-full shadow-lg hover:bg-white hover:text-black border border-white transition-all duration-300 text-lg">
-                {isHindi ? "Discover How We Can Elevate Your Business!" : "Explore Our Services"}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
           </div>
         </motion.div>
       </motion.section>

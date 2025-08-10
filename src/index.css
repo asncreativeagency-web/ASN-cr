@@ -172,6 +172,27 @@
     background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.03) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 0%, transparent 50%);
   }
+
+  /* Hero metrics cards styling */
+  .asn-hero .metrics-grid {
+    @apply grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12 mb-2;
+  }
+
+  .asn-hero .metrics-grid > div {
+    @apply flex flex-col items-center bg-background/80 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-border/50;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+  }
+
+  .dark .asn-hero .metrics-grid > div {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .asn-hero .metrics-grid > div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
   
   .asn-section {
     @apply py-8 px-2 sm:py-12 sm:px-4 md:py-20 md:px-8 lg:px-16;

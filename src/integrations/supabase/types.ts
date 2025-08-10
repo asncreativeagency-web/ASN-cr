@@ -201,6 +201,48 @@ export type Database = {
         }
         Relationships: []
       }
+      job_applications: {
+        Row: {
+          id: string
+          full_name: string
+          email: string
+          phone: string | null
+          cover_letter: string
+          resume_url: string | null
+          resume_filename: string | null
+          position_applied: string | null
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          full_name: string
+          email: string
+          phone?: string | null
+          cover_letter: string
+          resume_url?: string | null
+          resume_filename?: string | null
+          position_applied?: string | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          full_name?: string
+          email?: string
+          phone?: string | null
+          cover_letter?: string
+          resume_url?: string | null
+          resume_filename?: string | null
+          position_applied?: string | null
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

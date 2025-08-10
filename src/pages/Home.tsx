@@ -45,6 +45,64 @@ const Home = ({ language }: HomeProps) => {
     detectLocation();
   }, []);
 
+  // Force hero text color after component mounts and on theme changes
+  useEffect(() => {
+    const forceHeroTextColor = () => {
+      const heroSpans = document.querySelectorAll('span[data-hero-text="true"]');
+      heroSpans.forEach(span => {
+        if (span instanceof HTMLElement) {
+          // Force black color with maximum priority
+          span.style.setProperty('color', '#000000', 'important');
+          span.style.setProperty('font-weight', '700', 'important');
+          
+          // Override all possible CSS variables
+          span.style.setProperty('--foreground', '0 0% 0%', 'important');
+          span.style.setProperty('--text-color', '#000000', 'important');
+          span.style.setProperty('--color', '#000000', 'important');
+          
+          // Force computed styles
+          span.style.color = '#000000';
+          span.style.fontWeight = '700';
+          
+          // Remove any conflicting classes
+          span.classList.remove('text-foreground', 'text-muted-foreground', 'text-background');
+        }
+      });
+    };
+
+    // Force color immediately
+    forceHeroTextColor();
+    
+    // Force color after a short delay to ensure theme system has run
+    const timer = setTimeout(forceHeroTextColor, 100);
+    
+    // Force color on any theme changes
+    const observer = new MutationObserver(forceHeroTextColor);
+    observer.observe(document.documentElement, { 
+      attributes: true, 
+      attributeFilter: ['class'] 
+    });
+
+    // Force color more frequently to prevent overrides
+    const interval = setInterval(forceHeroTextColor, 500);
+    
+    // Also force on any DOM changes
+    const domObserver = new MutationObserver(forceHeroTextColor);
+    domObserver.observe(document.body, { 
+      childList: true, 
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class', 'style']
+    });
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(interval);
+      observer.disconnect();
+      domObserver.disconnect();
+    };
+  }, []);
+
   const metrics = [
     {
       number: "40+",
@@ -430,7 +488,7 @@ const Home = ({ language }: HomeProps) => {
         transition={{ duration: 0.7, ease: "easeOut" }}
       >
         <HeroAnimatedBG />
-        <motion.div className="asn-container text-center space-y-8"
+        <motion.div className="asn-container text-center space-y-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.7 }}
@@ -448,7 +506,7 @@ const Home = ({ language }: HomeProps) => {
           )}
 
           {/* Main Headline */}
-          <h1 className="text-responsive-header leading-tight break-words max-w-full text-foreground font-bold" style={{ 
+          <h1 className="text-responsive-header leading-tight break-words max-w-full font-bold" style={{ 
             textShadow: 'var(--tw-shadow-color, 0 0 0) 0px 2px 4px, rgba(255,255,255,0.9) 0px 2px 4px',
             fontWeight: 700
           }}>
@@ -462,11 +520,13 @@ const Home = ({ language }: HomeProps) => {
               </>
             ) : (
               <>
-                <span className="text-accent font-bold" style={{ 
+                <span className="font-bold" data-hero-text="true" style={{ 
+                  color: '#000000 !important',
                   textShadow: 'var(--tw-shadow-color, 0 0 0) 0px 2px 4px, rgba(255,255,255,0.9) 0px 2px 4px'
                 }}>Your Digital Success</span><br />
-                <span className="text-accent font-bold" style={{ 
-                  textShadow: 'var(--tw-shadow-color, 0 0 0) 0px 2px 4px, rgba(255,255,255,0.9) 0px 2px 4px'
+                <span className="font-bold" data-hero-text="true" style={{ 
+                  color: '#000000 !important',
+                  textShadow: 'var(--tw-shadow-color, 0px 2px 4px, rgba(255,255,255,0.9) 0px 2px 4px'
                 }}>Partner</span>
               </>
             )}
@@ -488,13 +548,13 @@ const Home = ({ language }: HomeProps) => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
             <Link to="/contact">
               <Button className="bg-white text-black font-bold px-8 py-4 rounded-lg shadow-lg hover:bg-black hover:text-white border border-black transition-all duration-300 text-lg">
-                {isHindi ? "अपने प्रोजेक्ट पर चर्चा करें →" : "Discuss Your Project →"}
+                {isHindi ? "अपने प्रोजेक्ट पर चर्चा करें" : "Discuss Your Project"}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
             <Link to="/services">
               <Button className="bg-transparent text-black font-bold px-8 py-4 rounded-lg shadow-lg hover:bg-white hover:text-black border border-black transition-all duration-300 text-lg">
-                {isHindi ? "हमारी सेवाएं देखें →" : "Explore Our Services →"}
+                {isHindi ? "हमारी सेवाएं देखें" : "Explore Our Services"}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>

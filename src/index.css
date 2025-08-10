@@ -215,6 +215,114 @@
   .text-responsive-header {
     @apply text-2xl md:text-4xl lg:text-6xl;
   }
+
+  /* Force black text for hero headline - highest specificity */
+  /* Force black text for hero headline - override theme system */
+  .asn-container h1 span[data-hero-text="true"] {
+    color: #000000 !important;
+    font-weight: 700 !important;
+  }
+
+  /* Even higher specificity override */
+  .asn-container h1 span[data-hero-text="true"] {
+    color: #000000 !important;
+    font-weight: 700 !important;
+  }
+
+  /* Maximum specificity override */
+  html body .asn-container h1 span[data-hero-text="true"] {
+    color: #000000 !important;
+    font-weight: 700 !important;
+  }
+
+  /* Override theme system CSS variables */
+  .asn-container h1 span[data-hero-text="true"] {
+    color: #000000 !important;
+    font-weight: 700 !important;
+    --foreground: 0 0% 0% !important;
+  }
+
+  /* Dark mode override - maximum aggression */
+  .dark .asn-container h1 span[data-hero-text="true"],
+  .dark .asn-container h1 span[data-hero-text="true"] *,
+  .dark .asn-container h1 span[data-hero-text="true"]::before,
+  .dark .asn-container h1 span[data-hero-text="true"]::after {
+    color: #000000 !important;
+    font-weight: 700 !important;
+    --foreground: 0 0% 0% !important;
+    --text-color: #000000 !important;
+    --color: #000000 !important;
+    background-color: transparent !important;
+    text-shadow: none !important;
+  }
+
+  /* Dark mode with highest specificity */
+  html.dark body div#root div.asn-container h1 span[data-hero-text="true"] {
+    color: #000000 !important;
+    font-weight: 700 !important;
+    --foreground: 0 0% 0% !important;
+    --text-color: #000000 !important;
+    --color: #000000 !important;
+    background-color: transparent !important;
+    text-shadow: none !important;
+  }
+
+  /* Override any dark mode text classes */
+  .dark .text-foreground.asn-container h1 span[data-hero-text="true"],
+  .dark .text-muted-foreground.asn-container h1 span[data-hero-text="true"],
+  .dark .text-background.asn-container h1 span[data-hero-text="true"] {
+    color: #000000 !important;
+    font-weight: 700 !important;
+  }
+
+  /* Nuclear option - override everything */
+  .asn-container h1 span[data-hero-text="true"],
+  .asn-container h1 span[data-hero-text="true"] *,
+  .asn-container h1 span[data-hero-text="true"]::before,
+  .asn-container h1 span[data-hero-text="true"]::after {
+    color: #000000 !important;
+    font-weight: 700 !important;
+    --foreground: 0 0% 0% !important;
+    --text-color: #000000 !important;
+    --color: #000000 !important;
+  }
+
+  /* Force override for all theme states */
+  :root .asn-container h1 span[data-hero-text="true"],
+  .dark .asn-container h1 span[data-hero-text="true"],
+  .light .asn-container h1 span[data-hero-text="true"] {
+    color: #000000 !important;
+    font-weight: 700 !important;
+    --foreground: 0 0% 0% !important;
+  }
+
+  /* Maximum nuclear option - override everything with highest specificity */
+  html body div#root div.asn-container h1 span[data-hero-text="true"] {
+    color: #000000 !important;
+    font-weight: 700 !important;
+    --foreground: 0 0% 0% !important;
+    --text-color: #000000 !important;
+    --color: #000000 !important;
+    background-color: transparent !important;
+    text-shadow: none !important;
+  }
+
+  /* Override any Tailwind classes */
+  .text-foreground.asn-container h1 span[data-hero-text="true"],
+  .text-muted-foreground.asn-container h1 span[data-hero-text="true"],
+  .text-background.asn-container h1 span[data-hero-text="true"] {
+    color: #000000 !important;
+    font-weight: 700 !important;
+  }
+
+  /* Override any motion or animation classes */
+  .motion-safe .asn-container h1 span[data-hero-text="true"],
+  .motion-reduce .asn-container h1 span[data-hero-text="true"] {
+    color: #000000 !important;
+    font-weight: 700 !important;
+  }
+
+
   
   /* Prevent horizontal scroll */
   .overflow-safe {

@@ -30,6 +30,7 @@ const Services = lazy(() => import("./pages/Services"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Sitemap = lazy(() => import("./pages/Sitemap"));
+const Careers = lazy(() => import("./pages/Careers"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => {
@@ -118,6 +119,7 @@ function PageTransitions({ language, isDark, setLanguage, setIsDark, user, sessi
               <Route path="/" element={<Home language={language} />} />
               <Route path="/services" element={<Services language={language} />} />
               <Route path="/portfolio" element={<Portfolio language={language} />} />
+              <Route path="/careers" element={<Careers language={language} />} />
               <Route path="/contact" element={<Contact language={language} />} />
               <Route path="/sitemap" element={<Sitemap language={language} />} />
               <Route path="*" element={<NotFound />} />

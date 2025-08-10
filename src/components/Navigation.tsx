@@ -27,6 +27,7 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
     { name: "HOME", path: "/" },
     { name: "SERVICES", path: "/services" },
     { name: "PORTFOLIO", path: "/portfolio" },
+    { name: "CAREERS", path: "/careers" },
     { name: "CONTACT", path: "/contact" },
   ];
 

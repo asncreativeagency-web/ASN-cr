@@ -462,8 +462,10 @@ const Home = ({ language }: HomeProps) => {
               </>
             ) : (
               <>
-                Your Digital Success<br />
-                <span className="text-muted-foreground" style={{ 
+                <span className="text-accent font-bold" style={{ 
+                  textShadow: 'var(--tw-shadow-color, 0 0 0) 0px 2px 4px, rgba(255,255,255,0.9) 0px 2px 4px'
+                }}>Your Digital Success</span><br />
+                <span className="text-accent font-bold" style={{ 
                   textShadow: 'var(--tw-shadow-color, 0 0 0) 0px 2px 4px, rgba(255,255,255,0.9) 0px 2px 4px'
                 }}>Partner</span>
               </>
@@ -498,35 +500,7 @@ const Home = ({ language }: HomeProps) => {
             </Link>
           </div>
 
-          {/* Trust Metrics - Moved below CTA buttons as shown in image */}
-          <div className="metrics-grid">
-            {metrics.map((metric, i) => (
-              <div key={i} className="flex flex-col items-center">
-                <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground flex items-center gap-2">
-                  <metric.icon className="inline-block h-5 w-5 sm:h-6 sm:w-6 text-accent" /> {metric.number}
-                </span>
-                <span className="text-xs font-medium text-muted-foreground mt-1 text-center uppercase tracking-wider">{metric.label}</span>
-              </div>
-            ))}
-          </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-            <Link to="/contact">
-              <Button className="bg-white text-black font-bold px-8 py-4 rounded-full shadow-lg hover:bg-black hover:text-white border border-black transition-all duration-300 text-lg whitespace-nowrap">
-                <span className="hidden md:inline">{isHindi ? "अपने प्रोजेक्ट पर चर्चा करें" : "Discuss Your Project"}</span>
-                <span className="md:hidden">{isHindi ? "संपर्क करें" : "Contact Us"}</span>
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <Link to="/services">
-              <Button className="bg-transparent text-white font-bold px-8 py-4 rounded-full shadow-lg hover:bg-white hover:text-black border border-white transition-all duration-300 text-lg whitespace-nowrap">
-                <span className="hidden md:inline">{isHindi ? "हमारी सेवाएं देखें" : "Explore Our Services"}</span>
-                <span className="md:hidden">{isHindi ? "सेवाएं" : "Services"}</span>
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-          </div>
         </motion.div>
       </motion.section>
       <SectionDivider />

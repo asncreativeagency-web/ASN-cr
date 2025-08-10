@@ -390,7 +390,7 @@ const Careers = ({ language }: CareersProps) => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-foreground via-foreground/95 to-foreground/90 text-background py-0 lg:py-4 overflow-hidden min-h-screen flex items-center">
+      <section className="relative bg-gradient-to-br from-foreground via-foreground/95 to-foreground/90 text-background py-0 overflow-hidden min-h-screen">
         {/* Floating Animated Elements */}
         <motion.div
           animate={{ 
@@ -463,7 +463,7 @@ const Careers = ({ language }: CareersProps) => {
           className="absolute bottom-1/4 right-1/4 w-16 h-16 border border-background/20 transform rotate-45"
         />
 
-        <div className="asn-container relative z-10">
+        <div className="asn-container relative z-10 pt-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -490,7 +490,7 @@ const Careers = ({ language }: CareersProps) => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-              className="asn-headline text-4xl md:text-6xl lg:text-7xl mb-1 leading-tight text-white"
+              className="asn-headline text-4xl md:text-6xl lg:text-7xl mb-8 leading-tight text-white"
             >
               {isHindi 
                 ? "ASN Creative Agency में इंटर्न के रूप में शामिल हों और अपना डिजिटल करियर शुरू करें!"
@@ -502,7 +502,7 @@ const Careers = ({ language }: CareersProps) => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-              className="asn-body text-xl md:text-2xl text-background/80 mb-3 max-w-3xl mx-auto leading-relaxed"
+              className="asn-body text-xl md:text-2xl text-background/80 mb-8 max-w-3xl mx-auto leading-relaxed"
             >
               {isHindi
                 ? "वास्तविक प्रोजेक्ट्स, रचनात्मक स्वतंत्रता, और एक वैश्विक रूप से मान्यता प्राप्त एजेंसी में मेंटरशिप का अनुभव करें।"
@@ -514,6 +514,7 @@ const Careers = ({ language }: CareersProps) => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+              className="mt-8"
             >
               <Button 
                 size="lg" 

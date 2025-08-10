@@ -662,23 +662,83 @@ img, video {
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
-/* Enhanced Scrollbar Styling */
+/* Enhanced Scrollbar Styling - ASN Design System */
 ::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--surface));
+  border-radius: 7px;
+  border: 1px solid hsl(var(--border));
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, hsl(var(--muted-foreground)) 0%, hsl(var(--foreground)) 100%);
+  border-radius: 7px;
+  border: 2px solid hsl(var(--surface));
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--accent)) 100%);
+  transform: scale(1.05);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--primary)) 100%);
+}
+
+::-webkit-scrollbar-corner {
+  background: hsl(var(--surface));
+  border-radius: 7px;
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground)) hsl(var(--surface));
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar for Specific Elements */
+.scrollbar-thin::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--muted);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--muted-foreground);
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: hsl(var(--surface));
   border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--foreground);
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground));
+}
+
+/* Dark Mode Scrollbar Adjustments */
+.dark ::-webkit-scrollbar-track {
+  background: hsl(var(--surface));
+  border: 1px solid hsl(var(--border));
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, hsl(var(--muted-foreground)) 0%, hsl(var(--accent)) 100%);
+  border: 2px solid hsl(var(--surface));
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--foreground)) 100%);
 }
 
 /* Enhanced Selection Styling */

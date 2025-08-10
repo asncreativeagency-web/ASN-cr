@@ -63,7 +63,7 @@ const Footer = ({ language }: FooterProps) => {
   return (
     <footer className="bg-foreground text-background">
       <div className="asn-container asn-section">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-20 lg:gap-24 xl:gap-32">
           {/* Brand */}
           <div className="space-y-6">
             <h3 className="asn-headline text-3xl text-background">

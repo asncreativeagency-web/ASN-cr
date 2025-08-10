@@ -173,8 +173,9 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
             ))}
             {/* CTA Button */}
             <Link to="/contact">
-              <Button className="bg-black text-white hover:bg-white hover:text-black border border-black font-bold px-6 py-2 rounded-full text-sm tracking-wider transition-all duration-300">
-                {language === "hi" ? "अपने प्रोजेक्ट के बारे में बात करें!" : "Discover How We Can Elevate Your Business!"}
+              <Button className="bg-black text-white hover:bg-white hover:text-black border border-black font-bold px-6 py-2 rounded-full text-sm tracking-wider transition-all duration-300 whitespace-nowrap">
+                <span className="hidden md:inline">{language === "hi" ? "अपने प्रोजेक्ट के बारे में बात करें!" : "Discover How We Can Elevate Your Business!"}</span>
+                <span className="md:hidden">{language === "hi" ? "बात करें" : "Contact Us"}</span>
               </Button>
             </Link>
           </div>

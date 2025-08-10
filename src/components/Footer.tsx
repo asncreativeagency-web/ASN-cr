@@ -63,7 +63,11 @@ const Footer = ({ language }: FooterProps) => {
   return (
     <footer className="bg-foreground text-background">
       <div className="asn-container asn-section">
+<<<<<<< HEAD
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-16 lg:gap-20">
+=======
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+>>>>>>> origin/main
           {/* Brand */}
           <div className="space-y-6">
             <h3 className="asn-headline text-3xl text-background">
@@ -200,7 +204,7 @@ const Footer = ({ language }: FooterProps) => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-background/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-background/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
           <p className="asn-body text-background/60 text-sm">
             © 2025 ASN Creative Agency. {isHindi ? "सभी अधिकार सुरक्षित।" : "All rights reserved."}
           </p>

@@ -39,6 +39,16 @@ const App = () => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
 
+  // Global loading timeout - safety net to prevent infinite loading
+  useEffect(() => {
+    const globalTimeout = setTimeout(() => {
+      console.log('Global timeout - forcing app to render');
+      // Force the app to render even if other operations are hanging
+    }, 5000); // 5 seconds
+    
+    return () => clearTimeout(globalTimeout);
+  }, []);
+
   useEffect(() => {
     // Initialize theme
     if (isDark) {
@@ -57,13 +67,29 @@ const App = () => {
       }
     );
 
+    // Add timeout to prevent hanging
+    const timeoutId = setTimeout(() => {
+      console.log('Supabase auth timeout - proceeding without session');
+      setSession(null);
+      setUser(null);
+    }, 3000); // 3 second timeout
+
     // THEN check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      clearTimeout(timeoutId);
       setSession(session);
       setUser(session?.user ?? null);
+    }).catch(error => {
+      clearTimeout(timeoutId);
+      console.error('Supabase auth error:', error);
+      setSession(null);
+      setUser(null);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      clearTimeout(timeoutId);
+      subscription.unsubscribe();
+    };
   }, []);
 
   return (

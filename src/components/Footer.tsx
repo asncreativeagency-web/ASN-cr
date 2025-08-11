@@ -120,7 +120,7 @@ const Footer = ({ language }: FooterProps) => {
               </div>
               
               <div className="flex items-center space-x-3">
-                <MapPin className="h-5 w-5 text-background/60" />
+                <MapPin className="h-7 w-7 text-background/60" />
                 <span className="asn-body text-background/80">
                   ASN Agency, Hyderabad, India - 500087
                 </span>

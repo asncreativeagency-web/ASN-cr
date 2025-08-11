@@ -14,13 +14,15 @@ function useIsDarkMode() {
   useEffect(() => {
     const check = () => setIsDark(document.documentElement.classList.contains('dark'));
     check();
-    window.addEventListener('classChange', check);
+    
+    // Only use one observer instead of multiple to prevent conflicts
     const observer = new MutationObserver(check);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    return () => {
-      window.removeEventListener('classChange', check);
-      observer.disconnect();
-    };
+    observer.observe(document.documentElement, { 
+      attributes: true, 
+      attributeFilter: ['class'] 
+    });
+    
+    return () => observer.disconnect();
   }, []);
   return isDark;
 }
@@ -35,11 +37,22 @@ const Home = ({ language }: HomeProps) => {
     // Detect user location (simplified)
     const detectLocation = async () => {
       try {
-        const response = await fetch('https://ipapi.co/json/');
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+        
+        const response = await fetch('https://ipapi.co/json/', {
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
         const data = await response.json();
         setUserLocation(data.country_name || "");
       } catch (error) {
-        console.log("Location detection failed");
+        if (error.name === 'AbortError') {
+          console.log("Location detection timed out");
+        } else {
+          console.log("Location detection failed:", error);
+        }
+        setUserLocation(""); // Set empty string instead of undefined
       }
     };
     detectLocation();
@@ -47,7 +60,13 @@ const Home = ({ language }: HomeProps) => {
 
   // Force hero text color after component mounts and on theme changes
   useEffect(() => {
+    let runCount = 0;
+    const maxRuns = 10; // Only run 10 times max
+    
     const forceHeroTextColor = () => {
+      if (runCount >= maxRuns) return;
+      runCount++;
+      
       const heroSpans = document.querySelectorAll('span[data-hero-text="true"]');
       heroSpans.forEach(span => {
         if (span instanceof HTMLElement) {
@@ -76,30 +95,32 @@ const Home = ({ language }: HomeProps) => {
     // Force color after a short delay to ensure theme system has run
     const timer = setTimeout(forceHeroTextColor, 100);
     
-    // Force color on any theme changes
-    const observer = new MutationObserver(forceHeroTextColor);
+    // Force color on theme changes (but limit runs)
+    const observer = new MutationObserver(() => {
+      if (runCount < maxRuns) forceHeroTextColor();
+    });
     observer.observe(document.documentElement, { 
       attributes: true, 
       attributeFilter: ['class'] 
     });
 
-    // Force color more frequently to prevent overrides
-    const interval = setInterval(forceHeroTextColor, 500);
+    // Remove the interval that runs every 500ms to prevent infinite loops
+    // const interval = setInterval(forceHeroTextColor, 500);
     
-    // Also force on any DOM changes
-    const domObserver = new MutationObserver(forceHeroTextColor);
-    domObserver.observe(document.body, { 
-      childList: true, 
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['class', 'style']
-    });
+    // Remove the DOM observer that watches everything to prevent performance issues
+    // const domObserver = new MutationObserver(forceHeroTextColor);
+    // domObserver.observe(document.body, { 
+    //   childList: true, 
+    //   subtree: true,
+    //   attributes: true,
+    //   attributeFilter: ['class', 'style']
+    // });
 
     return () => {
       clearTimeout(timer);
-      clearInterval(interval);
+      // clearInterval(interval); // Remove this
       observer.disconnect();
-      domObserver.disconnect();
+      // domObserver.disconnect(); // Remove this
     };
   }, []);
 

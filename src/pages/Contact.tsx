@@ -28,6 +28,28 @@ const Contact = ({ language }: ContactProps) => {
   const isHindi = language === "hi";
   const [formFeedback, setFormFeedback] = useState("");
 
+  // Enhanced mail handling function
+  const handleMailClick = (e: React.MouseEvent, emailAddress: string, subject?: string, body?: string) => {
+    e.preventDefault();
+    
+    // Try to open mail client
+    const mailtoUrl = `mailto:${emailAddress}${subject ? `?subject=${encodeURIComponent(subject)}` : ''}${body ? `${subject ? '&' : '?'}body=${encodeURIComponent(body)}` : ''}`;
+    
+    // Create a temporary link and click it
+    const link = document.createElement('a');
+    link.href = mailtoUrl;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Fallback: if mailto doesn't work, try to open Gmail
+    setTimeout(() => {
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(emailAddress)}${subject ? `&su=${encodeURIComponent(subject)}` : ''}${body ? `&body=${encodeURIComponent(body)}` : ''}`;
+      window.open(gmailUrl, '_blank');
+    }, 1000);
+  };
+
   useEffect(() => {
     // Auto-detect user country
     const detectCountry = async () => {
@@ -177,23 +199,30 @@ const Contact = ({ language }: ContactProps) => {
     }
   };
 
-  const contactInfo = [
+  const contactInfo: Array<{
+    icon: any;
+    title: string;
+    details: string;
+    action?: string | null;
+    onClick?: (e: React.MouseEvent) => void;
+  }> = [
     {
       icon: Mail,
       title: isHindi ? "ईमेल" : "Email",
-      details: "contact@asncreativeagency.com",
-      action: "mailto:contact@asncreativeagency.com"
+      details: "contact@asncreativeagency.in",
+      action: "mailto:contact@asncreativeagency.in?subject=Inquiry%20from%20ASN%20Website&body=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?",
+      onClick: (e: React.MouseEvent) => handleMailClick(e, "contact@asncreativeagency.in", "Inquiry from ASN Website", "Hello! I'm interested in your digital services. Can we discuss my project?")
     },
     {
       icon: Phone,
       title: isHindi ? "फोन" : "Phone",
-      details: "+91 93816 17904, +91 98483 93730",
+      details: "+91 93816 17904, +91 94938 93730",
       action: "tel:+919381617904"
     },
     {
   icon: MessageSquare,
   title: "WhatsApp",
-  details: "+91 93816 17904, +91 98483 93730",
+  details: "+91 93816 17904, +91 94938 93730",
   action: "https://wa.me/919381617904?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?"
 },
 
@@ -384,13 +413,20 @@ const Contact = ({ language }: ContactProps) => {
                       {info.action && info.title === (isHindi ? "फोन" : "Phone") ? (
                         <div className="flex flex-col space-y-1">
                           <a href="tel:+919381617904" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 93816 17904</a>
-                          <a href="tel:+919848393730" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 98483 93730</a>
+                          <a href="tel:+919493893730" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 94938 93730</a>
                         </div>
                       ) : info.action && info.title === "WhatsApp" ? (
                         <div className="flex flex-col space-y-1">
                           <a href="https://wa.me/919381617904?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 93816 17904</a>
-                          <a href="https://wa.me/919848393730?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 98483 93730</a>
+                          <a href="https://wa.me/919493893730?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link" target="_blank" rel="noopener noreferrer">+91 94938 93730</a>
                         </div>
+                      ) : info.action && info.onClick ? (
+                        <button 
+                          onClick={info.onClick}
+                          className="asn-body text-muted-foreground hover:text-foreground transition-colors asn-link text-left whitespace-nowrap"
+                        >
+                          {info.details}
+                        </button>
                       ) : info.action ? (
                         <a 
                           href={info.action}
@@ -506,10 +542,10 @@ const Contact = ({ language }: ContactProps) => {
                       +91 93816 17904 (WhatsApp)
                     </Button>
                   </a>
-                  <a href="https://wa.me/919848393730?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/919493893730?text=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?" target="_blank" rel="noopener noreferrer">
                     <Button className="w-full asn-button-primary flex items-center justify-center gap-2">
                       <MessageSquare className="h-5 w-5" />
-                      +91 98483 93730 (WhatsApp)
+                      +91 94938 93730 (WhatsApp)
                     </Button>
                   </a>
                   <a href="tel:+919381617904" target="_blank" rel="noopener noreferrer">
@@ -518,10 +554,10 @@ const Contact = ({ language }: ContactProps) => {
                       +91 93816 17904 (Call)
                     </Button>
                   </a>
-                  <a href="tel:+919848393730" target="_blank" rel="noopener noreferrer">
+                  <a href="tel:+919493893730" target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" className="w-full asn-button-secondary flex items-center justify-center gap-2">
                       <Phone className="h-5 w-5" />
-                      +91 98483 93730 (Call)
+                      +91 94938 93730 (Call)
                     </Button>
                   </a>
                 </div>

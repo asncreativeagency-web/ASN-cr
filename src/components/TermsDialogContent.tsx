@@ -54,7 +54,7 @@ const TermsDialogContent = () => (
           </li>
           <li>
             <strong>Contact</strong><br />
-            Questions about these Terms? Email: <a href="mailto:contact@asncreativeagency.com" className="underline">contact@asncreativeagency.com</a>
+            Questions about these Terms? Email: <a href="mailto:contact@asncreativeagency.in?subject=Question%20about%20Terms%20of%20Service&body=Hello!%20I%20have%20a%20question%20about%20the%20terms%20of%20service." className="underline">contact@asncreativeagency.in</a>
           </li>
         </ol>
         <p className="text-xs text-muted-foreground mt-4">This is a sample. Consult a lawyer for further customization, especially for complex international projects.</p>

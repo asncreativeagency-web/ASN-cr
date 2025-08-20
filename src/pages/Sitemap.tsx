@@ -38,7 +38,7 @@ const Sitemap = ({ language }: SitemapProps) => {
   const externalLinks = [
     { name: "Instagram", href: "https://www.instagram.com/advanced_solutions_network/", description: "Social media" },
     { name: "WhatsApp", href: "https://wa.me/919381617904", description: "Direct messaging" },
-    { name: "Email", href: "mailto:contact@asncreativeagency.com", description: "Email contact" },
+            { name: "Email", href: "mailto:contact@asncreativeagency.in?subject=Inquiry%20from%20ASN%20Website&body=Hello!%20I'm%20interested%20in%20your%20digital%20services.%20Can%20we%20discuss%20my%20project?", description: "Email contact" },
   ];
 
   return (

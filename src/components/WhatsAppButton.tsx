@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 
 const WhatsAppButton = () => {
-  const phoneNumbers = ["+919381617904", "+919848393730"];
+  const phoneNumbers = ["+919381617904", "+919493893730"];
   const message = "Hi! I'm ready to discover how you can elevate my business. Can you help me get started?";
   const [open, setOpen] = useState(false);
   const handleWhatsAppClick = (number) => {

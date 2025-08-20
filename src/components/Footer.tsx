@@ -20,7 +20,35 @@ const Footer = ({ language }: FooterProps) => {
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const socialLinks = [
+  // Enhanced mail handling function
+  const handleMailClick = (e: React.MouseEvent, emailAddress: string, subject?: string, body?: string) => {
+    e.preventDefault();
+    
+    // Try to open mail client
+    const mailtoUrl = `mailto:${emailAddress}${subject ? `?subject=${encodeURIComponent(subject)}` : ''}${body ? `${subject ? '&' : '?'}body=${encodeURIComponent(body)}` : ''}`;
+    
+    // Create a temporary link and click it
+    const link = document.createElement('a');
+    link.href = mailtoUrl;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Fallback: if mailto doesn't work, try to open Gmail
+    setTimeout(() => {
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(emailAddress)}${subject ? `&su=${encodeURIComponent(subject)}` : ''}${body ? `&body=${encodeURIComponent(body)}` : ''}`;
+      window.open(gmailUrl, '_blank');
+    }, 1000);
+  };
+
+  const socialLinks: Array<{
+    icon: any;
+    href?: string;
+    label: string;
+    color: string;
+    onClick?: (e: React.MouseEvent) => void;
+  }> = [
     { 
       icon: Instagram, 
       href: "https://www.instagram.com/advanced_solutions_network/", 
@@ -35,9 +63,10 @@ const Footer = ({ language }: FooterProps) => {
     },
     { 
       icon: Mail, 
-      href: "mailto:contact@asncreativeagency.com", 
+      href: "#",
       label: "Email",
-      color: "hover:bg-blue-500"
+      color: "hover:bg-blue-500",
+      onClick: (e: React.MouseEvent) => handleMailClick(e, "contact@asncreativeagency.in", "Inquiry from ASN Website", "Hello! I'm interested in your digital services. Can we discuss my project?")
     },
   ];
 
@@ -79,16 +108,27 @@ const Footer = ({ language }: FooterProps) => {
             {/* Social Links */}
             <div className="flex space-x-3">
               {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  aria-label={social.label}
-                  className={`p-3 border border-background/20 hover:border-background transition-all duration-300 rounded-full ${social.color} hover:text-white`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <social.icon className="h-5 w-5" />
-                </a>
+                social.onClick ? (
+                  <button
+                    key={index}
+                    onClick={social.onClick}
+                    aria-label={social.label}
+                    className={`p-3 border border-background/20 hover:border-background transition-all duration-300 rounded-full ${social.color} hover:text-white`}
+                  >
+                    <social.icon className="h-5 w-5" />
+                  </button>
+                ) : (
+                  <a
+                    key={index}
+                    href={social.href}
+                    aria-label={social.label}
+                    className={`p-3 border border-background/20 hover:border-background transition-all duration-300 rounded-full ${social.color} hover:text-white`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <social.icon className="h-5 w-5" />
+                  </a>
+                )
               ))}
             </div>
           </div>
@@ -102,9 +142,13 @@ const Footer = ({ language }: FooterProps) => {
             <div className="space-y-4">
               <div className="flex items-center space-x-3 min-w-0">
                 <Mail className="h-5 w-5 text-background/60 flex-shrink-0" />
-                <a href="mailto:contact@asncreativeagency.com" className="asn-body text-background/80 hover:text-background transition-colors break-words whitespace-normal">
-                  contact@asncreativeagency.com
-                </a>
+                <span 
+                  onClick={(e) => handleMailClick(e, "contact@asncreativeagency.in", "Inquiry from ASN Website", "Hello! I'm interested in your digital services. Can we discuss my project?")}
+                  className="asn-body text-background/80 whitespace-nowrap text-left overflow-visible cursor-pointer"
+                  style={{ minWidth: 'max-content' }}
+                >
+                  contact@asncreativeagency.in
+                </span>
               </div>
               
               <div className="flex items-start space-x-3">
@@ -113,9 +157,9 @@ const Footer = ({ language }: FooterProps) => {
                   <a href="https://wa.me/919381617904?text=Hi!%20I%20want%20to%20call%20you%20on%20WhatsApp.%20Are%20you%20available?" target="_blank" rel="noopener noreferrer" className="asn-body text-background/80 hover:text-background transition-colors">
                     +91 93816 17904
                   </a>
-                  <a href="https://wa.me/919848393730?text=Hi!%20I%20want%20to%20call%20you%20on%20WhatsApp.%20Are%20you%20available?" target="_blank" rel="noopener noreferrer" className="asn-body text-background/80 hover:text-background transition-colors">
-                    +91 98483 93730
-                  </a>
+                                      <a href="https://wa.me/919493893730?text=Hi!%20I%20want%20to%20call%20you%20on%20WhatsApp.%20Are%20you%20available?" target="_blank" rel="noopener noreferrer" className="asn-body text-background/80 hover:text-background transition-colors">
+                      +91 94938 93730
+                    </a>
                 </div>
               </div>
               

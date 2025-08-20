@@ -48,7 +48,7 @@ const PrivacyPolicyDialogContent = () => (
         <h4 className="font-bold mt-4">Updates to This Policy</h4>
         <p>We may update this notice from time to time. The revised version will be indicated by an updated "Last updated" date and will be effective when accessible.</p>
         <h4 className="font-bold mt-4">Contact Us</h4>
-        <p>For any questions or concerns, contact: <a href="mailto:contact@asncreativeagency.com" className="underline">contact@asncreativeagency.com</a></p>
+        <p>For any questions or concerns, contact: <a href="mailto:contact@asncreativeagency.in?subject=Privacy%20Policy%20Inquiry&body=Hello!%20I%20have%20a%20question%20about%20the%20privacy%20policy." className="underline">contact@asncreativeagency.in</a></p>
       </div>
     </DialogDescription>
   </DialogContent>

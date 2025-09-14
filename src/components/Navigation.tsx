@@ -144,7 +144,11 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
 
   return (
     <nav
-      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/95 backdrop-blur-sm border-b border-border`}
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-background shadow-lg border-b border-border' 
+          : 'bg-background border-b border-border'
+      }`}
       role="navigation"
       aria-label="Main Navigation"
     >
@@ -221,7 +225,7 @@ const Navigation = ({ language, setLanguage, isDark, setIsDark, user, session }:
         {isMenuOpen && (
           <div
             id="mobile-menu"
-            className="lg:hidden absolute top-full left-0 right-0 bg-background border-b border-border animate-slide-up"
+            className="lg:hidden absolute top-full left-0 right-0 bg-background border-b border-border animate-slide-up z-[110] shadow-lg"
             role="menu"
             aria-label="Mobile Navigation"
             ref={mobileMenuRef}

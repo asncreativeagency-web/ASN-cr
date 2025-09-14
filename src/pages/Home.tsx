@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BarChart3, Globe, Users, Zap } from "lucide-react";
+import { ArrowRight, BarChart3, Globe, Users, Zap, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -70,9 +70,12 @@ const Home = ({ language }: HomeProps) => {
       const heroSpans = document.querySelectorAll('span[data-hero-text="true"]');
       heroSpans.forEach(span => {
         if (span instanceof HTMLElement) {
-          // Force black color with maximum priority
+          // Force ultra black color with maximum priority
           span.style.setProperty('color', '#000000', 'important');
-          span.style.setProperty('font-weight', '700', 'important');
+          span.style.setProperty('font-weight', '900', 'important');
+          span.style.setProperty('-webkit-text-fill-color', '#000000', 'important');
+          span.style.setProperty('filter', 'contrast(1.2) saturate(0)', 'important');
+          span.style.setProperty('text-rendering', 'optimizeLegibility', 'important');
           
           // Override all possible CSS variables
           span.style.setProperty('--foreground', '0 0% 0%', 'important');
@@ -81,7 +84,7 @@ const Home = ({ language }: HomeProps) => {
           
           // Force computed styles
           span.style.color = '#000000';
-          span.style.fontWeight = '700';
+          span.style.fontWeight = '900';
           
           // Remove any conflicting classes
           span.classList.remove('text-foreground', 'text-muted-foreground', 'text-background');
@@ -404,9 +407,9 @@ const Home = ({ language }: HomeProps) => {
         filter: 'grayscale(100%)'
       }} />
       {/* SVG and dots are now controlled by CSS for responsiveness */}
-      <div className="hidden md:block">
-        <div style={{ opacity: isDark ? 0.15 : 0.25 }}>
-          <svg viewBox="0 0 2000 500" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '200vw', height: '100%', display: 'block', animation: 'waveMove 18s linear infinite' }}>
+      <div className="hidden md:block" style={{ overflow: 'hidden', position: 'relative', width: '100%', height: '100%' }}>
+        <div style={{ opacity: isDark ? 0.15 : 0.25, position: 'relative', overflow: 'hidden' }}>
+          <svg viewBox="0 0 2000 500" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '200vw', height: '100%', display: 'block', animation: 'waveMove 18s linear infinite', position: 'absolute', top: 0, left: 0, willChange: 'transform', transform: 'translateZ(0)' }}>
             <path d="M0 250 Q 500 100 1000 250 T 2000 250" stroke={isDark ? '#fff' : '#000'} strokeWidth="2" fill="none" opacity={isDark ? 0.15 : 0.25}/>
             <path d="M0 350 Q 500 200 1000 350 T 2000 350" stroke={isDark ? '#eee' : '#111'} strokeWidth="1.5" fill="none" opacity={isDark ? 0.15 : 0.25}/>
             <path d="M0 450 Q 500 300 1000 450 T 2000 350" stroke={isDark ? '#ccc' : '#222'} strokeWidth="1" fill="none" opacity={isDark ? 0.15 : 0.25}/>
@@ -543,21 +546,25 @@ const Home = ({ language }: HomeProps) => {
               <>
                 <span className="font-bold" data-hero-text="true" style={{ 
                   color: '#000000 !important',
-                  textShadow: 'var(--tw-shadow-color, 0 0 0) 0px 2px 4px, rgba(255,255,255,0.9) 0px 2px 4px'
+                  fontWeight: 900,
+                  filter: 'contrast(1.2) saturate(0)',
+                  textRendering: 'optimizeLegibility'
                 }}>Your Digital Success</span><br />
                 <span className="font-bold" data-hero-text="true" style={{ 
                   color: '#000000 !important',
-                  textShadow: 'var(--tw-shadow-color, 0px 2px 4px, rgba(255,255,255,0.9) 0px 2px 4px'
+                  fontWeight: 900,
+                  filter: 'contrast(1.2) saturate(0)',
+                  textRendering: 'optimizeLegibility'
                 }}>Partner</span>
               </>
             )}
           </h1>
 
           {/* Subheadline */}
-          <p className="text-responsive-large max-w-4xl mx-auto leading-relaxed break-words font-medium text-foreground/90" style={{ 
-            textShadow: '0 2px 8px rgba(0,0,0,0.12)',
+          <p className="text-responsive-large max-w-4xl mx-auto leading-relaxed break-words font-bold" style={{ 
+            color: '#000000',
             letterSpacing: '0.01em',
-            fontWeight: 500,
+            fontWeight: 600,
           }}>
             {isHindi 
               ? "आपकी डिजिटल मार्केटिंग सफलता को सिद्ध रणनीतियों और विशेषज्ञता के साथ निर्मित करते हैं।"
@@ -574,7 +581,7 @@ const Home = ({ language }: HomeProps) => {
               </Button>
             </Link>
             <Link to="/services">
-              <Button className="bg-transparent text-black font-bold px-8 py-4 rounded-lg shadow-lg hover:bg-white hover:text-black border border-black transition-all duration-300 text-lg">
+              <Button className="bg-transparent dark:bg-white text-black dark:text-black font-bold px-8 py-4 rounded-lg border-2 border-black dark:border-white hover:text-orange-500 dark:hover:text-orange-500 dark:hover:bg-transparent focus:text-orange-500 focus:outline-none active:text-orange-500 transition-all duration-500 text-lg">
                 {isHindi ? "हमारी सेवाएं देखें" : "Explore Our Services"}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -949,74 +956,121 @@ const Home = ({ language }: HomeProps) => {
             </h2>
             <p className="asn-body text-xl text-muted-foreground max-w-3xl mx-auto">
               {isHindi 
-                ? "विभिन्न उद्योगों में हमारे सफल प्रोजेक्ट्स।"
-                : "Our successful projects across various industries."
+                ? "Discover How We Can Elevate Your Business! सफलता की कहानियां जो हमारी विशेषज्ञता और प्रतिबद्धता को दर्शाती हैं।"
+                : "Discover How We Can Elevate Your Business! Success stories that showcase our expertise and commitment to excellence."
               }
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {portfolioProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                className="group relative overflow-hidden bg-background border border-border hover:border-foreground transition-all duration-300 rounded-xl cursor-pointer"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
-                whileHover={{ scale: 1.02, y: -5 }}
-                onClick={() => {
-                  setSelectedProject(project);
-                  setIsModalOpen(true);
-                }}
-              >
-                {/* Project Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={`${project.title} - ${project.category} project showcase - ASN Creative Agency portfolio`}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                    decoding="async"
-                    onError={(e) => {
-                      e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f3f4f6'/%3E%3Ctext x='200' y='150' font-family='Arial' font-size='16' fill='%236b7280' text-anchor='middle' dy='.3em'%3EProject Image%3C/text%3E%3C/svg%3E";
-                    }}
-                  />
-                  
-                  {/* Hover Overlay with Outcome */}
-                  <div className="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm">
-                    <div className="text-center p-4">
-                      <p className="font-extrabold text-white text-lg mb-2" style={{textShadow: '0 2px 8px rgba(0,0,0,0.7), 0 0px 1px #000'}}>
-                        {project.outcome}
-                      </p>
-                      <p className="text-white text-base font-semibold" style={{textShadow: '0 2px 8px rgba(0,0,0,0.7), 0 0px 1px #000'}}>
-                        {isHindi ? "क्लिक करें विवरण देखने के लिए" : "Click to view details"}
-                      </p>
-                    </div>
-                  </div>
+          {/* Portfolio Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* EastEdge Project */}
+            <motion.div
+              className="group cursor-pointer border border-border hover:border-foreground transition-all duration-300 hover:scale-105 animate-fade-in bg-background rounded-xl overflow-hidden"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
+              onClick={() => window.open('https://eastedge.onrender.com/', '_blank')}
+            >
+              <div className="aspect-video bg-muted relative overflow-hidden">
+                <img 
+                  src="/lovable-uploads/eastedge.png" 
+                  alt={isHindi ? "ईस्ट एज ई-कॉमर्स प्लेटफॉर्म" : "EastEdge E-commerce Platform"}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 group-hover:bg-foreground/10 transition-colors flex items-center justify-center">
+                  <ExternalLink className="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
+              </div>
+              
+              <div className="p-6 space-y-4">
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-accent/10 text-accent px-3 py-1 rounded-full text-xs font-medium">
+                    E-commerce
+                  </span>
+                  <span className="bg-accent/10 text-accent px-3 py-1 rounded-full text-xs font-medium">
+                    React
+                  </span>
+                  <span className="bg-accent/10 text-accent px-3 py-1 rounded-full text-xs font-medium">
+                    Modern Design
+                  </span>
+                </div>
+                
+                <h3 className="asn-headline text-xl group-hover:text-muted-foreground transition-colors">
+                  {isHindi ? "ईस्ट एज ई-कॉमर्स प्लेटफॉर्म" : "EastEdge E-commerce Platform"}
+                </h3>
+                
+                <p className="asn-body text-muted-foreground text-sm line-clamp-2">
+                  {isHindi 
+                    ? "आधुनिक और रेस्पॉन्सिव ई-कॉमर्स प्लेटफॉर्म का विकास"
+                    : "Modern and responsive e-commerce platform development"
+                  }
+                </p>
+                
+                <div className="flex items-center justify-between pt-2">
+                  <span className="asn-body text-xs text-muted-foreground font-bold uppercase tracking-wide">
+                    EastEdge - Timeless Essentials
+                  </span>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all" />
+                </div>
+              </div>
+            </motion.div>
 
-                {/* Project Info */}
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-bold text-accent uppercase tracking-wider">
-                      {project.category}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      {project.duration}
-                    </span>
-                  </div>
-                  
-                  <h3 className="asn-headline text-xl mb-3 text-foreground group-hover:text-accent transition-colors">
-                    {project.title}
-                  </h3>
-                  
-                  <p className="asn-body text-sm text-muted-foreground line-clamp-2">
-                    {project.description}
-                  </p>
+            {/* BIM Arcana Project */}
+            <motion.div
+              className="group cursor-pointer border border-border hover:border-foreground transition-all duration-300 hover:scale-105 animate-fade-in bg-background rounded-xl overflow-hidden"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
+              onClick={() => window.open('https://innovativebim.netlify.app/', '_blank')}
+            >
+              <div className="aspect-video bg-muted relative overflow-hidden">
+                <img 
+                  src="/lovable-uploads/bim.png" 
+                  alt={isHindi ? "BIM आर्काना - इनोवेटिव BIM सर्विसेज" : "BIM Arcana - Innovative BIM Services"}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 group-hover:bg-foreground/10 transition-colors flex items-center justify-center">
+                  <ExternalLink className="h-8 w-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-              </motion.div>
-            ))}
+              </div>
+              
+              <div className="p-6 space-y-4">
+                <div className="flex flex-wrap gap-2">
+                  <span className="bg-accent/10 text-accent px-3 py-1 rounded-full text-xs font-medium">
+                    BIM
+                  </span>
+                  <span className="bg-accent/10 text-accent px-3 py-1 rounded-full text-xs font-medium">
+                    Construction
+                  </span>
+                  <span className="bg-accent/10 text-accent px-3 py-1 rounded-full text-xs font-medium">
+                    3D Modeling
+                  </span>
+                </div>
+                
+                <h3 className="asn-headline text-xl group-hover:text-muted-foreground transition-colors">
+                  {isHindi ? "BIM आर्काना - इनोवेटिव BIM सर्विसेज" : "BIM Arcana - Innovative BIM Services"}
+                </h3>
+                
+                <p className="asn-body text-muted-foreground text-sm line-clamp-2">
+                  {isHindi 
+                    ? "निर्माण उद्योग के लिए उन्नत BIM समाधान और डिजिटल कंस्ट्रक्शन सेवाएं"
+                    : "Advanced BIM solutions and digital construction services for the building industry"
+                  }
+                </p>
+                
+                <div className="flex items-center justify-between pt-2">
+                  <span className="asn-body text-xs text-muted-foreground font-bold uppercase tracking-wide">
+                    BIM Arcana
+                  </span>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all" />
+                </div>
+              </div>
+            </motion.div>
           </div>
 
           <div className="text-center mt-12">
